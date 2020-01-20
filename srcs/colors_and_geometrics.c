@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   drawing_and_geometrics.c                           :+:      :+:    :+:   */
+/*   colors_and_geometrics.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:11:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/01/19 03:47:01 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:46:10 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_color		create_color
-	(unsigned char red, unsigned char green, unsigned char blue)
+void		apply_background(t_application *app, int color)
 {
-	t_color		color;
+	int		nb_pixels;
+	int		index_pixel;
 
-	color.r = red;
-	color.g = green;
-	color.b = blue;
-	return (color);
+	nb_pixels = WIN_X * WIN_Y;
+	index_pixel = 0;
+	while (index_pixel < nb_pixels)
+		app->data[index_pixel++] = color;
 }
 
 float		length_vector(t_vector vec)

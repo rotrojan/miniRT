@@ -6,14 +6,15 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2020/01/19 03:34:02 by rotrojan         ###   ########.fr        #
+#    Updated: 2020/01/20 22:44:04 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_DIR		=	./srcs/
 OBJS_DIR		=	./.objs/
-INCLUDES_DIR	=	./includes/
-SRCS			=	main.c drawing_and_geometrics.c drawings.c mlx_utils.c
+INCLUDES_DIR	=	./includes/ ./libmlx/
+SRCS			=	main.c colors_and_geometrics.c drawings.c mlx_utils.c	\
+					mlx_hooks.c
 
 OBJS			:=	${SRCS:%.c=${OBJS_DIR}%.o}
 

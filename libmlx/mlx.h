@@ -44,7 +44,7 @@
 
 #ifndef MLX_H
 
-#define	MLX_H
+# define	MLX_H
 
 /*
  * ** Event mask define
@@ -295,10 +295,10 @@
 # define NKPT_KEY 65
 # define NKNTR_KEY 76
 
-#define RED_COMP 2
-#define GREEN_COMP 1
-#define BLUE_COMP 0
-#define ALPHA_COMP 3
+# define RED_COMP 2
+# define GREEN_COMP 1
+# define BLUE_COMP 0
+# define ALPHA_COMP 3
 
 void	*mlx_init();
 /*

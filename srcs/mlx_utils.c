@@ -6,61 +6,54 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:03:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/01/19 03:46:20 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/01/20 22:43:33 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	init_env(t_environment *env)
+void	init_app(t_application *app)
 {
-	env->mlx_ptr = mlx_init();
-	env->win_ptr = mlx_new_window(env->mlx_ptr, WIN_X, WIN_Y, TITLE);
-	env->img_ptr = mlx_new_image(env->mlx_ptr, WIN_X, WIN_Y);
-	env->data = mlx_get_data_addr(env->img_ptr, &env->size_line,
-		&env->bits_per_pixel, &env->endian);
+	app->mlx_ptr = mlx_init();
+	app->win_ptr = mlx_new_window(app->mlx_ptr, WIN_X, WIN_Y, TITLE);
+	app->img_ptr = mlx_new_image(app->mlx_ptr, WIN_X, WIN_Y);
+	app->data = (int*)mlx_get_data_addr(app->img_ptr, &app->size_line,
+		&app->bits_per_pixel, &app->endian);
 }
 
-int		run_environment(t_environment *env)
+int		run_application(t_application *app)
 {
-	mlx_loop(env);
+	set_mlx_hooks(app);
+	if (!(set_mlx_hooks(app)))
+	{
+		write(STDERR_FILENO, "Error\n", 6);
+		return (-1);
+	}
+	mlx_loop(app->mlx_ptr);
 	return (0);
 }
 
-void	apply_background(t_environment *env, t_color background)
+int		close_application(t_application *app)
 {
-	int		nb_pixels;
-	int		index_pixel;
-	int		index_first_byte_pixel;
-
-	nb_pixels = WIN_X * WIN_Y;
-	index_pixel = 0;
-	while (index_pixel < nb_pixels)
-	{
-		index_first_byte_pixel = index_pixel * sizeof(int);
-		env->data[index_first_byte_pixel + RED_BYTE] = background.r;
-		env->data[index_first_byte_pixel + GREEN_BYTE] = background.g;
-		env->data[index_first_byte_pixel + BLUE_BYTE] = background.b;
-		index_pixel++;
-	}
+	mlx_destroy_font(app->mlx_ptr);
+	mlx_destroy_image(app->mlx_ptr, app->img_ptr);
+	mlx_destroy_window(app->mlx_ptr, app->win_ptr);
+	exit(0);
+	return (-1);
 }
 
-void	render(t_environment *env)
+void	render(t_application *app)
 {
-	mlx_put_image_to_window(env->mlx_ptr, env->win_ptr, env->img_ptr, 0, 0);
+	mlx_put_image_to_window(app->mlx_ptr, app->win_ptr, app->img_ptr, 0, 0);
 }
 
-void	put_pixel(t_environment *env, t_point pixel_coord, t_color pixel_color)
+void	put_pixel(t_application *app, t_point pixel_coord, int color)
 {
-	int		index_pixel;
-	int		index_first_byte_pixel;
+	int		(*pixel_array)[WIN_X][1];
 
 	if ((pixel_coord.x >= WIN_X && pixel_coord.x < 0)
 		|| (pixel_coord.y >= WIN_Y && pixel_coord.y < 0))
 		return ;
-	index_pixel = pixel_coord.x + (pixel_coord.y * WIN_X);
-	index_first_byte_pixel = index_pixel * 4;
-	env->data[index_first_byte_pixel + RED_BYTE] = pixel_color.r;
-	env->data[index_first_byte_pixel + GREEN_BYTE] = pixel_color.g;
-	env->data[index_first_byte_pixel + BLUE_BYTE] = pixel_color.b;
+	pixel_array = (void*)app->data;
+	*pixel_array[pixel_coord.y][pixel_coord.x] = color;
 }

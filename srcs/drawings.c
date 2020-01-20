@@ -6,14 +6,14 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:02:06 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/01/19 03:45:49 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/01/19 17:18:29 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 void	draw_rectangle
-	(t_environment *env, t_point top_left_corner, t_vector vec, t_color color)
+	(t_application *app, t_point top_left_corner, t_vector vec, int color)
 {
 	t_point		current;
 
@@ -22,7 +22,7 @@ void	draw_rectangle
 	{
 		while (current.x < top_left_corner.x + vec.x)
 		{
-			put_pixel(env, current, color);
+			put_pixel(app, current, color);
 			current.x++;
 		}
 		current.x = top_left_corner.x;
@@ -31,7 +31,7 @@ void	draw_rectangle
 }
 
 void	draw_circle
-	(t_environment *env, t_point center, t_vector radius, t_color color)
+	(t_application *app, t_point center, t_vector radius, int color)
 {
 	t_point		current;
 	float		length_radius;
@@ -44,7 +44,7 @@ void	draw_circle
 		while (current.x < center.x + length_radius)
 		{
 			if (length_vector(vectorize(center, current)) < length_radius)
-				put_pixel(env, current, color);
+				put_pixel(app, current, color);
 			current.x++;
 		}
 		current.x = center.x - length_radius;
