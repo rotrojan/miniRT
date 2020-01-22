@@ -6,16 +6,21 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/01/20 22:45:17 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/01/22 06:22:17 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 # include "mlx.h"
+# include "../libft/includes/libft.h"
 # include <math.h>
 # include <unistd.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <sys/errno.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # define TITLE "test"
 # define WIN_X 1200
 # define WIN_Y 900

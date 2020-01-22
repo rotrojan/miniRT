@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2020/01/20 22:44:04 by rotrojan         ###   ########.fr        #
+#    Updated: 2020/01/22 05:28:12 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,14 +25,14 @@ DEPENDENCIES	=	${OBJS:.o=.d}
 CC				=	clang
 MKDIR			=	mkdir -p
 
-LIBS			=	mlx
+LIBS			=	mlx ft
 FRAMEWORKS		=	OpenGL AppKit
 
 CFLAGS			+=	-Wall -Wextra -Werror -MMD
 LDFLAGS			+=	${FRAMEWORKS:%=-framework %}
 CXXFLAGS		+=	${INCLUDES_DIR:%=-I%}
 
-vpath %.c ./srcs/
+vpath %.c ${SRCS_DIR}
 vpath %.a ${LIBS:%=lib%}
 
 all				:
