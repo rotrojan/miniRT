@@ -1,38 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   colors_and_geometrics.c                            :+:      :+:    :+:   */
+/*   vectors2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/18 22:11:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/01/24 04:49:21 by rotrojan         ###   ########.fr       */
+/*   Created: 2020/01/24 00:11:48 by rotrojan          #+#    #+#             */
+/*   Updated: 2020/01/24 00:20:44 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void		apply_background(t_application *app, int color)
+double		norm_square_vector(t_vector vec)
 {
-	int		nb_pixels;
-	int		index_pixel;
-
-	nb_pixels = WIN_X * WIN_Y;
-	index_pixel = 0;
-	while (index_pixel < nb_pixels)
-		app->data[index_pixel++] = color;
+	return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 }
 
-float		length_vector(t_vector vec)
+double		norm_vector(t_vector vec)
 {
-	return (sqrt(vec.x * vec.x + vec.y * vec.y));
-}
-
-t_vector	vectorize(t_point a, t_point b)
-{
-	t_vector	vec;
-
-	vec.x = a.x - b.x;
-	vec.y = a.y - b.y;
-	return (vec);
+	return (sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z));
 }

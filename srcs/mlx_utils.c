@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:03:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/01/21 22:46:39 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/01/25 23:04:18 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,12 @@ void	render(t_application *app)
 	mlx_put_image_to_window(app->mlx_ptr, app->win_ptr, app->img_ptr, 0, 0);
 }
 
-void	put_pixel(t_application *app, t_point pixel_coord, int color)
+void	put_pixel(t_application *app, int x, int y, int color)
 {
 	int		(*pixel_array)[WIN_X][1];
 
-	if ((pixel_coord.x >= WIN_X && pixel_coord.x < 0)
-		|| (pixel_coord.y >= WIN_Y && pixel_coord.y < 0))
+	if ((x >= WIN_X && x < 0) || (y >= WIN_Y && y < 0))
 		return ;
 	pixel_array = (void*)app->data;
-	*pixel_array[pixel_coord.y][pixel_coord.x] = color;
+	*pixel_array[y][x] = color;
 }

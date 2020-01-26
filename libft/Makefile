@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 02:53:19 by rotrojan          #+#    #+#              #
-#    Updated: 2020/01/22 06:23:31 by rotrojan         ###   ########.fr        #
+#    Updated: 2020/01/22 09:57:56 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -90,7 +90,7 @@ all		:
 	${MAKE} -j ${NAME}
 
 ${NAME}	:	${OBJS}
-	${AR} $@ $<
+	${AR} $@ $^
 
 -include ${DEPENDENCIES}
 ${OBJS_DIR}%.o : %.c | ${OBJS_DIR}
