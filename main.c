@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/01/26 02:48:57 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/01/27 06:27:20 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@ int		check_args_errors(int ac, char **av)
 	return (1);
 }
 */
+#include <stdio.h>
 int		main(int ac, char **av)
 {
 	t_application	app;
-	t_point			dot;
-	t_vector		vec;
 
 	(void)ac;
 	(void)av;
@@ -58,12 +57,6 @@ int		main(int ac, char **av)
 	init_app(&app);
 	apply_background(&app, 0x00000000);
 	render(&app);
-	dot.x = 200;
-	dot.y = 300;
-	vec.x = 50;
-	vec.y = 50;
-//	draw_circle(&app, dot.x, dot.y, 1000, 0x00ff00ff);
-//	draw_rectangle(&app, dot.x, dot.y, vec, 0x00ffffff);
 	ray_tracer(&app);
 	render(&app);
 	return (run_application(&app));

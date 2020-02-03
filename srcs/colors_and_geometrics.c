@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:11:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/01/24 04:49:21 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/01/27 06:34:12 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,8 @@ void		apply_background(t_application *app, int color)
 	int		nb_pixels;
 	int		index_pixel;
 
-	nb_pixels = WIN_X * WIN_Y;
+	nb_pixels = app->win_width * app->win_height;
 	index_pixel = 0;
 	while (index_pixel < nb_pixels)
 		app->data[index_pixel++] = color;
-}
-
-float		length_vector(t_vector vec)
-{
-	return (sqrt(vec.x * vec.x + vec.y * vec.y));
-}
-
-t_vector	vectorize(t_point a, t_point b)
-{
-	t_vector	vec;
-
-	vec.x = a.x - b.x;
-	vec.y = a.y - b.y;
-	return (vec);
 }

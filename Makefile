@@ -6,15 +6,15 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2020/01/24 04:37:02 by rotrojan         ###   ########.fr        #
+#    Updated: 2020/01/28 11:29:53 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_DIR		=	./srcs/
 OBJS_DIR		=	./.objs/
-INCLUDES_DIR	=	./includes/ ./libmlx/
-SRCS			=	main.c colors_and_geometrics.c mlx_utils.c	drawings.c \
-					mlx_hooks.c vectors1.c vectors2.c ray_tracer.c
+INCLUDES_DIR	=	./includes/ ${LIBS:%=lib%/includes}
+SRCS			=	main.c colors_and_geometrics.c mlx_utils.c mlx_hooks.c	\
+					ray_tracer.c
 
 OBJS			:=	${SRCS:%.c=${OBJS_DIR}%.o}
 
@@ -25,7 +25,7 @@ DEPENDENCIES	=	${OBJS:.o=.d}
 CC				=	clang
 MKDIR			=	mkdir -p
 
-LIBS			=	mlx ft
+LIBS			=	ft mlx vectors
 FRAMEWORKS		=	OpenGL AppKit
 
 CFLAGS			+=	-Wall -Wextra -Werror -MMD

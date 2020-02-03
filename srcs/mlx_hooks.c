@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 21:26:38 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/01/20 22:45:34 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/01/27 06:38:37 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ static int		key_hook(int key, t_application *app)
 
 int				set_mlx_hooks(t_application *app)
 {
-	if (!(mlx_hook(app->win_ptr, KEYPRESS, NOEVENTMASK, key_hook, app)))
+	if (!(mlx_hook(app->win_ptr, KEYPRESS, NOEVENTMASK, &key_hook, app)))
 		return (1);
-	if (!(mlx_hook(app->win_ptr, DESTROYNOTIFY, NOEVENTMASK,
-		close_application, app)))
+	if (!(mlx_hook(app->win_ptr, DESTROYNOTIFY, STRUCTURENOTIFYMASK, &close_application, app)))
 		return (1);
-	if (!(mlx_loop_hook(app->win_ptr, 0, NOEVENTMASK)))
+	if (!(mlx_loop_hook(app->mlx_ptr, NULL, NULL)))
 		return (1);
 	return (0);
 }
