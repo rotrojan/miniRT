@@ -32,6 +32,7 @@ t_ray	init_ray_direction(int i, int j, t_camera *cam, t_application *app)
 {
 	t_ray		current;
 
+	current.origin = get_vector(0, 0, 0);
 	current.direction.x = (2.0f * (((float)i + 0.5f) / (float)app->win_width) - 1.0f)
 		* (float)(app->win_width / (float)app->win_height) * tanf(cam->fov / 2.0f);
 	current.direction.y = (1.0f - 2.0f * (((float)j + 0.5f) / (float)app->win_height))
@@ -107,7 +108,6 @@ int		ray_tracer(t_application *app)
 		while (i < app->win_width)
 		{
 			current = init_ray_direction(i, j, &cam, app);
-			printf("x =%f\ny =%f\nz =%f\n\n", current.direction.x, current.direction.y, current.direction.z);
 			if (intersection(&current, &sphere, &t))
 			{
 				closest_intersection = current.origin + t * current.direction;
