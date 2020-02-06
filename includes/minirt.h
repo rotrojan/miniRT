@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/05 22:46:16 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/03 18:37:54 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef struct		s_camera
 typedef struct		s_light
 {
 	t_point		position;
-	float		intensity;
+	double		intensity;
 }					t_light;
 
 typedef struct		s_ray
@@ -68,8 +68,7 @@ typedef struct		s_ray
 typedef struct		s_sphere
 {
 	t_point		center;
-	float		radius;
-	t_color		color;
+	double		radius;
 
 }					t_sphere;
 
@@ -104,7 +103,7 @@ void				put_pixel
 void				draw_rectangle
 	(t_application *app, int x, int y, t_vector vec, int color);
 void				draw_circle
-	(t_application *app, int x, int y, float radius, int color);
+	(t_application *app, int x, int y, double radius, int color);
 
 /*
 ** colors_and_geometrics.c
