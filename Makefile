@@ -6,14 +6,15 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2020/02/04 15:24:26 by rotrojan         ###   ########.fr        #
+#    Updated: 2020/02/07 02:35:25 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_DIR		=	./srcs/
 OBJS_DIR		=	./.objs/
 INCLUDES_DIR	=	./includes/ ${LIBS:%=lib%/includes}
-SRCS			=	main.c mlx_utils.c mlx_hooks.c ray_tracer.c
+SRCS			=	main.c mlx_utils.c mlx_hooks.c ray_tracer.c		\
+					check_args.c
 
 OBJS			:=	${SRCS:%.c=${OBJS_DIR}%.o}
 

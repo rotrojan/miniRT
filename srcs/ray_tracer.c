@@ -17,14 +17,14 @@ void	init_sphere(t_sphere *sphere)
 {
 	sphere->center = get_vector(0.0f, 0.0f, -55.0f);
 	sphere->radius = 20.0f;
-	sphere->color[0] = 1.0f;
-	sphere->color[1] = 1.0f;
-	sphere->color[2] = 0.0f;
+	sphere->color[0] = 0.8f;
+	sphere->color[1] = 0.6f;
+	sphere->color[2] = 0.2f;
 }
 
 void		init_spot(t_light *spot)
 {
-	spot->position = get_vector(50.0f, 0.0f, -80.0f);
+	spot->position = get_vector(-50.0f, 50.0f, -65.0f);
 	spot->intensity = 1.0f;
 }
 
@@ -44,7 +44,7 @@ t_ray	init_ray_direction(int i, int j, t_camera *cam, t_application *app)
 
 void	init_camera(t_camera *cam)
 {
-	cam->position = (t_point)get_vector(0.0f, 0.0f, 0.0f);
+	cam->position = get_vector(0.0f, 0.0f, 0.0f);
 	cam->direction = get_vector(0.0f, 0.0f, -1.0f);
 	cam->fov = 60.0f * M_PI / 180.0f;
 }

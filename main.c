@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/04 15:22:22 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/07 02:39:28 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int		main(int ac, char **av)
 {
 	t_application	app;
 
-	(void)ac;
-	(void)av;
+	if (!check_args(ac, av))
+		return (0);
 	init_app(&app);
 	apply_background(&app, 0x00000000);
 	render(&app);

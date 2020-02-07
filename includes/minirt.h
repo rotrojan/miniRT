@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/05 22:46:16 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/07 02:42:01 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include "mlx.h"
 # include "libft.h"
 # include "vectors.h"
+# include "objects.h"
 # include <math.h>
 # include <unistd.h>
 # include <sys/types.h>
@@ -42,36 +43,24 @@ typedef struct		s_application
 	int		endian;
 }					t_application;
 
-typedef t_vector	t_point;
-
-typedef float t_color __attribute__((ext_vector_type(3)));
-
 typedef struct		s_camera
 {
-	t_point		position;
+	t_vector		position;
 	t_vector	direction;
 	float		fov;
 }					t_camera;
 
 typedef struct		s_light
 {
-	t_point		position;
+	t_vector		position;
 	float		intensity;
 }					t_light;
 
 typedef struct		s_ray
 {
 	t_vector	direction;
-	t_point		origin;
+	t_vector		origin;
 }					t_ray;
-
-typedef struct		s_sphere
-{
-	t_point		center;
-	float		radius;
-	t_color		color;
-
-}					t_sphere;
 
 typedef enum	e_bool
 {
@@ -111,7 +100,7 @@ void				draw_circle
 */
 
 float				length_vector(t_vector vec);
-t_vector			vectorize(t_point a, t_point b);
+t_vector			vectorize(t_vector a, t_vector b);
 
 /*
 ** ray_tracer.c
@@ -123,5 +112,7 @@ int					ray_tracer(t_application *app);
 /*
 ** 
 */
+
+t_bool		check_args(int ac, char **av);
 
 #endif
