@@ -6,13 +6,13 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 10:41:26 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/03 18:41:27 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/16 23:09:58 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vectors.h"
 
-float		norm_vector(t_vector vec)
+double		norm_vector(t_vector vec)
 {
 	return (sqrt(vec.x * vec.x + vec.y * vec.y + vec.z * vec.z));
 }

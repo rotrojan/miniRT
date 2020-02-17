@@ -33,9 +33,9 @@ t_ray	init_ray_direction(int i, int j, t_camera *cam, t_application *app)
 	t_ray		current;
 
 	current.origin = get_vector(0, 0, 0);
-	current.direction.x = (2.0f * (((float)i + 0.5f) / (float)app->win_width) - 1.0f)
-		* (float)(app->win_width / (float)app->win_height) * tanf(cam->fov / 2.0f);
-	current.direction.y = (1.0f - 2.0f * (((float)j + 0.5f) / (float)app->win_height))
+	current.direction.x = (2.0f * (((double)i + 0.5f) / (double)app->win_width) - 1.0f)
+		* (double)(app->win_width / (double)app->win_height) * tanf(cam->fov / 2.0f);
+	current.direction.y = (1.0f - 2.0f * (((double)j + 0.5f) / (double)app->win_height))
 		* tan(cam->fov / 2.0f);
 	current.direction.z = -1.0f;
 	current.direction = normalized_vector(current.direction);
@@ -51,13 +51,13 @@ void	init_camera(t_camera *cam)
 
 /******************************************************************************/
 
-int		intersection(t_ray *current, t_sphere *sphere, float *t)
+int		intersection(t_ray *current, t_sphere *sphere, double *t)
 {
 	t_vector	dist;
-	float		b;
-	float		discr;
-	float		t0;
-	float		t1;
+	double		b;
+	double		discr;
+	double		t0;
+	double		t1;
 
 	dist = sphere->center - current->origin;
 	b = dot_vectors(current->direction, dist);
@@ -79,7 +79,7 @@ int		intersection(t_ray *current, t_sphere *sphere, float *t)
 t_vector	get_normal(t_vector *closest_intersection, t_sphere *sphere)
 {
 	t_vector	n;
-	float		tmp;
+	double		tmp;
 
 	if (!(tmp = dot_vectors(n, n)) == 0.0f)
 		return 
@@ -94,7 +94,7 @@ int		ray_tracer(t_application *app)
 	t_sphere	sphere;
 	t_camera	cam;
 	t_ray		current;
-	float		t;
+	double		t;
 	t_vector	closest_intersection;
 	t_vector	n;
 
@@ -113,7 +113,7 @@ int		ray_tracer(t_application *app)
 				closest_intersection = current.origin + t * current.direction;
 //				n = get_normal(&closest_intersection, &sphere);
 				n = normalized_vector(closest_intersection - sphere.center);
-				float lambert = fminf(1, dot_vectors(n, normalized_vector(spot.position - closest_intersection)));
+				double lambert = fminf(1, dot_vectors(n, normalized_vector(spot.position - closest_intersection)));
 //				printf("%f\n", lambert);
 				color_pixel[0] = (sphere.color[0] * lambert);
 				color_pixel[1] = (sphere.color[1] * lambert);

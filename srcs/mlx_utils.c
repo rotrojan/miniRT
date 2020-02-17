@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:03:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/02 20:10:17 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/16 15:50:57 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,15 @@ int		close_application(t_application *app)
 	return (-1);
 }
 
-void	render(t_application *app)
+void		apply_background(t_application *app, int color)
 {
-	mlx_put_image_to_window(app->mlx_ptr, app->win_ptr, app->img_ptr, 0, 0);
+	int		nb_pixels;
+	int		index_pixel;
+
+	nb_pixels = app->win_width * app->win_height;
+	index_pixel = 0;
+	while (index_pixel < nb_pixels)
+		app->data[index_pixel++] = color;
 }
 
 void	put_pixel(t_application *app, int x, int y, t_color color)

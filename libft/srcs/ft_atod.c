@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atof.c                                          :+:      :+:    :+:   */
+/*   ft_atod.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 03:07:45 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/07 04:15:29 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/16 23:17:29 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-double		ft_atof(char const *str)
+double		ft_atod(char const *str)
 {
-	float		result;
+	double		int_part;
+	double		dec_part;
 	char		is_negative;
-	double		divider;
+	int			len_dec_part;
 
-	while ((*str >= 9 && *str <= 13) || *str == 32)
+	while (ft_isspace(*str))
 		str++;
 	is_negative = *str == '-' ? -1 : 1;
 	if (*str == '-' || *str == '+')
 		str++;
-	result = 0;
-	while (*str >= '0' && *str <= '9' && *str)
-		result = result * 10 + *(str++) - '0';
+	int_part = 0;
+	while (ft_isdigit(*str))
+		int_part = int_part * 10.0f + (float)(*(str++) - '0');
 	if (*str == '.')
 		str++;
-	divider = 10.0f;
-	while (*str >= '0' && *str <= '9' && *str)
+	len_dec_part = 0;
+	dec_part = 0;
+	while (ft_isdigit(*str))
 	{
-		result = result + ((*(str++) - '0') / divider);
-		divider = divider * 10.0f;
+		dec_part = dec_part * 10.0f + (float)(*(str++) - '0');
+		len_dec_part++;
 	}
-	return (result * is_negative);
+	while (len_dec_part--)
+		dec_part /= 10.0f;
+	return ((int_part + dec_part) * is_negative);
 }

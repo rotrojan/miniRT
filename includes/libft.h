@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 13:04:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/07 03:18:09 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/16 23:22:52 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int				ft_isdigit(int c);
 int				ft_isalnum(int c);
 int				ft_isascii(int c);
 int				ft_isprint(int c);
+int				ft_isspace(int c);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
 char			*ft_strchr(char const *s, int c);
@@ -49,7 +50,7 @@ size_t			ft_strlcpy(char *dst, char const *src, size_t dstsize);
 size_t			ft_strlcat(char *dst, char const *src, size_t dstsize);
 char			*ft_strnstr(char const *str, char const *to_find, size_t len);
 int				ft_atoi(char const *str);
-float			ft_atof(char const *str);
+double			ft_atod(char const *str);
 char			*ft_strdup(char const *s1);
 char			*ft_strndup(char const *s1, size_t n);
 void			*ft_calloc(size_t count, size_t size);
@@ -62,6 +63,7 @@ char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strtrim(char const *s1, char const *set);
 char			**ft_split(char const *s, char c);
+char			**ft_split_whitespaces(char const *s);
 char			*ft_itoa(int n);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void			ft_putchar_fd(char c, int fd);
