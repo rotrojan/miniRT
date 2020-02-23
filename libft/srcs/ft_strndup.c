@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 13:14:49 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/01/22 03:53:31 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/22 20:47:55 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char				*ft_strndup(const char *s1, size_t n)
 	char			*str;
 	size_t			maxlen;
 
-	if (!s1 || !n)
+	if (!s1)
 		return (NULL);
 	maxlen = ft_strnlen(s1, n);
 	if (!(str = (char*)malloc(sizeof(*str) * (maxlen + 1))))

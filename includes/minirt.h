@@ -6,15 +6,15 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/17 01:49:55 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/23 16:30:19 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
-# include "mlx.h"
-# include "libft.h"
-# include "vectors.h"
+# include "libmlx/mlx.h"
+# include "libft/includes/libft.h"
+# include "libvectors/includes/vectors.h"
 # include "objects.h"
 # include <math.h>
 # include <unistd.h>
@@ -29,19 +29,6 @@
 # define RED_BYTE 2
 # define GREEN_BYTE 1
 # define BLUE_BYTE 0
-
-typedef enum		e_token
-{
-	RESOLUTION,
-	AMBIENT,
-	CAMERA,
-	LIGHT,
-	SPHERE,
-	PLANE,
-	SQUARE,
-	CYLINDER,
-	TRIANGLE
-}					t_token;
 
 typedef struct		s_application
 {
@@ -102,18 +89,27 @@ int					ray_tracer(t_application *app);
 ** parsing_utils{1,2,3}.c
 */
 
-void	parse_resolution(char **token_array, t_application *app);
-void	parse_ambient(char **token_array, t_object **parsed_object_list);
-void	parse_camera(char **token_array, t_object *app);
-void	parse_light(char **token_array, t_object **scene);
+t_bool	parse_resolution(char **token_array, t_list **parsed_object_list);
+t_bool	parse_ambient(char **token_array, t_list **parsed_object_list);
+t_bool	parse_camera(char **token_array, t_list **parsed_object_list);
+t_bool	parse_light(char **token_array, t_list **parsed_object_list);
+t_bool	parse_sphere(char **token_array, t_list **parsed_object_list);
+t_bool	parse_plane(char **token_array, t_list **parsed_object_list);
+t_bool	parse_square(char **token_array, t_list **parsed_object_list);
+t_bool	parse_cylinder(char **token_array, t_list **parsed_object_list);
+t_bool	parse_triangle(char **token_array, t_list **parsed_object_list);
+t_bool	parse_vector(char *point_str, t_vector *point);
+t_bool	parse_color(char *color_str, t_color *color);
+t_bool	parse_length(char *length_str, double *length);
 
 /*
 ** 
 */
 
-t_bool				check_args(int ac, char **av);
-t_bool
-	parser(char *rt_file, t_application *app, t_object **parsed_objects_list);
-t_bool				return_error(char *error_message);
+t_bool	check_args(int ac, char **av);
+t_bool	parser(char *rt_file, t_list **parsed_objects_list);
+t_bool	return_error(char *error_message, t_list **parsed_object_list);
+void	free_array(void **array);
+void	del(void *content);
 
 #endif

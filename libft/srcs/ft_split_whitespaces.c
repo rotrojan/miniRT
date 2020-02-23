@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 19:31:28 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/16 23:19:40 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/17 16:57:46 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void				*malloc_failure(char ***current_word, char **first_word)
 	return (NULL);
 }
 
-char					**ft_split_whitespace(char const *s)
+char					**ft_split_whitespaces(char const *s)
 {
 	char	**current_word;
 	char	**first_word;

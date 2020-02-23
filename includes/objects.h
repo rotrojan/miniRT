@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:58:44 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/17 01:44:18 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/22 23:13:57 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,20 @@
 # include "minirt.h"
 
 typedef t_vector	t_color;
+
+
+typedef enum		e_token
+{
+	RESOLUTION,
+	AMBIENT,
+	CAMERA,
+	LIGHT,
+	SPHERE,
+	PLANE,
+	SQUARE,
+	CYLINDER,
+	TRIANGLE
+}					t_token;
 
 typedef struct		s_resolution
 {
@@ -68,7 +82,7 @@ typedef struct		s_light
 	double			intensity;
 }					t_light;
 
-typedef union	u_class
+typedef union	u_type
 {
 	t_resolution	resolution;
 	t_ambient		ambient;
@@ -79,13 +93,12 @@ typedef union	u_class
 	t_square		square;
 	t_cylinder		cylinder;
 	t_triangle		triangle;
-}				t_class;
+}				t_type;
 
 typedef struct		s_object
 {
 	t_token			object_id;
-	t_class			objects_class;
-	struct s_object	*next;
+	t_type			object_type;
 }					t_object;
 
 #endif

@@ -6,15 +6,17 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2020/02/16 17:22:23 by rotrojan         ###   ########.fr        #
+#    Updated: 2020/02/23 17:35:34 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+.SUFFIXES:
 SRCS_DIR		=	./srcs/
 OBJS_DIR		=	./.objs/
 INCLUDES_DIR	=	./includes/ ${LIBS:%=lib%/includes}
 SRCS			=	main.c mlx_utils.c mlx_hooks.c ray_tracer.c		\
-					check_args.c parser.c utils.c
+					check_args.c parser.c utils.c parse_objects1.c	\
+					parse_objects2.c parse_utils.c
 
 OBJS			:=	${SRCS:%.c=${OBJS_DIR}%.o}
 
@@ -30,7 +32,7 @@ FRAMEWORKS		=	OpenGL AppKit
 
 CFLAGS			+=	-Wall -Wextra -Werror -MMD
 LDFLAGS			+=	${FRAMEWORKS:%=-framework %}
-CXXFLAGS		+=	${INCLUDES_DIR:%=-I%}
+CXXFLAGS		+=	${INCLUDES_DIR:%=-I%} -g3 -fsanitize=address
 
 vpath %.c ${SRCS_DIR}
 vpath %.a ${LIBS:%=lib%}

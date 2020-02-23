@@ -17,14 +17,14 @@ void	init_sphere(t_sphere *sphere)
 {
 	sphere->center = get_vector(0.0f, 0.0f, -55.0f);
 	sphere->radius = 20.0f;
-	sphere->color[0] = 0.8f;
-	sphere->color[1] = 0.6f;
-	sphere->color[2] = 0.2f;
+	sphere->color[0] = 1.0f;
+	sphere->color[1] = 0.0f;
+	sphere->color[2] = 1.0f;
 }
 
 void		init_spot(t_light *spot)
 {
-	spot->position = get_vector(-50.0f, 50.0f, -65.0f);
+	spot->position = get_vector(-30.0f, 30.0f, -45.0f);
 	spot->intensity = 1.0f;
 }
 

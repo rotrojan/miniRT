@@ -1,9 +1,9 @@
 /*
 ** mlx.h for MinilibX in 
-** 
+**
 ** Made by Charlie Root
 ** Login   <ol@staff.42.fr>
-** 
+**
 ** Started on  Mon Jul 31 16:37:50 2000 Charlie Root
 ** Last update Tue Oct 01 16:23:28 2014 Olivier Crouzet
 */
@@ -47,8 +47,8 @@
 # define	MLX_H
 
 /*
- * ** Event mask define
- * */
+** Event mask define
+**/
 
 # define NOEVENTMASK 0L
 # define KEYPRESSMASK (1L<<0)
@@ -78,8 +78,8 @@
 # define OWNERGRABBUTTONMASK (1L<<24)
 
 /*
- * ** Event define
- * */
+** Event define
+**/
 
 # define KEYPRESS 2
 # define KEYRELEASE 3
@@ -106,8 +106,8 @@
 # define GRAVITYNOTIFY 24
 
 /*
- * ** Mouse button keycodes
- * */
+** Mouse button keycodes
+**/
 
 # define BUT1_KEY 1
 # define BUT2_KEY 2
@@ -118,12 +118,12 @@
 # define SCROLLRIGHT_KEY 7
 
 /*
- * ** Keyboard keys
- * */
+** Keyboard keys
+**/
 
 /*
- * ** Letters keys
- * */
+** Letters keys
+**/
 
 # define A_KEY 0
 # define B_KEY 11
@@ -153,8 +153,8 @@
 # define Z_KEY 6
 
 /*
- * ** Numbers (not numeric keypad ones)
- * */
+** Numbers (not numeric keypad ones)
+**/
 
 # define K1_KEY 18
 # define K2_KEY 19
@@ -168,20 +168,20 @@
 # define K0_KEY 29
 
 /*
- * ** Special characters
- * ** SP_KEY is the space ( ) key
- * ** BQ_KEY is the back quote (`) and tilde (~) key
- * ** MN_KEY is the minus (-) and underscore (_) key
- * ** PL_KEY is the plus (+) and equal (=) key
- * ** SBO_KEY is the square bracket opening ([) and brace opening ({) key
- * ** SBC_KEY is the square bracket closing (]) and brace closing (}) key
- * ** BSL_KEY is the backslash (\) and pipe (|) key
- * ** SC_KEY is the semicolon (;) and colon (:) key
- * ** SQ_KEY is the simple quote (') and double quote (") key
- * ** CM_KEY is the comma (,) and angle bracket opening (<) key
- * ** PT_KEY is the point (.) and angle bracket closing (>) key
- * ** SL_KEY is the slash (/) and question mark (?) key
- * */
+** Special characters
+** SP_KEY is the space ( ) key
+** BQ_KEY is the back quote (`) and tilde (~) key
+** MN_KEY is the minus (-) and underscore (_) key
+** PL_KEY is the plus (+) and equal (=) key
+** SBO_KEY is the square bracket opening ([) and brace opening ({) key
+** SBC_KEY is the square bracket closing (]) and brace closing (}) key
+** BSL_KEY is the backslash (\) and pipe (|) key
+** SC_KEY is the semicolon (;) and colon (:) key
+** SQ_KEY is the simple quote (') and double quote (") key
+** CM_KEY is the comma (,) and angle bracket opening (<) key
+** PT_KEY is the point (.) and angle bracket closing (>) key
+** SL_KEY is the slash (/) and question mark (?) key
+*/
 
 # define SP_KEY 49
 # define BQ_KEY 50
@@ -197,9 +197,9 @@
 # define SL_KEY 44
 
 /*
- * ** Functions keys, you might use fn key to use them
- * ** Seems that did not work. I don't know. Deso pas deso, au pire on les use pas.
- * */
+** Functions keys, you might use fn key to use them
+** Seems that did not work. I don't know. Deso pas deso, au pire on les use pas.
+**/
 
 # define F1_KEY 122
 # define F2_KEY 120
@@ -222,8 +222,8 @@
 # define F19_KEY 80
 
 /*
- * ** Arrow keys
- * */
+** Arrow keys
+*/
 
 # define UP_KEY 126
 # define DOWN_KEY 125
@@ -231,18 +231,18 @@
 # define LEFT_KEY 123
 
 /*
- * ** Special keys
- * ** CL_KEY is the caps lock key
- * ** LSFT_KEY and RLFT_KEY are the left shift and right shift keys
- * ** LCTRL_KEY and RCTRL_KEY are the left control and right control keys
- * ** LOPT_KEY and ROPT_KEY are the left option and right option keys
- * ** LCMD_KEY and RCMD_KEY are the left command and right command keys
- * ** LDEL_KEY and RDEL_KEY are the left delete and right delete keys
- * ** RTN_KEY is the return key
- * ** EJ_KEY is the eject key and doesn't react
- * ** PUP_KEY and PDOWN_KEY are the page up and page down keys
- * ** CLR_KEY is the clear key
- * */
+** Special keys
+** CL_KEY is the caps lock key
+** LSFT_KEY and RLFT_KEY are the left shift and right shift keys
+** LCTRL_KEY and RCTRL_KEY are the left control and right control keys
+** LOPT_KEY and ROPT_KEY are the left option and right option keys
+** LCMD_KEY and RCMD_KEY are the left command and right command keys
+** LDEL_KEY and RDEL_KEY are the left delete and right delete keys
+** RTN_KEY is the return key
+** EJ_KEY is the eject key and doesn't react
+** PUP_KEY and PDOWN_KEY are the page up and page down keys
+** CLR_KEY is the clear key
+**/
 
 # define ESC_KEY 53
 # define TAB_KEY 48
@@ -267,15 +267,15 @@
 # define CLR_KEY 71
 
 /*
- * ** Numeric keyboard keys, preceded by NK
- * ** NKEQ_KEY is the equal (=) key
- * ** NKSL_KEY is the slash (/) key
- * ** NKWC_KEY is the wildcard (*) key
- * ** NKMN_KEY is the minus (-) key
- * ** NKPL_KEY is the plus (+) key
- * ** NKPT_KEY is the point (.) key
- * ** NKNTR_KEY is the enter key
- * */
+** Numeric keyboard keys, preceded by NK
+** NKEQ_KEY is the equal (=) key
+** NKSL_KEY is the slash (/) key
+** NKWC_KEY is the wildcard (*) key
+** NKMN_KEY is the minus (-) key
+** NKPL_KEY is the plus (+) key
+** NKPT_KEY is the point (.) key
+** NKNTR_KEY is the enter key
+**/
 
 # define NK1_KEY 83
 # define NK2_KEY 84
@@ -389,7 +389,7 @@ int	mlx_destroy_font(void *mlx_ptr);
 **    can be hooked. Some macro and defines from X11/X.h are needed here.
 */
 
-int	mlx_hook(void *win_ptr, int x_event, int x_mask,
+int	mlx_hook(void *win_ptr, int x_event,
                  int (*funct)(), void *param);
 
 int     mlx_mouse_hide();
@@ -401,4 +401,4 @@ int	mlx_do_key_autorepeatoff(void *mlx_ptr);
 int	mlx_do_key_autorepeaton(void *mlx_ptr);
 int	mlx_do_sync(void *mlx_ptr);
 
-#endif /* MLX_H */
+#endif

@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 15:33:48 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/17 01:46:04 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/22 23:40:48 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,10 @@ int			get_token(char *first_token)
 	return (-1);
 }
 
-t_bool		select_sub_parser(t_token elem_type, char **token_array)
+t_bool		select_sub_parser
+	(t_token elem_type, char **token_array, t_list **parsed_objects_list)
 {
-	static void		(*sub_parser)[9](char**, void*) = {
+	static t_bool	(*sub_parser[9])(char**, t_list**) = {
 		&parse_resolution,
 		&parse_ambient,
 		&parse_camera,
@@ -51,11 +52,13 @@ t_bool		select_sub_parser(t_token elem_type, char **token_array)
 		&parse_cylinder,
 		&parse_triangle
 	};
+
+	if (!(sub_parser[elem_type](token_array, parsed_objects_list)))
+		return (FALSE);
 	return (TRUE);
 }
 
-t_bool
-	parser(char *rt_file, t_application *app, t_object **parsed_objects_list)
+t_bool		parser(char *rt_file, t_list **parsed_objects_list)
 {
 	int			fd;
 	int			ret_gnl;
@@ -63,23 +66,26 @@ t_bool
 	char		**token_array;
 	int			elem_type;
 
-	if ((fd = open(rt_file, O_RDONLY)) != -1)
+	if ((fd = open(rt_file, O_RDONLY)) == -1)
+		return (return_error("Cannot open file.", parsed_objects_list));
+	while ((ret_gnl = get_next_line(fd, &current_line)))
 	{
-		while ((ret_gnl = get_next_line(fd, &current_line)))
-		{
-			if (ret_gnl == -1)
-				return (return_error("Cannot read file."));
-			token_array = ft_split_whitespaces(current_line);
-			if ((elem_type = get_token(*token_array)) == -1)
-				return (return_error("Invalid element in file."));
-			if (!select_sub_parser(elem_type, token_array))
-				return
-					(return_error("Element informations not well formated."));
-			free(current_line);
-			current_line = NULL;
-		}
-		close(fd);
-		return (TRUE);
+		if (ret_gnl == -1)
+			return (return_error("Cannot read file.", parsed_objects_list));
+		if (!*current_line)
+			continue ;
+		if (!(token_array = ft_split_whitespaces(current_line)))
+			return (return_error("Malloc failure.", parsed_objects_list));
+		if ((elem_type = get_token(*token_array)) == -1)
+			return (return_error("Invalid element in file.", parsed_objects_list));
+		if (!select_sub_parser(elem_type, token_array, parsed_objects_list))
+			return (FALSE);
+		free(current_line);
+		current_line = NULL;
+		free_array((void*)token_array);
+		token_array = NULL;
 	}
-	return (return_error("Cannot open file."));
+	printf("yolo\n");
+	close(fd);
+	return (TRUE);
 }

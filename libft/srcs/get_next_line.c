@@ -6,14 +6,13 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:23:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/01/22 04:25:33 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/22 20:10:44 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#ifndef BUFFERSIZE
-# define BUFFER_SIZE 4096
-#endif
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 256
 
 static int		append_line(char **s_buff, char **line, int fd, ssize_t ret)
 {
@@ -53,8 +52,6 @@ int				get_next_line(int fd, char **line)
 
 	if (fd < 0 || !line)
 		return (-1);
-	if (ft_strchr(s_buff, '\n'))
-		return (append_line(&s_buff, line, fd, 0));
 	while ((ret = read(fd, r_buff, BUFFER_SIZE)) > 0)
 	{
 		r_buff[ret] = '\0';
@@ -67,7 +64,11 @@ int				get_next_line(int fd, char **line)
 	if (ret < 0)
 		return (-1);
 	if (!ret && (!s_buff || !*s_buff))
-		return ((*line = ft_strdup("")) ? 0 : -1);;
+	{
+		*line = ft_strdup("");
+		return (0);
+	}
 	return (append_line(&s_buff, line, fd, ret));
 }
 
+#endif
