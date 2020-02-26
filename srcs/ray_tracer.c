@@ -15,38 +15,38 @@
 
 void	init_sphere(t_sphere *sphere)
 {
-	sphere->center = get_vector(0.0f, 0.0f, -55.0f);
-	sphere->radius = 20.0f;
-	sphere->color[0] = 1.0f;
-	sphere->color[1] = 0.0f;
-	sphere->color[2] = 1.0f;
+	sphere->center = get_vector(0.0, 0.0, -55.0);
+	sphere->radius = 20.0;
+	sphere->color[0] = 1.0;
+	sphere->color[1] = 0.0;
+	sphere->color[2] = 1.0;
 }
 
 void		init_spot(t_light *spot)
 {
-	spot->position = get_vector(-30.0f, 30.0f, -45.0f);
-	spot->intensity = 1.0f;
+	spot->position = get_vector(0.0, 50.0, 10.0);
+	spot->intensity = 1.0;
 }
 
-t_ray	init_ray_direction(int i, int j, t_camera *cam, t_application *app)
+t_ray	init_ray_direction(int i, int j, t_camera *cam, t_mlx *mlx)
 {
 	t_ray		current;
 
 	current.origin = get_vector(0, 0, 0);
-	current.direction.x = (2.0f * (((double)i + 0.5f) / (double)app->win_width) - 1.0f)
-		* (double)(app->win_width / (double)app->win_height) * tanf(cam->fov / 2.0f);
-	current.direction.y = (1.0f - 2.0f * (((double)j + 0.5f) / (double)app->win_height))
-		* tan(cam->fov / 2.0f);
-	current.direction.z = -1.0f;
+	current.direction.x = (2.0 * (((double)i + 0.5f) / (double)mlx->win_width) - 1.0)
+		* (double)(mlx->win_width / (double)mlx->win_height) * tanf(cam->fov / 2.0);
+	current.direction.y = (1.0 - 2.0 * (((double)j + 0.5f) / (double)mlx->win_height))
+		* tan(cam->fov / 2.0);
+	current.direction.z = -1.0;
 	current.direction = normalized_vector(current.direction);
 	return (current);
 }
 
 void	init_camera(t_camera *cam)
 {
-	cam->position = get_vector(0.0f, 0.0f, 0.0f);
-	cam->direction = get_vector(0.0f, 0.0f, -1.0f);
-	cam->fov = 60.0f * M_PI / 180.0f;
+	cam->position = get_vector(0.0, 0.0, 0.0);
+	cam->direction = get_vector(0.0, 0.0, -1.0);
+	cam->fov = 60.0 * M_PI / 180.0;
 }
 
 /******************************************************************************/
@@ -62,14 +62,14 @@ int		intersection(t_ray *current, t_sphere *sphere, double *t)
 	dist = sphere->center - current->origin;
 	b = dot_vectors(current->direction, dist);
 	discr = b * b - dot_vectors(dist, dist) + sphere->radius * sphere->radius;
-	if (discr >= 0.0f)
+	if (discr >= 0.0)
 	{
 		discr = sqrtf(discr);
 		t0 = b - discr;
 		t1 = b + discr;
-		if (t0 > 0.0f)
+		if (t0 > 0.0)
 			*t = t0;
-		else if (t1 > 0.0f)
+		else if (t1 > 0.0)
 			*t = t1;
 		return (1);
 	}
@@ -81,15 +81,15 @@ t_vector	get_normal(t_vector *closest_intersection, t_sphere *sphere)
 	t_vector	n;
 	double		tmp;
 
-	if (!(tmp = dot_vectors(n, n)) == 0.0f)
+	if (!(tmp = dot_vectors(n, n)) == 0.0)
 		return 
 }
 */
-int		ray_tracer(t_application *app)
+int		ray_tracer(t_mlx *mlx)
 {
 	int			i;
 	int			j;
-	t_color		color_pixel = {0.0f, 0.0f, 0.0f};
+	t_color		color_pixel = {0.0, 0.0, 0.0};
 	t_light		spot;
 	t_sphere	sphere;
 	t_camera	cam;
@@ -103,11 +103,11 @@ int		ray_tracer(t_application *app)
 	init_sphere(&sphere);
 	init_spot(&spot);
 	init_camera(&cam);
-	while (j < app->win_height)
+	while (j < mlx->win_height)
 	{
-		while (i < app->win_width)
+		while (i < mlx->win_width)
 		{
-			current = init_ray_direction(i, j, &cam, app);
+			current = init_ray_direction(i, j, &cam, mlx);
 			if (intersection(&current, &sphere, &t))
 			{
 				closest_intersection = current.origin + t * current.direction;
@@ -119,7 +119,7 @@ int		ray_tracer(t_application *app)
 				color_pixel[1] = (sphere.color[1] * lambert);
 				color_pixel[2] = (sphere.color[2] * lambert);
 				
-				put_pixel(app, i, j, color_pixel);
+				put_pixel(mlx, i, j, color_pixel);
 			}
 			i++;
 		}

@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 13:04:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/22 18:30:13 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:09:37 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <sys/types.h>
 # include <sys/uio.h>
- 
+
 /*
 ** Libc functions.
 */

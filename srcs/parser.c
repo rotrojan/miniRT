@@ -6,15 +6,15 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 15:33:48 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/22 23:40:48 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/26 04:09:38 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int			get_token(char *first_token)
+t_type		get_token(char *first_token)
 {
-	int				i;
+	t_type				type;
 	static char const	*elem_type_array[10] = {
 		"R",
 		"A",
@@ -28,20 +28,19 @@ int			get_token(char *first_token)
 		NULL
 	};
 
-	i = 0;
-	while (*elem_type_array[i])
+	type = 0;
+	while (*elem_type_array[type])
 	{
-		if (!(ft_strcmp(first_token, elem_type_array[i])))
-			return (i);
-		i++;
+		if (!(ft_strcmp(first_token, elem_type_array[type])))
+			return (type);
+		type++;
 	}
-	return (-1);
+	return (TYPE_ERROR);
 }
 
-t_bool		select_sub_parser
-	(t_token elem_type, char **token_array, t_list **parsed_objects_list)
+t_error		select_sub_parser(t_type type, char **token_array, t_list **obj_lst)
 {
-	static t_bool	(*sub_parser[9])(char**, t_list**) = {
+	static t_error		(*sub_parser[])(char**, t_list**) = {
 		&parse_resolution,
 		&parse_ambient,
 		&parse_camera,
@@ -53,39 +52,41 @@ t_bool		select_sub_parser
 		&parse_triangle
 	};
 
-	if (!(sub_parser[elem_type](token_array, parsed_objects_list)))
-		return (FALSE);
-	return (TRUE);
+	return (sub_parser[type](token_array, obj_lst));
 }
 
-t_bool		parser(char *rt_file, t_list **parsed_objects_list)
+t_error		free_line_and_return_error(char **current_line, t_error num_error)
 {
-	int			fd;
+	free(*current_line);
+	current_line = NULL;
+	return (num_error);
+}
+
+t_error		parser(int fd, t_list **obj_lst)
+{
 	int			ret_gnl;
 	char		*current_line;
 	char		**token_array;
-	int			elem_type;
+	t_type		token;
 
-	if ((fd = open(rt_file, O_RDONLY)) == -1)
-		return (return_error("Cannot open file.", parsed_objects_list));
-	while ((ret_gnl = get_next_line(fd, &current_line)))
+	while ((ret_gnl = get_next_line(fd, &current_line)) > 0)
 	{
-		if (ret_gnl == -1)
-			return (return_error("Cannot read file.", parsed_objects_list));
 		if (!*current_line)
+		{
+			free(current_line);
+			current_line = NULL;
 			continue ;
+		}
 		if (!(token_array = ft_split_whitespaces(current_line)))
-			return (return_error("Malloc failure.", parsed_objects_list));
-		if ((elem_type = get_token(*token_array)) == -1)
-			return (return_error("Invalid element in file.", parsed_objects_list));
-		if (!select_sub_parser(elem_type, token_array, parsed_objects_list))
-			return (FALSE);
-		free(current_line);
-		current_line = NULL;
+			return (free_line_and_return_error(&current_line, MALLOC_ERR));
+		if ((token = get_token(token_array[0])) == TYPE_ERROR)
+			return (free_line_and_return_error(&current_line, WRONG_ELEM_ERR));
+		select_sub_parser(token, token_array, obj_lst);
 		free_array((void*)token_array);
-		token_array = NULL;
+		free(current_line);
 	}
-	printf("yolo\n");
-	close(fd);
-	return (TRUE);
+	if (ret_gnl == -1)
+		return (free_line_and_return_error(&current_line, READ_ERR));
+	free(current_line);
+	return (NO_ERROR);
 }

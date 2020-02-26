@@ -6,13 +6,13 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 15:05:52 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/23 17:36:04 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/26 04:01:22 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_bool	parse_vector(char *point_str, t_vector *point)
+t_bool		parse_vector(char *point_str, t_vector *point)
 {
 	point->x = ft_atod(point_str);
 	while (ft_isdigit(*point_str)
@@ -38,7 +38,7 @@ t_bool	parse_vector(char *point_str, t_vector *point)
 	return (TRUE);
 }
 
-t_bool	parse_color(char *color_str, t_color *color)
+t_bool		parse_color(char *color_str, t_color *color)
 {
 	color->r = (double)ft_atoi(color_str);
 	while (ft_isdigit(*color_str))
@@ -59,7 +59,7 @@ t_bool	parse_color(char *color_str, t_color *color)
 	return (TRUE);
 }
 
-t_bool	parse_length(char *length_str, double *length)
+t_bool		parse_length(char *length_str, double *length)
 {
 	*length = ft_atod(length_str);
 	while (*length_str)
@@ -68,5 +68,53 @@ t_bool	parse_length(char *length_str, double *length)
 			return (FALSE);
 		length_str++;
 	}
+	return (TRUE);
+}
+
+t_bool		parse_ratio(char *ratio_str, double *ratio)
+{
+	char	*tmp;
+
+	tmp = ratio_str;
+	while (ft_isdigit(*tmp))
+		tmp++;
+	if (*tmp == '.')
+		tmp++;
+	while (ft_isdigit(*tmp))
+		tmp++;
+	if (*tmp)
+		return (FALSE);
+	*ratio = ft_atod(ratio_str);
+	if (*ratio < 0.0 || *ratio > 1.0)
+		return (FALSE);
+	return (TRUE);
+}
+
+t_bool		parse_orientation(char *orientation_str, t_vector *orientation_vec)
+{
+	orientation_vec->x = ft_atod(orientation_str);
+	if (orientation_vec->x < -1 || orientation_vec->x > 1)
+		return (FALSE);
+	while (ft_isdigit(*orientation_str) || *orientation_str == '+'
+		|| *orientation_str == '-' || *orientation_str == '.')
+		orientation_str++;
+	if (*orientation_str++ != ',')
+		return (FALSE);
+	orientation_vec->y = ft_atod(orientation_str);
+	if (orientation_vec->y < -1 || orientation_vec->y > 1)
+		return (FALSE);
+	while (ft_isdigit(*orientation_str) || *orientation_str == '+'
+		|| *orientation_str == '-' || *orientation_str == '.')
+		orientation_str++;
+	if (*orientation_str++ != ',')
+		return (FALSE);
+	orientation_vec->z = ft_atod(orientation_str);
+	if (orientation_vec->z < -1 || orientation_vec->z > 1)
+		return (FALSE);
+	while (ft_isdigit(*orientation_str) || *orientation_str == '+' ||
+		*orientation_str == '-' || *orientation_str == '.')
+		orientation_str++;
+	if (*orientation_str)
+		return (FALSE);
 	return (TRUE);
 }

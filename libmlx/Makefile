@@ -30,4 +30,4 @@ fclean:
 	rm -f mlx_app
 
 re: clean
-	@$(MAKE) all
+	@$(MAKE) allre: clean all

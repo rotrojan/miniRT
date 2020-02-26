@@ -69,12 +69,7 @@ void *mlx_init()
   [[NSRunningApplication currentApplication] activateWithOptions:NSApplicationActivateIgnoringOtherApps];
 
   // load font
-  if (!(new_mlx->font = mlx_new_image(new_mlx, (FONT_WIDTH+2)*95, FONT_HEIGHT)))
-    {
-      free(new_mlx);
-	  return (NULL);
-    }
-	
+  new_mlx->font = mlx_new_image(new_mlx, (FONT_WIDTH+2)*95, FONT_HEIGHT);
   i = 0;
   while (i < 4*(FONT_WIDTH+2)*95*FONT_HEIGHT)
     {

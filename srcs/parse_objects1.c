@@ -6,59 +6,64 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:05:30 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/23 17:32:39 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/26 03:59:58 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-//static void print_sphere (t_list)
-
-t_bool	parse_sphere(char **token_array, t_list **parsed_objects_list)
+t_error		parse_sphere(char **token_array, t_list **obj_lst)
 {
-	t_object	*object;
-	int			i;
+	t_object	*sphere;
 
-	i = 0;
-	if (!(object = (t_object*)malloc(sizeof(t_object))))
-		return (return_error("Malloc failure.", parsed_objects_list));
-	object->object_id = SPHERE;
-	if (!(parse_vector(token_array[1], &object->object_type.sphere.center)))
-		return (return_error("Sphere position not well formatted.", parsed_objects_list));
-	if (!(parse_length(token_array[2], &object->object_type.sphere.radius)))
-		return (return_error("Sphere radius not well formatted.", parsed_objects_list));
-	if (!(parse_color(token_array[3], &object->object_type.sphere.color)))
-		return (return_error("Sphere color not well formatted.", parsed_objects_list));
-	if (token_array[4])
-		return (return_error("Sphere informations not well formatted.", parsed_objects_list));
-	ft_lstadd_back(parsed_objects_list, ft_lstnew(&object));
-	return (TRUE);
+	if (!token_array[1] || !token_array[2] || !token_array[3] || token_array[4])
+		return (SP_FMT_ERR);
+	if (!(sphere = (t_object*)malloc(sizeof(t_object))))
+		return (MALLOC_ERR);
+	sphere->obj_type = SPHERE;
+	if (!(parse_vector(token_array[1], &sphere->obj_prop.sphere.center)))
+	{
+		free(sphere);
+		return (SP_POS_FMT_ERR);
+	}
+	if (!(parse_length(token_array[2], &sphere->obj_prop.sphere.radius)))
+	{
+		free(sphere);
+		return (SP_LEN_FMT_ERR);
+	}
+	if (!(parse_color(token_array[3], &sphere->obj_prop.sphere.color)))
+	{
+		free(sphere);
+		return (SP_COL_FMT_ERR);
+	}
+	ft_lstadd_front(obj_lst, ft_lstnew(sphere));
+	return (NO_ERROR);
 }
 
-t_bool	parse_plane(char **token_array, t_list **parsed_objects_list)
+t_error		parse_plane(char **token_array, t_list **obj_lst)
 {
 	(void)token_array;
-	(void)parsed_objects_list;
-	return (TRUE);
+	(void)obj_lst;
+	return (NO_ERROR);
 }
 
-t_bool	parse_square(char **token_array, t_list **parsed_objects_list)
+t_error		parse_square(char **token_array, t_list **obj_lst)
 {
 	(void)token_array;
-	(void)parsed_objects_list;
-	return (TRUE);
+	(void)obj_lst;
+	return (NO_ERROR);
 }
 
-t_bool	parse_cylinder(char **token_array, t_list **parsed_objects_list)
+t_error		parse_cylinder(char **token_array, t_list **obj_lst)
 {
 	(void)token_array;
-	(void)parsed_objects_list;
-	return (TRUE);
+	(void)obj_lst;
+	return (NO_ERROR);
 }
 
-t_bool	parse_triangle(char **token_array, t_list **parsed_objects_list)
+t_error		parse_triangle(char **token_array, t_list **obj_lst)
 {
 	(void)token_array;
-	(void)parsed_objects_list;
-	return (TRUE);
+	(void)obj_lst;
+	return (NO_ERROR);
 }

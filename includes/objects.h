@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:58:44 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/22 23:13:57 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/25 22:17:18 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 typedef t_vector	t_color;
 
-
-typedef enum		e_token
+typedef enum		e_type
 {
+	TYPE_ERROR = -1,
 	RESOLUTION,
 	AMBIENT,
 	CAMERA,
@@ -28,52 +28,25 @@ typedef enum		e_token
 	SQUARE,
 	CYLINDER,
 	TRIANGLE
-}					t_token;
+}					t_type;
 
 typedef struct		s_resolution
 {
-	int		width;
-	int		height;
+	int				width;
+	int				height;
 }					t_resolution;
 
 typedef struct		s_ambient
 {
-	double	ratio;
-	t_color	height;
+	double			ratio;
+	t_color			color;
 }					t_ambient;
-
-typedef struct		s_sphere
-{
-	t_vector		center;
-	double		radius;
-	t_color		color;
-}					t_sphere;
-
-typedef struct		s_plane
-{
-
-}					t_plane;
-
-typedef struct		s_square
-{
-
-}					t_square;
-
-typedef struct		s_cylinder
-{
-
-}					t_cylinder;
-
-typedef struct		s_triangle
-{
-
-}					t_triangle;
 
 typedef struct		s_camera
 {
 	t_vector		position;
-	t_vector	direction;
-	double		fov;
+	t_vector		direction;
+	double			fov;
 }					t_camera;
 
 typedef struct		s_light
@@ -82,7 +55,34 @@ typedef struct		s_light
 	double			intensity;
 }					t_light;
 
-typedef union	u_type
+typedef struct		s_sphere
+{
+	t_vector		center;
+	double			radius;
+	t_color			color;
+}					t_sphere;
+
+typedef struct		s_plane
+{
+	t_vector		positionn;
+}					t_plane;
+
+typedef struct		s_square
+{
+	t_vector		positionn;
+}					t_square;
+
+typedef struct		s_cylinder
+{
+	t_vector		positionn;
+}					t_cylinder;
+
+typedef struct		s_triangle
+{
+	t_vector		positionn;
+}					t_triangle;
+
+typedef union		u_prop
 {
 	t_resolution	resolution;
 	t_ambient		ambient;
@@ -93,12 +93,12 @@ typedef union	u_type
 	t_square		square;
 	t_cylinder		cylinder;
 	t_triangle		triangle;
-}				t_type;
+}					t_prop;
 
 typedef struct		s_object
 {
-	t_token			object_id;
-	t_type			object_type;
+	t_type			obj_type;
+	t_prop			obj_prop;
 }					t_object;
 
 #endif

@@ -196,10 +196,3 @@ int     mlx_destroy_image(mlx_ptr_t *mlx_ptr, mlx_img_list_t *img_todel)
   //  printf("destroy image done.\n");
   return (0);
 }
-
-int     mlx_destroy_font(mlx_ptr_t *mlx_ptr)
-{
-    if (mlx_ptr && mlx_ptr->font)
-      mlx_destroy_image(mlx_ptr, mlx_ptr->font);
-  return (0);
-}

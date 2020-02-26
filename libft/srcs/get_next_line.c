@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 12:23:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/22 20:10:44 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/24 04:41:40 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int				get_next_line(int fd, char **line)
 	if (!ret && (!s_buff || !*s_buff))
 	{
 		*line = ft_strdup("");
+		free(s_buff);
 		return (0);
 	}
 	return (append_line(&s_buff, line, fd, ret));
