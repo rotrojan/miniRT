@@ -45,7 +45,7 @@ t_ray	init_ray_direction(int i, int j, t_camera *cam, t_mlx *mlx)
 void	init_camera(t_camera *cam)
 {
 	cam->position = get_vector(0.0, 0.0, 0.0);
-	cam->direction = get_vector(0.0, 0.0, -1.0);
+	cam->orientation = get_vector(0.0, 0.0, -1.0);
 	cam->fov = 60.0 * M_PI / 180.0;
 }
 

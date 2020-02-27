@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:58:44 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/25 22:17:18 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/27 01:27:00 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct		s_ambient
 typedef struct		s_camera
 {
 	t_vector		position;
-	t_vector		direction;
+	t_vector		orientation;
 	double			fov;
 }					t_camera;
 
@@ -53,6 +53,7 @@ typedef struct		s_light
 {
 	t_vector		position;
 	double			intensity;
+	t_color			color;
 }					t_light;
 
 typedef struct		s_sphere
@@ -100,5 +101,13 @@ typedef struct		s_object
 	t_type			obj_type;
 	t_prop			obj_prop;
 }					t_object;
+
+typedef struct		s_scene
+{
+	t_ambient		ambient;
+	t_camera		*camera;
+	t_light			*light;
+	t_object		*obj;
+}					t_scene;
 
 #endif

@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2020/02/26 03:51:58 by rotrojan         ###   ########.fr        #
+#    Updated: 2020/02/27 16:37:48 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OBJS_DIR		=	./.objs/
 INCLUDES_DIR	=	./includes/ ${LIBS:%=lib%/includes}
 SRCS			=	main.c mlx_utils.c mlx_hooks.c ray_tracer.c		\
 					check_args.c parser.c utils.c parse_objects1.c	\
-					parse_objects2.c parse_utils.c
+					parse_objects2.c parse_objects3.c parse_utils.c
 
 OBJS			:=	${SRCS:%.c=${OBJS_DIR}%.o}
 
@@ -34,7 +34,7 @@ CFLAGS			+=	-Wall -Wextra -Werror -MMD
 LDFLAGS			+=	${FRAMEWORKS:%=-framework %}
 CXXFLAGS		+=	${INCLUDES_DIR:%=-I%} -g3# -fsanitize=address
 
-vpath %.c ${SRCS_DIR}
+vpath %.c ${SRCS_DIR} ${SRCS_DIR}parsing ${SRCS_DIR}mlx
 vpath %.a ${LIBS:%=lib%}
 
 all				:

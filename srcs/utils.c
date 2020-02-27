@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 17:19:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/24 21:36:32 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/27 17:25:27 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,40 @@ void		del(void *content)
 	free(content);
 }
 
-t_error		return_error(t_error num_error, t_list **obj_lst)
+t_error		return_error(t_error num_error)
 {
+
 	static char const	*str_error[] = {
-		"", "Wrong number of arguments.", "Cannot open file.",
-		"Invalid file extension.", "Invalid third argument.",
-		"Cannot read file.", "Malloc failure.", "Element not well formatted.",
-		"Sphere position not well formatted.",
-		"Sphere color not well formatted.", "Sphere radius not well formatted.",
-		"Sphere not well formatted.", "Sphere not well formatted.",
-		"Resolution width not well formatted.",
-		"Resolution height not well formatted.",
-		"Resolution can only be set once.", "Resolution not well formatted.",
-		"Ambient lighting not well formatted.",
-		"Ambient lighting ratio not well formatted.",
-		"Ambient lighting color not well formatted."
-		};
+		NO_ERROR_STR,
+		NB_ARGS_ERR_STR,
+		OPENING_ERR_STR,
+		FILE_EXTENSION_ERR_STR,
+		THIRD_ARG_ERR_STR,
+		READ_ERR_STR,
+		MALLOC_ERR_STR,
+		WRONG_ELEM_ERR_STR,
+		SP_POS_FMT_ERR_STR,
+		SP_COL_FMT_ERR_STR,
+		SP_LEN_FMT_ERR_STR,
+		SP_FMT_ERR_STR,
+		RES_X_FMT_ERR_STR,
+		RES_Y_FMT_ERR_STR,
+		RES_TWICE_ERR_STR,
+		RES_FMT_ERR_STR,
+		AMB_FMT_ERR_STR,
+		AMB_RATIO_ERR_STR,
+		AMB_COL_ERR_STR,
+		CAM_ERR_STR,
+		CAM_POS_ERR_STR,
+		CAM_ORIENT_ERR_STR,
+		CAM_FOV_ERR_STR,
+		LIGHT_ERR_STR,
+		LIGHT_POS_ERR_STR,
+		LIGHT_INTENS_ERR_STR,
+	};
 
 	ft_putendl_fd("Error", STDERR_FILENO);
 	ft_putendl_fd((char*)str_error[num_error], STDERR_FILENO);
-	ft_lstclear(obj_lst, &del);
 	return (EXIT_FAILURE);
 }
 

@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 17:07:01 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/26 04:10:19 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/27 10:03:42 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,31 @@ t_error				parse_resolution(char **token_array, t_list **obj_lst)
 	return (NO_ERROR);
 }
 
-t_error				parse_ambient(char **token_array, t_list **obj_lst)
+
+static t_error		check_ambient(char **token_array, t_list **obj_lst)
 {
-	t_object	*ambient;
+	t_list		*current_link;
 
 	if (!token_array[1] || !token_array[2] || token_array[3])
 		return (AMB_FMT_ERR);
+	current_link = *obj_lst;
+	while (current_link)
+	{
+		if (((t_object*)(current_link->content))->obj_type == AMBIENT)
+			return (RES_TWICE_ERR);
+		current_link = current_link->next;
+	}
+	return (NO_ERROR);
+}
+
+t_error				parse_ambient(char **token_array, t_list **obj_lst)
+{
+	t_object	*ambient;
+	t_error		ret;
+
 	ambient = NULL;
+	if ((ret = check_ambient(token_array, obj_lst)) != NO_ERROR)
+		return (ret);
 	if (!(ambient == (t_object*)malloc(sizeof(t_object))))
 		return (MALLOC_ERR);
 	if (!(parse_ratio(token_array[1], &ambient->obj_prop.ambient.ratio)))
@@ -83,19 +101,5 @@ t_error				parse_ambient(char **token_array, t_list **obj_lst)
 		return (AMB_COL_ERR);
 	}
 	ft_lstadd_front(obj_lst, ft_lstnew(ambient));
-	return (NO_ERROR);
-}
-
-t_error				parse_camera(char **token_array, t_list **obj_lst)
-{
-	(void)token_array;
-	(void)obj_lst;
-	return (NO_ERROR);
-}
-
-t_error				parse_light(char **token_array, t_list **obj_lst)
-{
-	(void)token_array;
-	(void)obj_lst;
 	return (NO_ERROR);
 }
