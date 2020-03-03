@@ -6,12 +6,12 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 02:14:36 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/02 02:16:24 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/03 12:04:53 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_S
-# define RAY_S
+#ifndef RAY_H
+# define RAY_H
 # include "minirt.h"
 
 typedef struct	s_ray

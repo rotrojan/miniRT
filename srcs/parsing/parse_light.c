@@ -6,36 +6,35 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:13:57 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/03 03:37:42 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/03 10:41:19 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_error				parse_light(char **token_array, t_list **obj_lst)
+t_error				parse_light(char **token_array, t_scene *scene)
 {
-	t_object	*light;
+	t_light	*light;
 
 	if (!token_array[1] || !token_array[2] || !token_array[3] || token_array[4])
 		return (LIGHT_ERR);
-	if (!(light = (t_object*)malloc(sizeof(t_object))))
+	if (!(light = malloc(sizeof(t_light))))
 		return (MALLOC_ERR);
-	light->obj_type = LIGHT;
-	if (!(parse_vector(token_array[1], &light->obj_prop.light.position)))
+	if (!(parse_vector(token_array[1], &light->position)))
 	{
 		free(light);
 		return (LIGHT_POS_ERR);
 	}
-	if (!(parse_ratio(token_array[2], &light->obj_prop.light.intensity)))
+	if (!(parse_ratio(token_array[2], &light->intensity)))
 	{
 		free(light);
 		return (LIGHT_INTENS_ERR);
 	}
-	if (!(parse_color(token_array[3], &light->obj_prop.light.color)))
+	if (!(parse_color(token_array[3], &light->color)))
 	{
 		free(light);
 		return (LIGHT_INTENS_ERR);
 	}
-	ft_lstadd_front(obj_lst, ft_lstnew(light));
+	ft_lstadd_front(&scene->light_lst, ft_lstnew(light));
 	return (NO_ERROR);
 }

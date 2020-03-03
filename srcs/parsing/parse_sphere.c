@@ -6,13 +6,13 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:07:04 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/02 04:08:39 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/03 08:35:44 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_error		parse_sphere(char **token_array, t_list **obj_lst)
+t_error		parse_sphere(char **token_array, t_scene *scene)
 {
 	t_object	*sphere;
 
@@ -36,6 +36,6 @@ t_error		parse_sphere(char **token_array, t_list **obj_lst)
 		free(sphere);
 		return (SP_COL_FMT_ERR);
 	}
-	ft_lstadd_front(obj_lst, ft_lstnew(sphere));
+	ft_lstadd_front(&scene->obj_lst, ft_lstnew(sphere));
 	return (NO_ERROR);
 }

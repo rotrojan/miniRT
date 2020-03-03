@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2020/03/03 05:07:09 by rotrojan         ###   ########.fr        #
+#    Updated: 2020/03/03 11:13:59 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ OBJS_DIR		=	./.objs/
 INCLUDES_DIR	=	./includes/ ${LIBS:%=lib%/includes} /usr/local/include
 SRCS			=	main.c mlx_utils.c mlx_hooks.c						\
 																		\
-					parser.c parse_utils.c from_lst_to_struct.c			\
+					parser.c parse_utils.c								\
 					parse_data.c										\
 					parse_resolution.c parse_ambient.c					\
 					parse_camera.c parse_light.c						\

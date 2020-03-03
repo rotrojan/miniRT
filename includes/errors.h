@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:48:35 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/28 22:24:24 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/03 12:17:42 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define RES_Y_FMT_ERR_STR "Resolution height not well formatted."
 # define RES_TWICE_ERR_STR "Resolution can only be set once."
 # define RES_FMT_ERR_STR "Resolution not well formatted."
+# define AMB_TWICE_ERR_STR "Ambient can only be set once."
 # define AMB_FMT_ERR_STR "Ambient lighting not well formatted."
 # define AMB_RATIO_ERR_STR "Ambient lighting ratio not well formatted."
 # define AMB_COL_ERR_STR "Ambient lighting color not well formatted."
@@ -58,6 +59,7 @@ typedef enum	e_error
 	RES_Y_FMT_ERR,
 	RES_TWICE_ERR,
 	RES_FMT_ERR,
+	AMB_TWICE_ERR,
 	AMB_FMT_ERR,
 	AMB_RATIO_ERR,
 	AMB_COL_ERR,

@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 17:19:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/01 08:35:27 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/03 12:17:39 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,9 @@ void		del(void *content)
 
 void		free_scene(t_scene *scene)
 {
-	free(scene->camera);
-	scene->camera = NULL;
-	free(scene->light);
-	scene->light = NULL;
-	free(scene->obj);
-	scene->obj = NULL;
+	ft_lstclear(&scene->cam_lst, del);
+	ft_lstclear(&scene->light_lst, del);
+	ft_lstclear(&scene->obj_lst, del);
 }
 
 t_error		return_error(t_error num_error)
@@ -46,6 +43,7 @@ t_error		return_error(t_error num_error)
 		RES_Y_FMT_ERR_STR,
 		RES_TWICE_ERR_STR,
 		RES_FMT_ERR_STR,
+		AMB_TWICE_ERR_STR,
 		AMB_FMT_ERR_STR,
 		AMB_RATIO_ERR_STR,
 		AMB_COL_ERR_STR,
