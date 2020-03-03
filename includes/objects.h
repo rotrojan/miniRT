@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:58:44 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/27 01:27:00 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/03 06:02:31 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 # include "minirt.h"
 
 typedef t_vector	t_color;
+
+typedef struct	s_ray
+{
+	t_vector	direction;
+	t_vector	origin;
+}				t_ray;
 
 typedef enum		e_type
 {
@@ -58,29 +64,27 @@ typedef struct		s_light
 
 typedef struct		s_sphere
 {
-	t_vector		center;
 	double			radius;
-	t_color			color;
 }					t_sphere;
 
 typedef struct		s_plane
 {
-	t_vector		positionn;
+	t_vector		position;
 }					t_plane;
 
 typedef struct		s_square
 {
-	t_vector		positionn;
+	t_vector		position;
 }					t_square;
 
 typedef struct		s_cylinder
 {
-	t_vector		positionn;
+	t_vector		position;
 }					t_cylinder;
 
 typedef struct		s_triangle
 {
-	t_vector		positionn;
+	t_vector		position;
 }					t_triangle;
 
 typedef union		u_prop
@@ -99,7 +103,10 @@ typedef union		u_prop
 typedef struct		s_object
 {
 	t_type			obj_type;
+//	t_bool			(*intersection)(t_ray*, struct s_object*, double*);
 	t_prop			obj_prop;
+	t_vector		position;
+	t_color			color;
 }					t_object;
 
 typedef struct		s_scene

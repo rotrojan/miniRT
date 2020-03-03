@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:03:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/26 04:13:59 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/03 01:02:28 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	init_mlx(t_mlx *mlx)
 {
-	mlx->win_width = 900;
-	mlx->win_height = 1200;
 	mlx->mlx_ptr = mlx_init();
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, mlx->win_width,
 		mlx->win_height, TITLE);

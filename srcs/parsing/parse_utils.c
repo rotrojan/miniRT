@@ -5,116 +5,61 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/17 15:05:52 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/26 22:30:55 by rotrojan         ###   ########.fr       */
+/*   Created: 2020/03/01 07:07:14 by rotrojan          #+#    #+#             */
+/*   Updated: 2020/03/02 01:21:52 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_bool		parse_vector(char *point_str, t_vector *point)
+t_error		check_args(int ac, char **av)
 {
-	point->x = ft_atod(point_str);
-	while (ft_isdigit(*point_str)
-		|| *point_str == '+' || *point_str == '-' || *point_str == '.')
-		point_str++;
-	if (*point_str != ',')
-		return (FALSE);
-	point_str++;
-	point->y = ft_atod(point_str);
-	while (ft_isdigit(*point_str)
-		|| *point_str == '+' || *point_str == '-' || *point_str == '.')
-		point_str++;
-	if (*point_str != ',')
-		return (FALSE);
-	point_str++;
-	point->z = ft_atod(point_str);
-	while (ft_isdigit(*point_str)
-		|| *point_str == '+' || *point_str == '-' || *point_str == '.')
-		point_str++;
-	if (*point_str)
-		return (FALSE);
-	point_str++;
-	return (TRUE);
+	if (ac < 2 || ac > 3)
+		return (NB_ARGS_ERR);
+	if (ft_strcmp(".rt", av[1] + ft_strlen(av[1]) - 3))
+		return (FILE_EXTENSION_ERR);
+	if (av[2])
+		if (ft_strcmp(av[2], "--save") && ft_strcmp(av[2], "-save"))
+			return (THIRD_ARG_ERR);
+	return (NO_ERROR);
 }
 
-t_bool		parse_color(char *color_str, t_color *color)
+t_type		get_sub_parser(char *first_token)
 {
-	color->r = (double)ft_atoi(color_str);
-	while (ft_isdigit(*color_str))
-		color_str++;
-	if (*color_str++ != ',' || color->r < 0 || color->r > 255)
-		return (FALSE);
-	color->g = (double)ft_atoi(color_str);
-	while (ft_isdigit(*color_str))
-		color_str++;
-	if (*color_str++ != ',' || color->g < 0 || color->g > 255)
-		return (FALSE);
-	color->b = (double)ft_atoi(color_str);
-	while (ft_isdigit(*color_str))
-		color_str++;
-	if (*color_str || color->b < 0 || color->b > 255)
-		return (FALSE);
-	*color /= 255.0f;
-	return (TRUE);
+	t_type				type;
+	static char const	*elem_type_array[] = {
+		"R",
+		"A",
+		"c",
+		"l",
+		"sp",
+		"pl",
+		"sq",
+		"cy",
+		"tr",
+		NULL
+	};
+
+	type = -1;
+	while (*elem_type_array[++type])
+		if (!(ft_strcmp(first_token, elem_type_array[type])))
+			return (type);
+	return (TYPE_ERROR);
 }
 
-t_bool		parse_length(char *length_str, double *length)
+t_error		select_sub_parser(t_type type, char **token_array, t_list **obj_lst)
 {
-	*length = ft_atod(length_str);
-	while (*length_str)
-	{
-		if (!ft_isdigit(*length_str) && *length_str != '.')
-			return (FALSE);
-		length_str++;
-	}
-	return (TRUE);
-}
+	static t_error		(*sub_parser[])(char**, t_list**) = {
+		&parse_resolution,
+		&parse_ambient,
+		&parse_camera,
+		&parse_light,
+		&parse_sphere,
+		&parse_plane,
+		&parse_square,
+		&parse_cylinder,
+		&parse_triangle
+	};
 
-t_bool		parse_ratio(char *ratio_str, double *ratio)
-{
-	char	*tmp;
-
-	tmp = ratio_str;
-	while (ft_isdigit(*tmp))
-		tmp++;
-	if (*tmp == '.')
-		tmp++;
-	while (ft_isdigit(*tmp))
-		tmp++;
-	if (*tmp)
-		return (FALSE);
-	*ratio = ft_atod(ratio_str);
-	if (*ratio < 0.0 || *ratio > 1.0)
-		return (FALSE);
-	return (TRUE);
-}
-
-t_bool		parse_orientation(char *orientation_str, t_vector *orientation_vec)
-{
-	orientation_vec->x = ft_atod(orientation_str);
-	if (orientation_vec->x < -1 || orientation_vec->x > 1)
-		return (FALSE);
-	while (ft_isdigit(*orientation_str) || *orientation_str == '+'
-		|| *orientation_str == '-' || *orientation_str == '.')
-		orientation_str++;
-	if (*orientation_str++ != ',')
-		return (FALSE);
-	orientation_vec->y = ft_atod(orientation_str);
-	if (orientation_vec->y < -1 || orientation_vec->y > 1)
-		return (FALSE);
-	while (ft_isdigit(*orientation_str) || *orientation_str == '+'
-		|| *orientation_str == '-' || *orientation_str == '.')
-		orientation_str++;
-	if (*orientation_str++ != ',')
-		return (FALSE);
-	orientation_vec->z = ft_atod(orientation_str);
-	if (orientation_vec->z < -1 || orientation_vec->z > 1)
-		return (FALSE);
-	while (ft_isdigit(*orientation_str) || *orientation_str == '+' ||
-		*orientation_str == '-' || *orientation_str == '.')
-		orientation_str++;
-	if (*orientation_str)
-		return (FALSE);
-	return (TRUE);
+	return (sub_parser[type](token_array, obj_lst));
 }

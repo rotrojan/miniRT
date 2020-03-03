@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 17:19:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/27 17:25:27 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/01 08:35:27 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,18 @@ void		del(void *content)
 	free(content);
 }
 
+void		free_scene(t_scene *scene)
+{
+	free(scene->camera);
+	scene->camera = NULL;
+	free(scene->light);
+	scene->light = NULL;
+	free(scene->obj);
+	scene->obj = NULL;
+}
+
 t_error		return_error(t_error num_error)
 {
-
 	static char const	*str_error[] = {
 		NO_ERROR_STR,
 		NB_ARGS_ERR_STR,
@@ -47,6 +56,7 @@ t_error		return_error(t_error num_error)
 		LIGHT_ERR_STR,
 		LIGHT_POS_ERR_STR,
 		LIGHT_INTENS_ERR_STR,
+		NB_CAM_ERR_STR
 	};
 
 	ft_putendl_fd("Error", STDERR_FILENO);

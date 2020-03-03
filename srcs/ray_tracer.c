@@ -11,114 +11,88 @@
 
 #include "minirt.h"
 
-/*************************************INIT*************************************/
-
-void	init_sphere(t_sphere *sphere)
-{
-	sphere->center = get_vector(0.0, 0.0, -55.0);
-	sphere->radius = 20.0;
-	sphere->color[0] = 1.0;
-	sphere->color[1] = 0.0;
-	sphere->color[2] = 1.0;
-}
-
-void		init_spot(t_light *spot)
-{
-	spot->position = get_vector(0.0, 50.0, 10.0);
-	spot->intensity = 1.0;
-}
-
-t_ray	init_ray_direction(int i, int j, t_camera *cam, t_mlx *mlx)
+t_ray	init_ray_direction(int i, int j, t_scene *scene, t_mlx *mlx)
 {
 	t_ray		current;
+//	static int	index_cam = 0;
 
-	current.origin = get_vector(0, 0, 0);
-	current.direction.x = (2.0 * (((double)i + 0.5f) / (double)mlx->win_width) - 1.0)
-		* (double)(mlx->win_width / (double)mlx->win_height) * tanf(cam->fov / 2.0);
-	current.direction.y = (1.0 - 2.0 * (((double)j + 0.5f) / (double)mlx->win_height))
-		* tan(cam->fov / 2.0);
+	current.origin = (scene->camera)[0].position;
+//	if (!((&scene->camera)[index_cam]))
+//		index_cam = 0;
+	current.direction.x = (2.0 * (((double)i + 0.5) / (double)mlx->win_width)
+		- 1.0) * (double)(mlx->win_width / (double)mlx->win_height)
+		* tanf((scene->camera->fov * M_PI / 180) / 2.0);
+	current.direction.y = (1.0 - 2.0 * (((double)j + 0.5) /
+		(double)mlx->win_height)) * tan((scene->camera->fov * M_PI / 180)
+		/ 2.0);
 	current.direction.z = -1.0;
 	current.direction = normalized_vector(current.direction);
 	return (current);
 }
 
-void	init_camera(t_camera *cam)
+int		get_closest_intersection(t_ray *current, t_scene *scene, double *t)
 {
-	cam->position = get_vector(0.0, 0.0, 0.0);
-	cam->orientation = get_vector(0.0, 0.0, -1.0);
-	cam->fov = 60.0 * M_PI / 180.0;
-}
+	int				index_obj;
+	int				index_closest_obj;
+	double			t_closest_obj;
+	t_type			type_obj;
+	static t_bool	(*intersection[])(t_ray*, t_object*, double*) = {
+		NULL, NULL, NULL, NULL, &sphere_intersection, &plane_intersection,
+		&square_intersection, &cylinder_intersection, &triangle_intersection
+	};
 
-/******************************************************************************/
-
-int		intersection(t_ray *current, t_sphere *sphere, double *t)
-{
-	t_vector	dist;
-	double		b;
-	double		discr;
-	double		t0;
-	double		t1;
-
-	dist = sphere->center - current->origin;
-	b = dot_vectors(current->direction, dist);
-	discr = b * b - dot_vectors(dist, dist) + sphere->radius * sphere->radius;
-	if (discr >= 0.0)
+	index_obj = 0;
+	t_closest_obj = INFINITY;
+	while ((&scene->obj)[index_obj])
 	{
-		discr = sqrtf(discr);
-		t0 = b - discr;
-		t1 = b + discr;
-		if (t0 > 0.0)
-			*t = t0;
-		else if (t1 > 0.0)
-			*t = t1;
-		return (1);
+		type_obj = scene->obj[index_obj].obj_type;
+		if (intersection[type_obj](current, &scene->obj[index_obj], t))
+		{
+			if (*t < t_closest_obj)
+			{
+				t_closest_obj = *t;
+				index_closest_obj = index_obj;
+			}
+		}
+		index_obj++;
 	}
-	return (0);
+	if (t_closest_obj == INFINITY)
+		return (-1);
+	return (index_closest_obj);
 }
-/*
-t_vector	get_normal(t_vector *closest_intersection, t_sphere *sphere)
-{
-	t_vector	n;
-	double		tmp;
 
-	if (!(tmp = dot_vectors(n, n)) == 0.0)
-		return 
-}
-*/
-int		ray_tracer(t_mlx *mlx)
+t_bool		ray_tracer(t_mlx *mlx, t_scene *scene)
 {
 	int			i;
 	int			j;
-	t_color		color_pixel = {0.0, 0.0, 0.0};
-	t_light		spot;
-	t_sphere	sphere;
-	t_camera	cam;
+	t_color		color_pixel;
 	t_ray		current;
 	double		t;
 	t_vector	closest_intersection;
-	t_vector	n;
+	int			closest_index;
+//	t_vector	n;
+//	double		lambert;
 
 	i = 0;
 	j = 0;
-	init_sphere(&sphere);
-	init_spot(&spot);
-	init_camera(&cam);
+	ft_bzero(&color_pixel, sizeof(color_pixel));
 	while (j < mlx->win_height)
 	{
 		while (i < mlx->win_width)
 		{
-			current = init_ray_direction(i, j, &cam, mlx);
-			if (intersection(&current, &sphere, &t))
+			current = init_ray_direction(i, j, scene, mlx);
+//			t = 0.0;
+			if ((closest_index = get_closest_intersection(&current, scene, &t))
+				!= -1)
 			{
 				closest_intersection = current.origin + t * current.direction;
-//				n = get_normal(&closest_intersection, &sphere);
-				n = normalized_vector(closest_intersection - sphere.center);
-				double lambert = fminf(1, dot_vectors(n, normalized_vector(spot.position - closest_intersection)));
-//				printf("%f\n", lambert);
-				color_pixel[0] = (sphere.color[0] * lambert);
-				color_pixel[1] = (sphere.color[1] * lambert);
-				color_pixel[2] = (sphere.color[2] * lambert);
-				
+//				n = normalized_vector(closest_intersection - scene->
+//					obj[closest_index].position);
+//				lambert = fmin(1, dot_vectors(n, normalized_vector(scene->
+//					light[0].position - closest_intersection)));
+				color_pixel[0] = (scene->obj[closest_index].color[0]/* * lambert*/);
+				color_pixel[1] = (scene->obj[closest_index].color[1]/* * lambert*/);
+				color_pixel[2] = (scene->obj[closest_index].color[2]/* * lambert*/);
 				put_pixel(mlx, i, j, color_pixel);
 			}
 			i++;
@@ -126,5 +100,5 @@ int		ray_tracer(t_mlx *mlx)
 		i = 0;
 		j++;
 	}
-	return (1);
+	return (TRUE);
 }

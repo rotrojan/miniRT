@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   check_args.c                                       :+:      :+:    :+:   */
+/*   ray.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/07 02:16:40 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/26 04:13:33 by rotrojan         ###   ########.fr       */
+/*   Created: 2020/03/02 02:14:36 by rotrojan          #+#    #+#             */
+/*   Updated: 2020/03/02 02:16:24 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef RAY_S
+# define RAY_S
+# include "minirt.h"
 
-t_error		check_args(int ac, char **av)
+typedef struct	s_ray
 {
-	if (ac < 2 || ac > 3)
-		return (NB_ARGS_ERR);
-	if (ft_strcmp(".rt", av[1] + ft_strlen(av[1]) - 3))
-		return (FILE_EXTENSION_ERR);
-	if (av[2])
-		if (ft_strcmp(av[2], "--save") && ft_strcmp(av[2], "-save"))
-			return (THIRD_ARG_ERR);
-	return (NO_ERROR);
-}
+	t_vector	direction;
+	t_vector	origin;
+}				t_ray;
+
+#endif

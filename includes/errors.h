@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:48:35 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/27 16:35:54 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/02/28 22:24:24 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define LIGHT_ERR_STR "Light not well formatted."
 # define LIGHT_POS_ERR_STR "Light position not well formatted."
 # define LIGHT_INTENS_ERR_STR "Light intensity not well formatted."
+# define NB_CAM_ERR_STR "There must be at least one camera."
 
 typedef enum	e_error
 {
@@ -66,7 +67,8 @@ typedef enum	e_error
 	CAM_FOV_ERR,
 	LIGHT_ERR,
 	LIGHT_POS_ERR,
-	LIGHT_INTENS_ERR
+	LIGHT_INTENS_ERR,
+	NB_CAM_ERR
 }				t_error;
 
 #endif

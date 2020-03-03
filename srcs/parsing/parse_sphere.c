@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_objects1.c                                   :+:      :+:    :+:   */
+/*   parse_sphere.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/17 17:05:30 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/26 03:59:58 by rotrojan         ###   ########.fr       */
+/*   Created: 2020/03/01 06:07:04 by rotrojan          #+#    #+#             */
+/*   Updated: 2020/03/02 04:08:39 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_error		parse_sphere(char **token_array, t_list **obj_lst)
 	if (!(sphere = (t_object*)malloc(sizeof(t_object))))
 		return (MALLOC_ERR);
 	sphere->obj_type = SPHERE;
-	if (!(parse_vector(token_array[1], &sphere->obj_prop.sphere.center)))
+	if (!(parse_vector(token_array[1], &sphere->position)))
 	{
 		free(sphere);
 		return (SP_POS_FMT_ERR);
@@ -31,39 +31,11 @@ t_error		parse_sphere(char **token_array, t_list **obj_lst)
 		free(sphere);
 		return (SP_LEN_FMT_ERR);
 	}
-	if (!(parse_color(token_array[3], &sphere->obj_prop.sphere.color)))
+	if (!(parse_color(token_array[3], &sphere->color)))
 	{
 		free(sphere);
 		return (SP_COL_FMT_ERR);
 	}
 	ft_lstadd_front(obj_lst, ft_lstnew(sphere));
-	return (NO_ERROR);
-}
-
-t_error		parse_plane(char **token_array, t_list **obj_lst)
-{
-	(void)token_array;
-	(void)obj_lst;
-	return (NO_ERROR);
-}
-
-t_error		parse_square(char **token_array, t_list **obj_lst)
-{
-	(void)token_array;
-	(void)obj_lst;
-	return (NO_ERROR);
-}
-
-t_error		parse_cylinder(char **token_array, t_list **obj_lst)
-{
-	(void)token_array;
-	(void)obj_lst;
-	return (NO_ERROR);
-}
-
-t_error		parse_triangle(char **token_array, t_list **obj_lst)
-{
-	(void)token_array;
-	(void)obj_lst;
 	return (NO_ERROR);
 }

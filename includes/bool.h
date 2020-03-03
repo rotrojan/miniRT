@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   bool.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/21 02:29:13 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/01 04:33:36 by rotrojan         ###   ########.fr       */
+/*   Created: 2020/03/01 08:07:09 by rotrojan          #+#    #+#             */
+/*   Updated: 2020/03/01 08:08:30 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef BOOL_H
+# define BOOL_H
 
-int		ft_strcmp(char const *s1, char const *s2)
+typedef enum	e_bool
 {
-	while (*s1 == *s2 && *s1)
-	{
-		s1++;
-		s2++;
-	}
-	return (*s1 - *s2);
-}
+	FALSE,
+	TRUE
+}				t_bool;
+
+#endif

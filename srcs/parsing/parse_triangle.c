@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   parse_triangle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/21 02:29:13 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/01 04:33:36 by rotrojan         ###   ########.fr       */
+/*   Created: 2020/03/01 06:31:02 by rotrojan          #+#    #+#             */
+/*   Updated: 2020/03/01 06:31:07 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minirt.h"
 
-int		ft_strcmp(char const *s1, char const *s2)
+t_error		parse_triangle(char **token_array, t_list **obj_lst)
 {
-	while (*s1 == *s2 && *s1)
-	{
-		s1++;
-		s2++;
-	}
-	return (*s1 - *s2);
+	(void)token_array;
+	(void)obj_lst;
+	return (NO_ERROR);
 }
