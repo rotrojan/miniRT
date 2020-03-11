@@ -11,23 +11,24 @@
 
 #include "minirt.h"
 
-t_ray	init_ray_direction(int i, int j, t_scene *scene, t_mlx *mlx)
+t_ray	init_ray_direction(int i, int j, t_main *main)
 {
-	t_ray		current;
+	t_ray		current_ray;
+	t_camera	*cam;
 //	static int	index_cam = 0;
 
-	current.origin = ((t_camera*)scene->cam_lst->content)->position;
+	cam = (t_camera*)main->scene.cam_lst->content;
+	current_ray.origin = cam->position;
 //	if (!((&scene->camera)[index_cam]))
 //		index_cam = 0;
-	current.direction.x = (2.0 * (((double)i + 0.5) / (double)mlx->win_width)
-		- 1.0) * (double)(mlx->win_width / (double)mlx->win_height)
-		* tanf((((t_camera*)scene->cam_lst->content)->fov * M_PI / 180) / 2.0);
-	current.direction.y = (1.0 - 2.0 * (((double)j + 0.5) /
-		(double)mlx->win_height)) * tan((((t_camera*)scene->cam_lst->content)->
-		fov * M_PI / 180) / 2.0);
-	current.direction.z = -1.0;
-	current.direction = normalized_vector(current.direction);
-	return (current);
+	current_ray.direction.x = (2.0 * ((i + 0.5) / main->mlx.win_width) - 1.0)
+		* ((double)main->mlx.win_width / main->mlx.win_height)
+		* tan((cam->fov * M_PI / 180.0) / 2.0);
+	current_ray.direction.y = (1.0 - 2.0 * ((j + 0.5) / main->mlx.win_height))
+		* tan((cam->fov * M_PI / 180.0) / 2.0);
+	current_ray.direction.z = -1.0;
+	current_ray.direction = normalized_vector(current_ray.direction);
+	return (current_ray);
 }
 
 t_object	*get_closest_intersection(t_ray *current, t_scene *scene, double *t)
@@ -61,7 +62,7 @@ t_object	*get_closest_intersection(t_ray *current, t_scene *scene, double *t)
 	return (closest_obj);
 }
 
-t_bool		ray_tracer(t_mlx *mlx, t_scene *scene)
+t_bool		ray_tracer(t_main *main)
 {
 	int			i;
 	int			j;
@@ -70,33 +71,56 @@ t_bool		ray_tracer(t_mlx *mlx, t_scene *scene)
 	double		t;
 	t_vector	closest_intersection;
 	t_object	*closest_obj;
-	t_vector	n;
-	double		lambert;
+	t_list		*current_cam;
+
+	//	t_vector	n;
+	//	double		lambert;
 
 	i = 0;
 	j = 0;
 	ft_bzero(&color_pixel, sizeof(color_pixel));
-	while (j < mlx->win_height)
+	current_cam = main->scene.cam_lst;
+	while (current_cam)
 	{
-		while (i < mlx->win_width)
+		while (j < main->mlx.win_height)
 		{
-			current = init_ray_direction(i, j, scene, mlx);
-//			t = 0.0;
-			if ((closest_obj = get_closest_intersection(&current, scene, &t)))
+			while (i < main->mlx.win_width)
 			{
-				closest_intersection = current.origin + t * current.direction;
-				n = normalized_vector(closest_intersection - closest_obj->position);
-				lambert = fmin(1, dot_vectors(n, normalized_vector(((t_light*)scene->
-					light_lst->content)->position - closest_intersection)));
-				color_pixel[0] = closest_obj->color[0] * lambert;
-				color_pixel[1] = closest_obj->color[1] * lambert;
-				color_pixel[2] = closest_obj->color[2] * lambert;
-				put_pixel(mlx, i, j, color_pixel);
+
+				current = init_ray_direction(i, j, main);
+//			t = 0.0;
+				if ((closest_obj = get_closest_intersection(&current, &main->scene, &t)))
+				{
+					closest_intersection = current.origin + t * current.direction;
+
+//				n = normalized_vector(closest_intersection - closest_obj->position);
+//				lambert = fmin(1, dot_vectors(n, normalized_vector(((t_light*)scene->
+//					light_lst->content)->position - closest_intersection)));
+					color_pixel[0] = closest_obj->color[0] /** lambert*/;
+					color_pixel[1] = closest_obj->color[1] /** lambert*/;
+					color_pixel[2] = closest_obj->color[2] /** lambert*/;
+					put_pixel(&main->mlx, i, j, color_pixel);
+				}
+				i++;
 			}
-			i++;
+			i = 0;
+			j++;
 		}
-		i = 0;
-		j++;
+		current_cam = current_cam->next;
 	}
 	return (TRUE);
 }
+/*
+void	browse_images(t_scene *scene, t_mlx *mlx);
+{
+	t_list	current_cam;
+
+	current_cam = scene->cam_lst;
+	while (current_cam)
+	{
+		ray_tracer()
+		current_cam = current_cam->next;
+	}
+
+}
+*/

@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:03:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/03 01:02:28 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/11 01:48:00 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,12 @@ void	init_mlx(t_mlx *mlx)
 		&mlx->bits_per_pixel, &mlx->endian);
 }
 
-int		run_mlx(t_mlx *mlx)
+t_bool	run_mlx(t_main *main)
 {
-	if (!(set_mlx_hooks(mlx)))
-	{
-		write(STDERR_FILENO, "Error\n", 6);
-		return (-1);
-	}
-	mlx_loop(mlx->mlx_ptr);
-	return (EXIT_SUCCESS);
+	if (!(set_mlx_hooks(main)))
+		return (FALSE);
+	mlx_loop(main->mlx.mlx_ptr);
+	return (TRUE);
 }
 
 int		close_mlx(t_mlx *mlx)
@@ -46,8 +43,8 @@ void	apply_background(t_mlx *mlx, int color)
 	int		nb_pixels;
 	int		index_pixel;
 
-	nb_pixels = mlx->win_width * mlx->win_height;
 	index_pixel = 0;
+	nb_pixels = mlx->win_width * mlx->win_height;
 	while (index_pixel < nb_pixels)
 		mlx->data[index_pixel++] = color;
 }
@@ -60,7 +57,7 @@ void	put_pixel(t_mlx *mlx, int x, int y, t_color color)
 	if ((x >= mlx->win_width && x < 0) || (y >= mlx->win_height && y < 0))
 		return ;
 	final_color = ((((int)(color[0] * 255) << 8)
-		+ (int)(color[1] * 255)) << 8) + (int)(color[2] * 255);
+		| (int)(color[1] * 255)) << 8) | (int)(color[2] * 255);
 	pixel_array = (void*)mlx->data;
 	*pixel_array[y][x] = final_color;
 }

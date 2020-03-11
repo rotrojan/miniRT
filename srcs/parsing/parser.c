@@ -6,14 +6,14 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 15:33:48 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/03 12:20:59 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/11 01:58:19 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
 static t_error	parse_line(char ***token_array, char **current_line,
-													t_scene *scene, t_mlx *mlx)
+																t_main *main)
 {
 	t_type		token;
 	t_error		error;
@@ -28,7 +28,7 @@ static t_error	parse_line(char ***token_array, char **current_line,
 		return (MALLOC_ERR);
 	if ((token = get_sub_parser(*token_array[0])) == TYPE_ERROR)
 		return (WRONG_ELEM_ERR);
-	if ((error = select_sub_parser(token, *token_array, scene, mlx))
+	if ((error = select_sub_parser(token, *token_array, main))
 		!= NO_ERROR)
 		return (error);
 	free_array((void*)*token_array);
@@ -36,7 +36,7 @@ static t_error	parse_line(char ***token_array, char **current_line,
 	return (NO_ERROR);
 }
 
-static t_error	parser(int fd, t_scene *scene, t_mlx *mlx)
+static t_error	parser(int fd, t_main *main)
 {
 	int			ret_gnl;
 	t_error		error;
@@ -46,11 +46,11 @@ static t_error	parser(int fd, t_scene *scene, t_mlx *mlx)
 	current_line = NULL;
 	while ((ret_gnl = get_next_line(fd, &current_line)) > 0)
 	{
-		if ((error = parse_line(&token_array, &current_line, scene, mlx))
+		if ((error = parse_line(&token_array, &current_line, main))
 			!= NO_ERROR)
 			return (error);
 	}
-	if (!scene->cam_lst)
+	if (!main->scene.cam_lst)
 		return (NB_CAM_ERR);
 	if (ret_gnl == -1)
 		return (READ_ERR);
@@ -58,8 +58,7 @@ static t_error	parser(int fd, t_scene *scene, t_mlx *mlx)
 	return (NO_ERROR);
 }
 
-t_error			open_and_parse_file(int ac, char **av, t_scene *scene,
-																	t_mlx *mlx)
+t_error			open_and_parse_file(int ac, char **av, t_main *main)
 {
 	int			fd;
 	t_error		ret;
@@ -68,7 +67,7 @@ t_error			open_and_parse_file(int ac, char **av, t_scene *scene,
 		return (ret);
 	if ((fd = open(av[1], O_RDONLY)) != -1)
 	{
-		if ((ret = parser(fd, scene, mlx)))
+		if ((ret = parser(fd, main)))
 			return (ret);
 		close(fd);
 	}

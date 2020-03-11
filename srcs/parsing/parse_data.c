@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 15:05:52 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/26 22:30:55 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/04 16:41:05 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,18 @@ t_bool		parse_color(char *color_str, t_color *color)
 
 t_bool		parse_length(char *length_str, double *length)
 {
+	char	*tmp;
+
+	tmp = length_str;
+	while (ft_isdigit(*tmp))
+		tmp++;
+	if (*tmp == '.')
+		tmp++;
+	while (ft_isdigit(*tmp))
+		tmp++;
+	if (*tmp)
+		return (FALSE);
 	*length = ft_atod(length_str);
-	while (*length_str)
-	{
-		if (!ft_isdigit(*length_str) && *length_str != '.')
-			return (FALSE);
-		length_str++;
-	}
 	return (TRUE);
 }
 

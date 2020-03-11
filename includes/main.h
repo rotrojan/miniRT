@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_cylinder.c                                   :+:      :+:    :+:   */
+/*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/01 06:25:35 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/09 04:02:03 by rotrojan         ###   ########.fr       */
+/*   Created: 2020/03/10 05:56:14 by rotrojan          #+#    #+#             */
+/*   Updated: 2020/03/11 00:43:42 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef MAIN_H
+# define MAIN_H
+# include "minirt.h"
 
-t_error		parse_cylinder(char **token_array, t_scene *scene)
+typedef struct	s_main
 {
-	(void)token_array;
-	(void)scene;
-	return (NO_ERROR);
-}
+	t_mlx	mlx;
+	t_scene scene;
+}				t_main;
+
+#endif

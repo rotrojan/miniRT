@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 13:04:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/25 22:09:37 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/11 00:53:36 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,6 @@
 /*
 ** Libc functions.
 */
-
-typedef struct	s_list
-{
-	void			*content;
-	struct s_list	*next;
-}				t_list;
 
 void			*ft_memset(void *b, int c, size_t len);
 void			ft_bzero(void *b, size_t n);
@@ -77,6 +71,12 @@ int				get_next_line(int fd, char **line);
 /*
 ** Chained linked lists functions.
 */
+
+typedef struct	s_list
+{
+	void			*content;
+	struct s_list	*next;
+}				t_list;
 
 t_list			*ft_lstnew(void *content);
 void			ft_lstadd_front(t_list **alst, t_list *elem);

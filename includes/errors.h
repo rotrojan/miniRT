@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:48:35 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/03 12:17:42 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/10 03:53:36 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@
 # define LIGHT_POS_ERR_STR "Light position not well formatted."
 # define LIGHT_INTENS_ERR_STR "Light intensity not well formatted."
 # define NB_CAM_ERR_STR "There must be at least one camera."
+# define BMP_ERR_STR "There must be at least one camera."
+# define MLX_HOOKS_ERR_STR "Hooks initialization failure."
 
 typedef enum	e_error
 {
@@ -70,7 +72,9 @@ typedef enum	e_error
 	LIGHT_ERR,
 	LIGHT_POS_ERR,
 	LIGHT_INTENS_ERR,
-	NB_CAM_ERR
+	NB_CAM_ERR,
+	BMP_ERR,
+	MLX_HOOKS_ERR
 }				t_error;
 
 #endif

@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 02:53:19 by rotrojan          #+#    #+#              #
-#    Updated: 2020/02/25 18:39:44 by rotrojan         ###   ########.fr        #
+#    Updated: 2020/03/11 01:07:02 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,7 @@ INCLUDES_DIR	=	./includes/
 OBJS_DIR		=	./.objs/
 
 CFLAGS			+=	-Wall -Wextra -Werror -MMD
-CXXFLAGS		+=	${INCLUDES_DIR:%=-I%} -g3
+CXXFLAGS		+=	${INCLUDES_DIR:%=-I%}# -g3 -fsanitize=address
 
 NAME			=	libft.a
 

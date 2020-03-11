@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 07:07:14 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/03 08:37:28 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/11 01:53:08 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ t_type		get_sub_parser(char *first_token)
 	return (TYPE_ERROR);
 }
 
-t_error		select_sub_parser(t_type type, char **token_array, t_scene *scene,
-																	t_mlx *mlx)
+t_error		select_sub_parser(t_type type, char **token_array, t_main *main)
 {
 	static t_error		(*sub_parser[])(char**, t_scene*) = {
 		NULL,
@@ -63,6 +62,6 @@ t_error		select_sub_parser(t_type type, char **token_array, t_scene *scene,
 	};
 
 	if (type == RESOLUTION)
-		return (parse_resolution(token_array, mlx));
-	return (sub_parser[type](token_array, scene));
+		return (parse_resolution(token_array, &main->mlx));
+	return (sub_parser[type](token_array, &main->scene));
 }

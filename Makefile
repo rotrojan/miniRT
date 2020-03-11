@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2020/03/03 11:13:59 by rotrojan         ###   ########.fr        #
+#    Updated: 2020/03/11 10:03:13 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRCS			=	main.c mlx_utils.c mlx_hooks.c						\
 					parse_sphere.c parse_plane.c parse_cylinder.c		\
 					parse_square.c parse_triangle.c						\
 																		\
-					ray_tracer.c utils.c intersection.c
+					ray_tracer.c utils.c intersection.c screenshot.c
 
 OBJS			:=	${SRCS:%.c=${OBJS_DIR}%.o}
 

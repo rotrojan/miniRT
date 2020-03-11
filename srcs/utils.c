@@ -6,22 +6,24 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 17:19:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/03 12:17:39 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/10 03:57:08 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void		del(void *content)
-{
-	free(content);
-}
+/*
+** void		cam(void *content)
+** {
+** 	free(content);
+** }
+*/
 
 void		free_scene(t_scene *scene)
 {
-	ft_lstclear(&scene->cam_lst, del);
-	ft_lstclear(&scene->light_lst, del);
-	ft_lstclear(&scene->obj_lst, del);
+	ft_lstclear(&scene->cam_lst, &free);
+	ft_lstclear(&scene->light_lst, &free);
+	ft_lstclear(&scene->obj_lst, &free);
 }
 
 t_error		return_error(t_error num_error)
@@ -54,7 +56,9 @@ t_error		return_error(t_error num_error)
 		LIGHT_ERR_STR,
 		LIGHT_POS_ERR_STR,
 		LIGHT_INTENS_ERR_STR,
-		NB_CAM_ERR_STR
+		NB_CAM_ERR_STR,
+		BMP_ERR_STR,
+		MLX_HOOKS_ERR_STR
 	};
 
 	ft_putendl_fd("Error", STDERR_FILENO);

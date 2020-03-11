@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/21 02:29:13 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/01 04:33:36 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/09 04:11:57 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ int		ft_strcmp(char const *s1, char const *s2)
 		s1++;
 		s2++;
 	}
-	return (*s1 - *s2);
+	return (*(unsigned char*)s1 - *(unsigned char*)s2);
 }

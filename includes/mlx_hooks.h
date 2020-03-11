@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_cylinder.c                                   :+:      :+:    :+:   */
+/*   mlx_hooks.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/01 06:25:35 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/09 04:02:03 by rotrojan         ###   ########.fr       */
+/*   Created: 2020/03/11 01:27:03 by rotrojan          #+#    #+#             */
+/*   Updated: 2020/03/11 01:46:15 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#ifndef MLX_HOOKS_H
+# define MLX_HOOKS_H
+# include "minirt.h"
 
-t_error		parse_cylinder(char **token_array, t_scene *scene)
-{
-	(void)token_array;
-	(void)scene;
-	return (NO_ERROR);
-}
+/*
+** mlx_hooks.c
+*/
+
+t_bool				run_mlx(t_main *main);
+int					set_mlx_hooks(t_main *main);
+int					close_mlx(t_mlx *mlx);
+
+#endif

@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 17:26:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/03 08:42:14 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/10 05:49:51 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ typedef struct	s_nb_elem
 ** parser.c
 */
 
-t_error			open_and_parse_file(int ac, char **av, t_scene *scene,
-																	t_mlx *mlx);
+t_error			open_and_parse_file(int ac, char **av, t_main *main);
 
 /*
 ** parse_utils.c
@@ -35,7 +34,7 @@ t_error			open_and_parse_file(int ac, char **av, t_scene *scene,
 t_error			check_args(int ac, char **av);
 t_type			get_sub_parser(char *first_token);
 t_error			select_sub_parser(t_type type, char **token_array,
-													t_scene *scene, t_mlx *mlx);
+																t_main *main);
 
 /*
 ** parse_data.c
