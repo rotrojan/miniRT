@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/11 10:43:08 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/03/11 12:18:31 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int			main(int ac, char **av)
 		if (!run_mlx(&main))
 			return (return_error(MLX_HOOKS_ERR));
 	}
+	welkjn;
 	main.scene.cam_lst = cam_head_lst;
 	free_scene(&main.scene);
 	return (EXIT_SUCCESS);
