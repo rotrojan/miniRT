@@ -96,7 +96,7 @@ t_bool		ray_tracer(t_main *main)
 //				n = normalized_vector(closest_intersection - closest_obj->position);
 //				lambert = fmin(1, dot_vectors(n, normalized_vector(((t_light*)scene->
 //					light_lst->content)->position - closest_intersection)));
-					color_sixel[0] = closest_obj->color[0] /** lambert*/;
+					color_pixel[0] = closest_obj->color[0] /** lambert*/;
 					color_pixel[1] = closest_obj->color[1] /** lambert*/;
 					color_pixel[2] = closest_obj->color[2] /** lambert*/;
 					put_pixel(&main->mlx, i, j, color_pixel);
