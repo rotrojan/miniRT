@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/11 11:29:38 by rotrojan         ###   ########.fr       */
+/*   Updated: 2020/07/30 11:36:35 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@
 # define WIN_X_MAX 2560
 # define WIN_Y_MAX 1395
 
+/*
+** Linux Compatibility
+*/
+
+#define XK_MISCELLANY
+#include <X11/keysymdef.h>
+#include <X11/Xlib.h>
 /*
 ** ray_tracer.c
 */

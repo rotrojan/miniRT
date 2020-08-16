@@ -11,6 +11,8 @@
 
 #include "minirt.h"
 
+
+
 t_ray	init_ray_direction(int i, int j, t_main *main)
 {
 	t_ray		current_ray;
@@ -72,9 +74,8 @@ t_bool		ray_tracer(t_main *main)
 	t_vector	closest_intersection;
 	t_object	*closest_obj;
 	t_list		*current_cam;
-
-	//	t_vector	n;
-	//	double		lambert;
+	t_vector	n;
+	double		lambert;
 
 	i = 0;
 	j = 0;
@@ -86,19 +87,16 @@ t_bool		ray_tracer(t_main *main)
 		{
 			while (i < main->mlx.win_width)
 			{
-
 				current = init_ray_direction(i, j, main);
-//			t = 0.0;
+				t = 0.0;
 				if ((closest_obj = get_closest_intersection(&current, &main->scene, &t)))
 				{
 					closest_intersection = current.origin + t * current.direction;
-
-//				n = normalized_vector(closest_intersection - closest_obj->position);
-//				lambert = fmin(1, dot_vectors(n, normalized_vector(((t_light*)scene->
-//					light_lst->content)->position - closest_intersection)));
-					color_sixel[0] = closest_obj->color[0] /** lambert*/;
-					color_pixel[1] = closest_obj->color[1] /** lambert*/;
-					color_pixel[2] = closest_obj->color[2] /** lambert*/;
+					n = normalized_vector(closest_intersection - closest_obj->position);
+					lambert = fmax(0, fmin(1, dot_vectors(n, normalized_vector(((t_light*)main->scene.light_lst->content)->position - closest_intersection))));
+					color_pixel[0] = closest_obj->color[0] * lambert;
+					color_pixel[1] = closest_obj->color[1] * lambert;
+					color_pixel[2] = closest_obj->color[2] * lambert;
 					put_pixel(&main->mlx, i, j, color_pixel);
 				}
 				i++;

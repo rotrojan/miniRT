@@ -6,14 +6,14 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2020/03/11 10:03:13 by rotrojan         ###   ########.fr        #
+#    Updated: 2020/07/28 14:11:16 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES:
 SRCS_DIR		=	./srcs/
 OBJS_DIR		=	./.objs/
-INCLUDES_DIR	=	./includes/ ${LIBS:%=lib%/includes} /usr/local/include
+INCLUDES_DIR	=	./includes/ ${LIBS:%=lib%/includes} /usr/X11/include
 SRCS			=	main.c mlx_utils.c mlx_hooks.c						\
 																		\
 					parser.c parse_utils.c								\
@@ -35,10 +35,11 @@ CC				=	clang
 MKDIR			=	mkdir -p
 
 LIBS			=	ft vectors
-FRAMEWORKS		=	OpenGL AppKit
+#FRAMEWORKS		=	OpenGL AppKit
 
 CFLAGS			+=	-Wall -Wextra -MMD#-Werror
-LDFLAGS			+=	${FRAMEWORKS:%=-framework %} -L /usr/local/lib -lmlx
+#LDFLAGS			+=	${FRAMEWORKS:%=-framework %} -L /usr/X11/lib -lmlx
+LDFLAGS			+=	-L /usr/X11/lib -lmlx -lXext -lX11
 CXXFLAGS		+=	${INCLUDES_DIR:%=-I%} -g3 -fsanitize=address
 
 vpath %.c ${SRCS_DIR} ${SRCS_DIR}parsing ${SRCS_DIR}mlx
