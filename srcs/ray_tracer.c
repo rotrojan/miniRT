@@ -11,16 +11,47 @@
 
 #include "minirt.h"
 
-
+t_matrix *look_at(t_vector from, t_vector to)
+{ 
+	t_vector tmp;
+	t_vector forward;
+	t_vector right;
+	t_vector up;
+	t_matrix *cam_to_world;
+ 
+	tmp = get_vector(0, 1, 0);
+	forward = norm_vector(from - to);
+	right = dot_vectors(norm_vector(tmp), forward);
+	up = dot_vectors(forward, right);
+	if (!(cam_to_world = (t_matrix*)malloc(sizeof(t_vector*))))
+		return (NULL);
+	cam_to_world[0]->x = right[0];
+	cam_to_world[0]->y = right[1];
+	cam_to_world[0]->z = right[2];
+	/* printf("YOLOOOOOOOOOOOOOOOOOOOOOOO\n"); */
+	cam_to_world[1]->x = up[0];
+	cam_to_world[1]->y = up[1];
+	cam_to_world[1]->z = up[2];
+	cam_to_world[2]->x = forward[0];
+	cam_to_world[2]->y = forward[1];
+	cam_to_world[2]->z = forward[2];
+	cam_to_world[3]->x = from[0];
+	cam_to_world[3]->y = from[1];
+	cam_to_world[3]->z = from[2];
+	return (cam_to_world);
+} 
 
 t_ray	init_ray_direction(int i, int j, t_main *main)
 {
 	t_ray		current_ray;
 	t_camera	*cam;
+	t_matrix	*cam_to_world;
 //	static int	index_cam = 0;
 
 	cam = (t_camera*)main->scene.cam_lst->content;
 	current_ray.origin = cam->position;
+	if (!(cam_to_world = look_at(cam->position, cam->orientation)))
+		return_error(MALLOC_ERR);
 //	if (!((&scene->camera)[index_cam]))
 //		index_cam = 0;
 	current_ray.direction.x = (2.0 * ((i + 0.5) / main->mlx.win_width) - 1.0)
@@ -83,6 +114,7 @@ t_bool		ray_tracer(t_main *main)
 	current_cam = main->scene.cam_lst;
 	while (current_cam)
 	{
+		
 		while (j < main->mlx.win_height)
 		{
 			while (i < main->mlx.win_width)

@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 02:53:19 by rotrojan          #+#    #+#              #
-#    Updated: 2020/03/03 03:16:06 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/01/12 14:22:34 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ DEPENDENCIES	=	${OBJS:.o=.d}
 INCLUDES_DIR	=	./includes/
 OBJS_DIR		=	./.objs/
 
-CFLAGS			+=	-Wall -Wextra -Werror -MMD
+CFLAGS			+=	-Wall -Wextra -Werror -MMD -mavx
 CXXFLAGS		+=	${INCLUDES_DIR:%=-I%} -g3
 
 NAME			=	libvectors.a
