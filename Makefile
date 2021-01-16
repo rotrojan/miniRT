@@ -6,14 +6,14 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/01/12 15:09:36 by bigo             ###   ########.fr        #
+#    Updated: 2021/01/16 12:12:29 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES:
 SRCS_DIR		=	./srcs/
 OBJS_DIR		=	./.objs/
-INCLUDES_DIR	=	./includes/ ${LIBS:%=lib%/includes} /usr/include/X11/mlx/
+INCLUDES_DIR	=	./includes/ ${LIBS:%=lib%/includes}# /usr/include/X11/mlx/
 SRCS			=	main.c mlx_utils.c mlx_hooks.c						\
 																		\
 					parser.c parse_utils.c								\
@@ -35,11 +35,12 @@ CC				=	clang
 MKDIR			=	mkdir -p
 
 LIBS			=	ft vectors
-#FRAMEWORKS		=	OpenGL AppKit
+FRAMEWORKS		=	OpenGL AppKit
 
 CFLAGS			+=	-Wall -Wextra -MMD -mavx# -Werror
 #LDFLAGS			+=	${FRAMEWORKS:%=-framework %} -L /usr/local/lib -lmlx
-LDFLAGS			+=	/usr/lib/X11/libmlx.a -lm -lXext -lX11
+LDFLAGS			+=	-L ./minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit
+#LDFLAGS			+=	/usr/lib/X11/libmlx.a -lm -lXext -lX11
 CXXFLAGS		+=	${INCLUDES_DIR:%=-I%} #-g3 -fsanitize=address
 
 vpath %.c ${SRCS_DIR} ${SRCS_DIR}parsing ${SRCS_DIR}mlx
@@ -52,7 +53,7 @@ all				:
 ${NAME}			:	${OBJS} ${LIBS:%=lib%.a}
 	${CC} -o $@ $^ ${LDFLAGS} ${CXXFLAGS}
 
--include ${DEPENDENCIES}
+#-include ${DEPENDENCIES}
 ${OBJS_DIR}%.o	:	%.c | ${OBJS_DIR}
 	${CC} ${CFLAGS} -c $< ${CXXFLAGS} -o $@
 

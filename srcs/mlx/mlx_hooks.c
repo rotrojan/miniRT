@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 21:26:38 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/07/30 11:36:43 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/16 12:10:35 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static int		key_hook(int key, t_main *main)
 {
-	if (key == XK_Escape)
+	/* if (key == XK_Escape) */
+	if (key == ESC_KEY)
 		close_mlx(&main->mlx);
 	return (0);
 }
@@ -23,7 +24,8 @@ int				set_mlx_hooks(t_main *main)
 {
 	if (!(mlx_key_hook(main->mlx.win_ptr, &key_hook, main)))
 		return (1);
-	if (!(mlx_hook(main->mlx.win_ptr, DestroyNotify, StructureNotifyMask, &close_mlx,
+	/* if (!(mlx_hook(main->mlx.win_ptr, DestroyNotify, StructureNotifyMask, &close_mlx, */
+	if (!(mlx_hook(main->mlx.win_ptr, DESTROYNOTIFY, STRUCTURENOTIFYMASK, &close_mlx,
 		main)))
 		return (1);
 	if (!(mlx_loop_hook(main->mlx.win_ptr, NULL, NULL)))

@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/07/30 11:36:35 by user42           ###   ########.fr       */
+/*   Updated: 2021/01/16 12:08:53 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@
 ** Linux Compatibility
 */
 
-#define XK_MISCELLANY
-#include <X11/keysymdef.h>
-#include <X11/Xlib.h>
+// #define XK_MISCELLANY
+// #include <X11/keysymdef.h>
+// #include <X11/Xlib.h>
+
 /*
 ** ray_tracer.c
 */

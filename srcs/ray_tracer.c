@@ -50,8 +50,8 @@ t_ray	init_ray_direction(int i, int j, t_main *main)
 
 	cam = (t_camera*)main->scene.cam_lst->content;
 	current_ray.origin = cam->position;
-	if (!(cam_to_world = look_at(cam->position, cam->orientation)))
-		return_error(MALLOC_ERR);
+	/* if (!(cam_to_world = look_at(cam->position, cam->orientation))) */
+		/* return_error(MALLOC_ERR); */
 //	if (!((&scene->camera)[index_cam]))
 //		index_cam = 0;
 	current_ray.direction.x = (2.0 * ((i + 0.5) / main->mlx.win_width) - 1.0)
