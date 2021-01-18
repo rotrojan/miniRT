@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/01/16 12:12:29 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/01/18 11:41:13 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,12 +36,17 @@ MKDIR			=	mkdir -p
 
 LIBS			=	ft vectors
 FRAMEWORKS		=	OpenGL AppKit
-
-CFLAGS			+=	-Wall -Wextra -MMD -mavx# -Werror
+CFLAGS			+=	-Wall -Wextra -MMD # -Werror
 #LDFLAGS			+=	${FRAMEWORKS:%=-framework %} -L /usr/local/lib -lmlx
-LDFLAGS			+=	-L ./minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit
-#LDFLAGS			+=	/usr/lib/X11/libmlx.a -lm -lXext -lX11
 CXXFLAGS		+=	${INCLUDES_DIR:%=-I%} #-g3 -fsanitize=address
+
+OS				=	$(shell uname)
+ifeq (${OS}, Darwin)
+LDFLAGS			+=	-L ./minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit
+endif
+ifeq (${OS}, Linux)
+LDFLAGS			+=	-L ./minilibx-linux -lm -lXext -lX11
+endif
 
 vpath %.c ${SRCS_DIR} ${SRCS_DIR}parsing ${SRCS_DIR}mlx
 vpath %.a ${LIBS:%=lib%}
@@ -50,15 +55,19 @@ all				:
 	@$(foreach LIB, ${LIBS}, echo '\x1b[33m' building lib${LIB}'\x1b[0m'; ${MAKE} -j -C lib${LIB};)
 	@${MAKE} -j ${NAME}
 
-${NAME}			:	${OBJS} ${LIBS:%=lib%.a}
+${NAME}			:	${OBJS} ${LIBS:%=lib%.a} mlx
 	${CC} -o $@ $^ ${LDFLAGS} ${CXXFLAGS}
 
-#-include ${DEPENDENCIES}
+# -include ${DEPENDENCIES}
 ${OBJS_DIR}%.o	:	%.c | ${OBJS_DIR}
 	${CC} ${CFLAGS} -c $< ${CXXFLAGS} -o $@
 
 lib%.a			:
 	@${MAKE} -j -C ${@:%.a=%}
+
+mlx				:
+	@${MAKE} -j -C ${@:%.a=%}
+
 
 ${OBJS_DIR}		:
 	${MKDIR} ${OBJS_DIR}

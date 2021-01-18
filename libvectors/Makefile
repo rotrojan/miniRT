@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 02:53:19 by rotrojan          #+#    #+#              #
-#    Updated: 2021/01/12 14:22:34 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/01/18 10:36:11 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 SRCS_DIR		=	./srcs/
 SRCS 			=	normalized_vector.c norm_square_vector.c get_vector.c	\
-					norm_vector.c dot_vectors.c
+					norm_vector.c dot_vectors.c cross_vectors.c
 OBJS			=	${SRCS:%.c=${OBJS_DIR}%.o}
 DEPENDENCIES	=	${OBJS:.o=.d}
 
