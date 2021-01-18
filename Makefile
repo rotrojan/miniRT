@@ -6,14 +6,14 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/01/18 11:41:13 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/01/18 15:18:37 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES:
 SRCS_DIR		=	./srcs/
 OBJS_DIR		=	./.objs/
-INCLUDES_DIR	=	./includes/ ${LIBS:%=lib%/includes}# /usr/include/X11/mlx/
+INCLUDES_DIR	=	./includes/ ${LIBS:%=lib%/includes}
 SRCS			=	main.c mlx_utils.c mlx_hooks.c						\
 																		\
 					parser.c parse_utils.c								\
@@ -27,7 +27,7 @@ SRCS			=	main.c mlx_utils.c mlx_hooks.c						\
 
 OBJS			:=	${SRCS:%.c=${OBJS_DIR}%.o}
 
-NAME			=	minirt
+NAME			=	miniRT
 
 DEPENDENCIES	=	${OBJS:.o=.d}
 
@@ -36,44 +36,51 @@ MKDIR			=	mkdir -p
 
 LIBS			=	ft vectors
 FRAMEWORKS		=	OpenGL AppKit
-CFLAGS			+=	-Wall -Wextra -MMD # -Werror
-#LDFLAGS			+=	${FRAMEWORKS:%=-framework %} -L /usr/local/lib -lmlx
-CXXFLAGS		+=	${INCLUDES_DIR:%=-I%} #-g3 -fsanitize=address
+CFLAGS			+=	-Wall -Wextra -MMD #-Werror
+CXXFLAGS		+=	${INCLUDES_DIR:%=-I%}
 
 OS				=	$(shell uname)
 ifeq (${OS}, Darwin)
-LDFLAGS			+=	-L ./minilibx_opengl_20191021 -lmlx -framework OpenGL -framework AppKit
+MLX_DIR				=	./minilibx_opengl_20191021/
+OS_FLAGS			+=	${FRAMEWORKS:%=-framework %}
 endif
 ifeq (${OS}, Linux)
-LDFLAGS			+=	-L ./minilibx-linux -lm -lXext -lX11
+MLX_DIR				=	./minilibx-linux/
+OS_FLAGS			+=	-lm -lXext -lX11
 endif
+LDFLAGS			+=	-L ${MLX_DIR} -lmlx ${OS_FLAGS}
+MLX					= ${MLX_DIR}libmlx.a
 
 vpath %.c ${SRCS_DIR} ${SRCS_DIR}parsing ${SRCS_DIR}mlx
-vpath %.a ${LIBS:%=lib%}
+vpath %.a ${LIBS:%=lib%} ${MLX_DIR}
 
 all				:
 	@$(foreach LIB, ${LIBS}, echo '\x1b[33m' building lib${LIB}'\x1b[0m'; ${MAKE} -j -C lib${LIB};)
+	@echo '\x1b[33m' building ${MLX}'\x1b[0m';
+	CFLAGS+="-Wno-deprecated-declarations" ${MAKE} -j -C ${MLX_DIR}
 	@${MAKE} -j ${NAME}
 
-${NAME}			:	${OBJS} ${LIBS:%=lib%.a} mlx
+${NAME}			:	${OBJS} ${LIBS:%=lib%.a} ${MLX}
 	${CC} -o $@ $^ ${LDFLAGS} ${CXXFLAGS}
 
-# -include ${DEPENDENCIES}
 ${OBJS_DIR}%.o	:	%.c | ${OBJS_DIR}
 	${CC} ${CFLAGS} -c $< ${CXXFLAGS} -o $@
 
 lib%.a			:
 	@${MAKE} -j -C ${@:%.a=%}
 
-mlx				:
-	@${MAKE} -j -C ${@:%.a=%}
+${MLX}			:
+	@CFLAGS+="-Wno-deprecated-declarations" ${MAKE} -j -C ${MLX_DIR}
 
+debug			:
+	@CFLAGS+="-g3 -fsanitize=address" ${MAKE} ${NAME}
 
 ${OBJS_DIR}		:
 	${MKDIR} ${OBJS_DIR}
 
 clean			:
 	@$(foreach LIB, ${LIBS}, ${MAKE} clean -C lib${LIB};)
+	${MAKE} clean -C ${MLX_DIR}
 	${RM} -r ${OBJS_DIR}
 
 fclean			:
