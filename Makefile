@@ -6,40 +6,40 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/01/18 16:34:05 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/01/19 12:32:24 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .SUFFIXES:
-SRCS_DIR		=	./srcs/
-OBJS_DIR		=	./.objs/
-INCLUDES_DIR	=	./includes/ ${LIBS:%=lib%/includes}
-SRCS			=	main.c mlx_utils.c mlx_hooks.c						\
-																		\
-					parser.c parse_utils.c								\
-					parse_data.c										\
-					parse_resolution.c parse_ambient.c					\
-					parse_camera.c parse_light.c						\
-					parse_sphere.c parse_plane.c parse_cylinder.c		\
-					parse_square.c parse_triangle.c						\
-																		\
-					ray_tracer.c utils.c intersection.c screenshot.c
+SRCS_DIR			=	./srcs/
+OBJS_DIR			=	./.objs/
+INCLUDES_DIR		=	./includes/ ${LIBS:%=lib%/includes}
+SRCS				=	main.c mlx_utils.c mlx_hooks.c						\
+																			\
+						parser.c parse_utils.c								\
+						parse_data.c										\
+						parse_resolution.c parse_ambient.c					\
+						parse_camera.c parse_light.c						\
+						parse_sphere.c parse_plane.c parse_cylinder.c		\
+						parse_square.c parse_triangle.c						\
+																			\
+						ray_tracer.c utils.c intersection.c screenshot.c
 
-OBJS			:=	${SRCS:%.c=${OBJS_DIR}%.o}
+OBJS				:=	${SRCS:%.c=${OBJS_DIR}%.o}
 
-NAME			=	miniRT
+NAME				=	miniRT
 
-DEPENDENCIES	=	${OBJS:.o=.d}
+DEPENDENCIES		=	${OBJS:.o=.d}
 
-CC				=	clang
-MKDIR			=	mkdir -p
+CC					=	clang
+MKDIR				=	mkdir -p
 
-LIBS			=	ft vectors
-FRAMEWORKS		=	OpenGL AppKit
-CFLAGS			+=	-Wall -Wextra -MMD #-Werror
-CXXFLAGS		+=	${INCLUDES_DIR:%=-I%}
+LIBS				=	ft vectors
+FRAMEWORKS			=	OpenGL AppKit
+CFLAGS				+=	-Wall -Wextra -MMD #-Werror
+CXXFLAGS			+=	${INCLUDES_DIR:%=-I%}
 
-OS				=	$(shell uname)
+OS					=	$(shell uname)
 ifeq (${OS}, Darwin)
 MLX_DIR				=	./minilibx_opengl_20191021/
 OS_FLAGS			+=	${FRAMEWORKS:%=-framework %}
@@ -48,7 +48,10 @@ ifeq (${OS}, Linux)
 MLX_DIR				=	./minilibx-linux/
 OS_FLAGS			+=	-lm -lXext -lX11
 endif
-LDFLAGS			+=	-L ${MLX_DIR} -lmlx ${OS_FLAGS}
+LDFLAGS				+=	-L ${MLX_DIR} -lmlx ${OS_FLAGS}
+DEBUGFLAGS			=	-g3 -fsanitize=address
+NODEPRECATEDFLAGS	= 	-Wno-deprecated-declarations
+
 MLX					= ${MLX_DIR}libmlx.a
 
 vpath %.c ${SRCS_DIR} ${SRCS_DIR}parsing ${SRCS_DIR}mlx
@@ -57,7 +60,7 @@ vpath %.a ${LIBS:%=lib%} ${MLX_DIR}
 all				:
 	@$(foreach LIB, ${LIBS}, echo '\x1b[33m' building lib${LIB}'\x1b[0m'; ${MAKE} -j -C lib${LIB};)
 	@echo '\x1b[33m' building ${MLX}'\x1b[0m';
-	CFLAGS+="-Wno-deprecated-declarations" ${MAKE} -j -C ${MLX_DIR}
+	CFLAGS+="${NODEPRECATEDFLAGS}" ${MAKE} -j -C ${MLX_DIR}
 	@${MAKE} -j ${NAME}
 
 ${NAME}			:	${OBJS} ${LIBS:%=lib%.a} ${MLX}
@@ -70,10 +73,11 @@ lib%.a			:
 	@${MAKE} -j -C ${@:%.a=%}
 
 ${MLX}			:
-	@CFLAGS+="-Wno-deprecated-declarations" ${MAKE} -j -C ${MLX_DIR}
+	@CFLAGS+="${NODEPRECATEDFLAGS}" ${MAKE} -j -C ${MLX_DIR}
 
 debug			:
-	@CFLAGS+="-g3 -fsanitize=address" ${MAKE} ${NAME}
+	@${MAKE} fclean
+	@CXXFLAGS+="${DEBUGFLAGS}" ${MAKE} all
 
 ${OBJS_DIR}		:
 	${MKDIR} ${OBJS_DIR}

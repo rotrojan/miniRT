@@ -45,7 +45,7 @@ t_ray	init_ray_direction(int i, int j, t_main *main)
 {
 	t_ray		current_ray;
 	t_camera	*cam;
-	t_matrix	*cam_to_world;
+	/* t_matrix	*cam_to_world; */
 //	static int	index_cam = 0;
 
 	cam = (t_camera*)main->scene.cam_lst->content;
