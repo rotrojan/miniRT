@@ -6,11 +6,10 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/01/19 12:32:24 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/01/19 12:56:04 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.SUFFIXES:
 SRCS_DIR			=	./srcs/
 OBJS_DIR			=	./.objs/
 INCLUDES_DIR		=	./includes/ ${LIBS:%=lib%/includes}
@@ -36,7 +35,7 @@ MKDIR				=	mkdir -p
 
 LIBS				=	ft vectors
 FRAMEWORKS			=	OpenGL AppKit
-CFLAGS				+=	-Wall -Wextra -MMD #-Werror
+CFLAGS				+=	-Wall -Wextra -MMD -mavx#-Werror
 CXXFLAGS			+=	${INCLUDES_DIR:%=-I%}
 
 OS					=	$(shell uname)
