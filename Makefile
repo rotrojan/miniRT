@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/01/21 11:39:45 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/01/21 13:21:59 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,6 @@ SRCS				=	main.c mlx_utils.c mlx_hooks.c						\
 						parse_square.c parse_triangle.c						\
 																			\
 						ray_tracer.c utils.c intersection.c screenshot.c
-
 OBJS				:=	${SRCS:%.c=${OBJS_DIR}%.o}
 
 NAME				=	miniRT
