@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/01/19 13:16:06 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/01/21 11:39:45 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,6 @@ SRCS_DIR			=	./srcs/
 OBJS_DIR			=	./.objs/
 INCLUDES_DIR		=	./includes/ ${LIBS:%=lib%/includes}
 SRCS				=	main.c mlx_utils.c mlx_hooks.c						\
-																			\
 						parser.c parse_utils.c								\
 						parse_data.c										\
 						parse_resolution.c parse_ambient.c					\
@@ -59,7 +58,7 @@ vpath %.a ${LIBS:%=lib%} ${MLX_DIR}
 all				:
 	@$(foreach LIB, ${LIBS}, echo '\x1b[33m' building lib${LIB}'\x1b[0m'; ${MAKE} -j -C lib${LIB};)
 	@echo '\x1b[33m' building ${MLX}'\x1b[0m';
-	CFLAGS+="${NODEPRECATEDFLAGS}" ${MAKE} -j -C ${MLX_DIR}
+	CFLAGS+="${NODEPRECATEDFLAGS}" ${MAKE} -C ${MLX_DIR}
 	@${MAKE} -j ${NAME}
 
 ${NAME}			:	${OBJS} ${LIBS:%=lib%.a} ${MLX}
