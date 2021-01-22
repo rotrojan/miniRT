@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:58:44 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/11 00:35:55 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/01/22 14:04:44 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct		s_ambient
 
 typedef struct		s_camera
 {
-	t_vector		position;
 	t_vector		orientation;
 	double			fov;
 }					t_camera;

@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/01/13 12:14:26 by bigo             ###   ########.fr       */
+/*   Updated: 2021/01/22 16:55:43 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ void	print_objs(t_scene *scene)
 	{
 		printf("== Camera == {%p}\n", current);
 		printf("position : x = %f, y = %f, z = %f\n",
-			((t_camera*)current->content)->position.x,
-			((t_camera*)current->content)->position.y,
-			((t_camera*)current->content)->position.z);
+			((t_object*)current->content)->position.x,
+			((t_object*)current->content)->position.y,
+			((t_object*)current->content)->position.z);
 		printf("orientation : x = %f, y = %f, z = %f\n",
 			((t_camera*)current->content)->orientation.x,
 			((t_camera*)current->content)->orientation.y,

@@ -13,61 +13,57 @@
 
 void	print_matrix(t_matrix mat)
 {
-	printf("%f %f %f %f\n", mat[0][0], mat[0][1], mat[0][2], mat[0][3]);
-	printf("%f %f %f %f\n", mat[1][0], mat[1][1], mat[1][2], mat[1][3]);
-	printf("%f %f %f %f\n", mat[2][0], mat[2][1], mat[2][2], mat[2][3]);
-	printf("%f %f %f %f\n\n", mat[3][0], mat[3][1], mat[3][2], mat[3][3]);
+	printf("%.3f %.3f %.3f %.3f\n", mat[0][0], mat[0][1], mat[0][2], mat[0][3]);
+	printf("%.3f %.3f %.3f %.3f\n", mat[1][0], mat[1][1], mat[1][2], mat[1][3]);
+	printf("%.3f %.3f %.3f %.3f\n", mat[2][0], mat[2][1], mat[2][2], mat[2][3]);
+	printf("%.3f %.3f %.3f %.3f\n\n", mat[3][0], mat[3][1], mat[3][2], mat[3][3]);
 }
 
-t_matrix *look_at(t_vector from, t_vector to)
+void	look_at(t_vector from, t_vector to, t_matrix *cam_to_world)
 { 
 	t_vector tmp;
 	t_vector forward;
 	t_vector right;
 	t_vector up;
-	t_matrix *cam_to_world;
  
 	tmp = get_vector(0, 1, 0);
 	forward = norm_vector(from - to);
 	right = cross_vectors(norm_vector(tmp), forward);
 	up = cross_vectors(forward, right);
-	if (!(cam_to_world = (t_matrix*)malloc(sizeof(t_matrix))))
-		return (NULL);
 	*cam_to_world[0][0] = right.x;
 	*cam_to_world[0][1] = right.y;
 	*cam_to_world[0][2] = right.z;
+	*cam_to_world[0][3] = 0;
 	*cam_to_world[1][0] = up.x;
 	*cam_to_world[1][1] = up.y;
 	*cam_to_world[1][2] = up.z;
+	*cam_to_world[1][3] = 0;
 	*cam_to_world[2][0] = forward[0];
 	*cam_to_world[2][1] = forward[1];
 	*cam_to_world[2][2] = forward[2];
+	*cam_to_world[2][3] = 0;
 	*cam_to_world[3][0] = from[0];
 	*cam_to_world[3][1] = from[1];
 	*cam_to_world[3][2] = from[2];
-	*cam_to_world[0][3] = 0;
-	*cam_to_world[1][3] = 0;
-	*cam_to_world[2][3] = 0;
 	*cam_to_world[3][3] = 1;
 	print_matrix(*cam_to_world);
-	return (cam_to_world);
 } 
 
 t_ray	init_ray_direction(int i, int j, t_main *main)
 {
 	t_ray		current_ray;
-	t_camera	*cam;
+	t_object	*cam;
 //	static int	index_cam = 0;
 
-	cam = (t_camera*)main->scene.cam_lst->content;
+	cam = (t_object*)main->scene.cam_lst->content;
 	current_ray.origin = cam->position;
 //	if (!((&scene->camera)[index_cam]))
 //		index_cam = 0;
 	current_ray.direction.x = (2.0 * ((i + 0.5) / main->mlx.win_width) - 1.0)
 		* ((double)main->mlx.win_width / main->mlx.win_height)
-		* tan((cam->fov * M_PI / 180.0) / 2.0);
+		* tan((cam->obj_prop.camera.fov * M_PI / 180.0) / 2.0);
 	current_ray.direction.y = (1.0 - 2.0 * ((j + 0.5) / main->mlx.win_height))
-		* tan((cam->fov * M_PI / 180.0) / 2.0);
+		* tan((cam->obj_prop.camera.fov * M_PI / 180.0) / 2.0);
 	current_ray.direction.z = -1.0;
 	current_ray.direction = normalized_vector(current_ray.direction);
 	return (current_ray);
@@ -123,11 +119,18 @@ t_bool		ray_tracer(t_main *main)
 	j = 0;
 	ft_bzero(&color_pixel, sizeof(color_pixel));
 	cam_to_world = NULL;
+	cam_to_world = (t_matrix*)malloc(sizeof(t_matrix));
+	if (cam_to_world == NULL)
+		return (TRUE);
 	current_cam = main->scene.cam_lst;
 	while (current_cam)
 	{
-		if (!(cam_to_world = look_at(((t_object*)current_cam->content)->position,
-			((t_object*)current_cam->content)->obj_prop.camera.orientation)))
+		printf("position cam = %f %f %f\n", ((t_object*)current_cam->content)->position.x, ((t_object*)current_cam->content)->position.y, ((t_object*)current_cam->content)->position.z);
+		printf("orientation cam = %f %f %f\n", ((t_object*)current_cam->content)->obj_prop.camera.orientation.x, ((t_object*)current_cam->content)->obj_prop.camera.orientation.y, ((t_object*)current_cam->content)->obj_prop.camera.orientation.z);
+	printf("yolo\n");
+		look_at(((t_object*)current_cam->content)->position,
+			((t_object*)current_cam->content)->obj_prop.camera.orientation,
+			cam_to_world);
 			return_error(MALLOC_ERR);
 		/* print_matrix(*cam_to_world); */
 		
