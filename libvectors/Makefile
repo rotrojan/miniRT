@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 02:53:19 by rotrojan          #+#    #+#              #
-#    Updated: 2021/01/18 10:36:11 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/01/21 13:41:18 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 SRCS_DIR		=	./srcs/
 SRCS 			=	normalized_vector.c norm_square_vector.c get_vector.c	\
-					norm_vector.c dot_vectors.c cross_vectors.c
+					norm_vector.c dot_vectors.c cross_vectors.c vec_matrix.c
 OBJS			=	${SRCS:%.c=${OBJS_DIR}%.o}
 DEPENDENCIES	=	${OBJS:.o=.d}
 
@@ -24,7 +24,7 @@ INCLUDES_DIR	=	./includes/
 OBJS_DIR		=	./.objs/
 
 CFLAGS			+=	-Wall -Wextra -Werror -MMD -mavx
-CXXFLAGS		+=	${INCLUDES_DIR:%=-I%} -g3
+CXXFLAGS		+=	${INCLUDES_DIR:%=-I%}
 
 NAME			=	libvectors.a
 

@@ -6,13 +6,13 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/01/21 13:21:59 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/01/26 13:44:26 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_DIR			=	./srcs/
 OBJS_DIR			=	./.objs/
-INCLUDES_DIR		=	./includes/ ${LIBS:%=lib%/includes}
+INCLUDES_DIR		=	./includes/ ${LIBS:%=./lib%/includes/} ${MLX_DIR}
 SRCS				=	main.c mlx_utils.c mlx_hooks.c						\
 						parser.c parse_utils.c								\
 						parse_data.c										\
@@ -53,10 +53,11 @@ MLX					= ${MLX_DIR}libmlx.a
 
 vpath %.c ${SRCS_DIR} ${SRCS_DIR}parsing ${SRCS_DIR}mlx
 vpath %.a ${LIBS:%=lib%} ${MLX_DIR}
+vpath %.h ${INCLUDES_DIR}
 
 all				:
-	@$(foreach LIB, ${LIBS}, echo '\x1b[33m' building lib${LIB}'\x1b[0m'; ${MAKE} -j -C lib${LIB};)
-	@echo '\x1b[33m' building ${MLX}'\x1b[0m';
+	@$(foreach LIB, ${LIBS}, echo '\x1b[33m'building lib${LIB}'\x1b[0m'; ${MAKE} -j -C lib${LIB};)
+	@echo '\x1b[33m'building ${MLX}'\x1b[0m';
 	CFLAGS+="${NODEPRECATEDFLAGS}" ${MAKE} -C ${MLX_DIR}
 	@${MAKE} -j ${NAME}
 
@@ -67,10 +68,10 @@ ${OBJS_DIR}%.o	:	%.c | ${OBJS_DIR}
 	${CC} ${CFLAGS} -c $< ${CXXFLAGS} -o $@
 
 lib%.a			:
-	@${MAKE} -j -C ${@:%.a=%}
+	@${MAKE} -j -C  ${@:%.a=%}
 
-${MLX}			:
-	@CFLAGS+="${NODEPRECATEDFLAGS}" ${MAKE} -j -C ${MLX_DIR}
+libmlx.a			:
+	@CFLAGS+="${NODEPRECATEDFLAGS}" CC="clang" ${MAKE} -j -C ${MLX_DIR}
 
 debug			:
 	@${MAKE} fclean

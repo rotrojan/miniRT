@@ -6,11 +6,11 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 14:21:59 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/01/19 14:38:47 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/01/22 11:20:38 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.h"
+#include "vectors.h"
 
 t_vector	vector_matrix(t_vector vec, t_matrix mtrx)
 {
