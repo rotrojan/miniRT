@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/01/26 14:21:12 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/01/27 16:21:48 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ MKDIR				=	mkdir -p
 
 LIBS				=	ft vectors
 FRAMEWORKS			=	OpenGL AppKit
-CFLAGS				+=	-Wall -Wextra -MMD -mavx#-Werror
+CFLAGS				+=	-Wall -Wextra -MMD #-Werror
 CXXFLAGS			+=	${INCLUDES_DIR:%=-I%}
 
 OS					=	$(shell uname)
@@ -58,7 +58,7 @@ vpath %.h ${INCLUDES_DIR}
 all				:
 	@$(foreach LIB, ${LIBS}, echo '\x1b[33m'building lib${LIB}'\x1b[0m'; ${MAKE} -j -C lib${LIB};)
 	@echo '\x1b[33m'building ${MLX}'\x1b[0m';
-	CFLAGS+="${NODEPRECATEDFLAGS}" ${MAKE} -C ${MLX_DIR}
+	CFLAGS+="${NODEPRECATEDFLAGS}" CC="clang" ${MAKE} -C ${MLX_DIR}
 	@${MAKE} -j ${NAME}
 
 ${NAME}			:	${OBJS} ${LIBS:%=lib%.a} ${MLX}

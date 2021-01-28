@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:58:44 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/01/22 14:04:44 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/01/27 16:45:28 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 # define OBJECTS_H
 # include "minirt.h"
 
-typedef t_vector	t_color;
+typedef struct	s_color
+{
+	double		r;
+	double		g;
+	double		b;
+}				t_color;
 
 typedef enum		e_type
 {

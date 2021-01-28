@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:03:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/11 01:48:00 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/01/27 16:50:19 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void	put_pixel(t_mlx *mlx, int x, int y, t_color color)
 
 	if ((x >= mlx->win_width && x < 0) || (y >= mlx->win_height && y < 0))
 		return ;
-	final_color = ((((int)(color[0] * 255) << 8)
-		| (int)(color[1] * 255)) << 8) | (int)(color[2] * 255);
+	final_color = ((((int)(color.r * 255) << 8)
+		| (int)(color.g * 255)) << 8) | (int)(color.b * 255);
 	pixel_array = (void*)mlx->data;
 	*pixel_array[y][x] = final_color;
 }

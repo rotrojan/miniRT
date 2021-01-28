@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/01/22 16:55:43 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/01/27 16:47:10 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	print_objs(t_scene *scene)
 
 	printf("== Ambient ==\n");
 	printf("Intensity = %f\n", scene->ambient.ratio);
-	printf("Color = %f,%f,%f\n", scene->ambient.color[0],
-		scene->ambient.color[1], scene->ambient.color[2]);
+	printf("Color = %f,%f,%f\n", scene->ambient.color.r,
+		scene->ambient.color.g, scene->ambient.color.b);
 	printf("\n");
 	current = scene->cam_lst;
 	while (current)
@@ -53,9 +53,9 @@ void	print_objs(t_scene *scene)
 		printf("intensity : %f\n",
 			((t_light*)current->content)->intensity);
 		printf("Color = %f,%f,%f\n",
-			((t_light*)current->content)->color[0],
-			((t_light*)current->content)->color[1],
-			((t_light*)current->content)->color[2]);
+			((t_light*)current->content)->color.r,
+			((t_light*)current->content)->color.g,
+			((t_light*)current->content)->color.b);
 		printf("\n");
 		current = current->next;
 	}
@@ -72,9 +72,9 @@ void	print_objs(t_scene *scene)
 			printf("radius : %f\n",
 				((t_object*)current->content)->obj_prop.sphere.radius);
 			printf("Color = %f,%f,%f\n",
-				((t_object*)current->content)->color[0],
-				((t_object*)current->content)->color[1],
-				((t_object*)current->content)->color[2]);
+				((t_object*)current->content)->color.r,
+				((t_object*)current->content)->color.g,
+				((t_object*)current->content)->color.b);
 			printf("\n");
 		}
 		current = current->next;
@@ -92,7 +92,6 @@ int			main(int ac, char **av)
 	cam_head_lst = main.scene.cam_lst;
 	if ((ret = open_and_parse_file(ac, av, &main)) != NO_ERROR)
 		return (return_error(ret));
-	print_objs(&main.scene);
 	init_mlx(&main.mlx);
 	ray_tracer(&main);
 	if (ac == 3)

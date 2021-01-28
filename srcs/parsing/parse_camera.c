@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:22:10 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/01/22 16:30:05 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/01/27 17:25:29 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,11 @@ t_error				parse_camera(char **token_array, t_scene *scene)
 
 	if (!token_array[1] || !token_array[2] || !token_array[3] || token_array[4])
 		return (CAM_ERR);
-	if (!(camera = malloc(sizeof(t_object))))
+	camera = NULL;
+	if (!(camera = (t_object*)malloc(sizeof(*camera))))
 		return (MALLOC_ERR);
-	if (!(parse_vector(token_array[1], &camera->position)))
+	ft_bzero(camera, sizeof(*camera));
+	if (!(parse_vector(token_array[1], &(camera->position))))
 		return (free_and_return(CAM_POS_ERR, camera));
 	if (!(parse_orientation(token_array[2], &camera->obj_prop.camera.orientation)))
 		return (free_and_return(CAM_ORIENT_ERR, camera));

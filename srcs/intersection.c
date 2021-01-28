@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 00:39:08 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/03 01:06:07 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/01/27 17:15:52 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_bool		sphere_intersection(t_ray *current, t_object *sphere, double *t)
 	double		t0;
 	double		t1;
 
-	dist = sphere->position - current->origin;
+	dist = sub_vectors(sphere->position, current->origin);
 	b = dot_vectors(current->direction, dist);
 	discr = b * b - dot_vectors(dist, dist) + sphere->obj_prop.sphere.radius
 		* sphere->obj_prop.sphere.radius;

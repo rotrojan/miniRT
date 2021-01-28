@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/01/16 12:08:53 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/01/26 14:42:52 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@
 ** ray_tracer.c
 */
 
-t_bool	ray_tracer(t_main *main);
+t_error	ray_tracer(t_main *main);
 
 /*
 ** intersection.c
