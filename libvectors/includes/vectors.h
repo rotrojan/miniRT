@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 10:17:21 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/01/27 17:28:02 by bigo             ###   ########.fr       */
+/*   Updated: 2021/01/28 15:50:56 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 # define VECTORS_H
 # include <math.h>
 
-typedef struct	s_vector
+typedef struct s_vector
 {
 	double	x;
 	double	y;
 	double	z;
 }				t_vector;
 
-typedef double		t_matrix[4][4];
+typedef double		t_matrix[16];
 
 t_vector			add_vectors(t_vector vec1, t_vector vec2);
 t_vector			sub_vectors(t_vector vec1, t_vector vec2);

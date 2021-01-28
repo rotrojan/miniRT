@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/03 17:24:52 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/02/25 22:10:16 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/01/28 12:59:20 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_vector	get_vector(double x, double y, double z)
 {
-	t_vector vec;
+	t_vector	vec;
 
 	vec.x = x;
 	vec.y = y;
