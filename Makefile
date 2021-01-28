@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/01/27 16:21:48 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/01/28 08:33:15 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,6 @@ DEPENDENCIES		=	${OBJS:.o=.d}
 
 CC					=	clang
 MKDIR				=	mkdir -p
-
 LIBS				=	ft vectors
 FRAMEWORKS			=	OpenGL AppKit
 CFLAGS				+=	-Wall -Wextra -MMD #-Werror
