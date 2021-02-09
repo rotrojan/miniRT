@@ -6,35 +6,42 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 15:05:52 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/01/27 16:52:11 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/04 17:19:13 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+t_bool		parse_coordinate(char **point_str, double *coordinate)
+{
+	char	*ptr;
+
+	ptr = *point_str;
+	if (!(ft_isdigit(*ptr) ||
+		((*ptr == '+' || *ptr == '-'|| *ptr == '.') && ft_isdigit(*(ptr + 1)))))
+		return (FALSE);
+	while (ft_isdigit(*ptr) || *ptr == '+' || *ptr == '-' || *ptr == '.')
+		ptr++;
+	if (*ptr && *ptr != ',')
+		return (FALSE);
+	*coordinate = ft_atod(*point_str);
+	if (!*ptr)
+		*point_str = ptr;
+	else
+		*point_str = ++ptr;
+	return (TRUE);
+}
+
 t_bool		parse_vector(char *point_str, t_vector *point)
 {
-	point->x = ft_atod(point_str);
-	while (ft_isdigit(*point_str)
-		|| *point_str == '+' || *point_str == '-' || *point_str == '.')
-		point_str++;
-	if (*point_str != ',')
+	if (!parse_coordinate(&point_str, &(point->x)))
 		return (FALSE);
-	point_str++;
-	point->y = ft_atod(point_str);
-	while (ft_isdigit(*point_str)
-		|| *point_str == '+' || *point_str == '-' || *point_str == '.')
-		point_str++;
-	if (*point_str != ',')
+	if (!parse_coordinate(&point_str, &(point->y)))
 		return (FALSE);
-	point_str++;
-	point->z = ft_atod(point_str);
-	while (ft_isdigit(*point_str)
-		|| *point_str == '+' || *point_str == '-' || *point_str == '.')
-		point_str++;
+	if (!parse_coordinate(&point_str, &(point->z)))
+		return (FALSE);
 	if (*point_str)
 		return (FALSE);
-	/* point_str++; */
 	return (TRUE);
 }
 

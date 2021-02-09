@@ -11,63 +11,70 @@
 
 #include "minirt.h"
 
-void	print_matrix(t_matrix mat)
+/* void	print_matrix(t_matrix mat) */
+/* { */
+	/* printf("%.3f %.3f %.3f %.3f\n", mat[0], mat[1], mat[2], mat[3]); */
+	/* printf("%.3f %.3f %.3f %.3f\n", mat[4], mat[5], mat[6], mat[7]); */
+	/* printf("%.3f %.3f %.3f %.3f\n", mat[8], mat[9], mat[10], mat[11]); */
+	/* printf("%.3f %.3f %.3f %.3f\n", mat[12], mat[13], mat[14], mat[15]); */
+	/* printf("\n"); */
+/* } */
+
+
+void	set_coordinate_system(t_vector *forward, t_vector *right, t_vector *up,
+		t_vector *cam_orientation)
 {
-	printf("%.3f %.3f %.3f %.3f\n", mat[0], mat[1], mat[2], mat[3]);
-	printf("%.3f %.3f %.3f %.3f\n", mat[4], mat[5], mat[6], mat[7]);
-	printf("%.3f %.3f %.3f %.3f\n", mat[8], mat[9], mat[10], mat[11]);
-	printf("%.3f %.3f %.3f %.3f\n", mat[12], mat[13], mat[14], mat[15]);
-	printf("\n");
+	t_vector tmp;
+
+	*forward = normalized_vector(*cam_orientation);
+	forward->x *= -1;
+	forward->y *= -1;
+	forward->z *= -1;
+	if (cam_orientation->x == 0 && (cam_orientation->y == -1
+		|| cam_orientation->y == 1) && cam_orientation->z == 0)
+		*right = get_vector(1, 0, 0);
+	else
+	{
+		tmp = get_vector(0, 1, 0);
+		*right = cross_vectors(tmp, *forward);
+	}
+	*up = cross_vectors(*forward, *right);
 }
 
-void	look_at(t_vector from, t_vector to, t_matrix *cam_to_world)
+void	look_at(t_object *cam, t_matrix *cam_to_world)
 { 
-	t_vector tmp;
 	t_vector forward;
 	t_vector right;
 	t_vector up;
- 
-	tmp = get_vector(0, 1, 0);
-	forward = normalized_vector(sub_vectors(from, to));
-	right = cross_vectors(normalized_vector(tmp), forward);
-	up = cross_vectors(forward, right);
+
+	set_coordinate_system(&forward, &right, &up,
+		&cam->obj_prop.camera.orientation);
 	(*cam_to_world)[0] = right.x;
 	(*cam_to_world)[1] = right.y;
 	(*cam_to_world)[2] = right.z;
-	(*cam_to_world)[3] = 0;
-	(*cam_to_world)[4] = up.x;
-	(*cam_to_world)[5] = up.y;
-	(*cam_to_world)[6] = up.z;
-	(*cam_to_world)[7] = 0;
-	(*cam_to_world)[8] = forward.x;
-	(*cam_to_world)[9] = forward.y;
-	(*cam_to_world)[10] = forward.z;
-	(*cam_to_world)[11] = 0;
-	(*cam_to_world)[12] = from.x;
-	(*cam_to_world)[13] = from.y;
-	(*cam_to_world)[14] = from.z;
-	(*cam_to_world)[15] = 1;
+	(*cam_to_world)[3] = up.x;
+	(*cam_to_world)[4] = up.y;
+	(*cam_to_world)[5] = up.z;
+	(*cam_to_world)[6] = forward.x;
+	(*cam_to_world)[7] = forward.y;
+	(*cam_to_world)[8] = forward.z;
 } 
 
 t_ray	init_ray_direction(int i, int j, t_main *main, t_matrix *cam_to_world)
 {
 	t_ray		current_ray;
 	t_object	*cam;
-//	static int	index_cam = 0;
 
 	cam = (t_object*)main->scene.cam_lst->content;
-	current_ray.origin = cam->position;
-	/* current_ray.origin = get_vector(0, 0, 0); */
-	/* if (!((&scene->camera)[index_cam])) */
-//		index_cam = 0;
+	current_ray.origin = ((t_object*)main->scene.cam_lst->content)->position;
 	current_ray.direction.x = (2.0 * ((i + 0.5) / main->mlx.win_width) - 1.0)
 		* ((double)main->mlx.win_width / main->mlx.win_height)
 		* tan((cam->obj_prop.camera.fov * M_PI / 180.0) / 2.0);
 	current_ray.direction.y = (1.0 - 2.0 * ((j + 0.5) / main->mlx.win_height))
 		* tan((cam->obj_prop.camera.fov * M_PI / 180.0) / 2.0);
 	current_ray.direction.z = -1.0;
-	current_ray.direction = normalized_vector(current_ray.direction);
 	current_ray.direction = vec_matrix(current_ray.direction, *cam_to_world);
+	current_ray.direction = normalized_vector(current_ray.direction);
 	return (current_ray);
 }
 
@@ -88,13 +95,11 @@ t_object	*get_closest_intersection(t_ray *current, t_scene *scene, double *t)
 	{
 		type_obj = ((t_object*)current_link->content)->obj_type;
 		if (intersection[type_obj](current, (t_object*)current_link->content, t))
-		{
 			if (*t < t_closest_obj)
 			{
 				t_closest_obj = *t;
 				closest_obj = (t_object*)current_link->content;
 			}
-		}
 		current_link = current_link->next;
 	}
 	if (t_closest_obj == INFINITY)
@@ -126,18 +131,7 @@ t_error		ray_tracer(t_main *main)
 	current_cam = main->scene.cam_lst;
 	while (current_cam)
 	{
-		printf("position cam = %f %f %f\n",
-			((t_object*)current_cam->content)->position.x,
-			((t_object*)current_cam->content)->position.y,
-			((t_object*)current_cam->content)->position.z);
-		printf("orientation cam = %f %f %f\n",
-			((t_object*)current_cam->content)->obj_prop.camera.orientation.x,
-			((t_object*)current_cam->content)->obj_prop.camera.orientation.y,
-			((t_object*)current_cam->content)->obj_prop.camera.orientation.z);
-		look_at(((t_object*)current_cam->content)->position,
-			((t_object*)current_cam->content)->obj_prop.camera.orientation,
-			cam_to_world);
-		print_matrix(*cam_to_world);
+		look_at((t_object*)current_cam->content, cam_to_world);
 		while (j < main->mlx.win_height)
 		{
 			while (i < main->mlx.win_width)
@@ -157,6 +151,7 @@ t_error		ray_tracer(t_main *main)
 					lambert = fmax(0, fmin(1, dot_vectors(n, normalized_vector(
 						sub_vectors(((t_light*)main->scene.light_lst->content)
 							->position, closest_intersection)))));
+					/* lambert = 1; */
 					color_pixel.r = closest_obj->color.r * lambert;
 					color_pixel.g = closest_obj->color.g * lambert;
 					color_pixel.b = closest_obj->color.b * lambert;

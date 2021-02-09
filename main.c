@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/01/27 16:47:10 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/03 12:39:41 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int			main(int ac, char **av)
 	cam_head_lst = main.scene.cam_lst;
 	if ((ret = open_and_parse_file(ac, av, &main)) != NO_ERROR)
 		return (return_error(ret));
+	print_objs(&main.scene);
 	init_mlx(&main.mlx);
 	ray_tracer(&main);
 	if (ac == 3)
@@ -102,15 +103,15 @@ int			main(int ac, char **av)
 	}
 	else
 	{
-		main.scene.cam_lst = main.scene.cam_lst->next;
-		if (!main.scene.cam_lst)
-			main.scene.cam_lst = cam_head_lst;
+		/* main.scene.cam_lst = main.scene.cam_lst->next; */
+		/* if (!main.scene.cam_lst) */
+			/* main.scene.cam_lst = cam_head_lst; */
 		mlx_put_image_to_window(main.mlx.mlx_ptr, main.mlx.win_ptr,
 			main.mlx.img_ptr, 0, 0);
 		if (!run_mlx(&main))
 			return (return_error(MLX_HOOKS_ERR));
 	}
-	main.scene.cam_lst = cam_head_lst;
+	/* main.scene.cam_lst = cam_head_lst; */
 	free_scene(&main.scene);
 	return (EXIT_SUCCESS);
 }

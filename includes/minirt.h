@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/01/26 14:42:52 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/01 18:11:36 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@
 # define WIN_X_MAX 2560
 # define WIN_Y_MAX 1395
 
-/*
-** Linux Compatibility
-*/
-
-// #define XK_MISCELLANY
-// #include <X11/keysymdef.h>
-// #include <X11/Xlib.h>
+typedef struct	s_quadratic
+{
+	double a;
+	double b;
+	double c;
+	double x0;
+	double x1;
+}				t_quadratic;
 
 /*
 ** ray_tracer.c

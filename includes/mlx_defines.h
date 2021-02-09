@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:15:34 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/07/30 10:37:53 by user42           ###   ########.fr       */
+/*   Updated: 2021/02/03 14:50:43 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,33 +91,61 @@
 /*
 ** Letters keys
 */
-
-# define A_KEY 0
-# define B_KEY 11
-# define C_KEY 8
-# define D_KEY 2
-# define E_KEY 14
-# define F_KEY 3
-# define G_KEY 5
-# define H_KEY 4
-# define I_KEY 34
-# define J_KEY 38
-# define K_KEY 40
-# define L_KEY 37
-# define M_KEY 46
-# define N_KEY 45
-# define O_KEY 31
-# define P_KEY 35
-# define Q_KEY 12
-# define R_KEY 15
-# define S_KEY 1
-# define T_KEY 17
-# define U_KEY 32
-# define V_KEY 9
-# define W_KEY 13
-# define X_KEY 7
-# define Y_KEY 16
-# define Z_KEY 6
+# ifdef MACOS
+#  define A_KEY 0
+#  define B_KEY 11
+#  define C_KEY 8
+#  define D_KEY 2
+#  define E_KEY 14
+#  define F_KEY 3
+#  define G_KEY 5
+#  define H_KEY 4
+#  define I_KEY 34
+#  define J_KEY 38
+#  define K_KEY 40
+#  define L_KEY 37
+#  define M_KEY 46
+#  define N_KEY 45
+#  define O_KEY 31
+#  define P_KEY 35
+#  define Q_KEY 12
+#  define R_KEY 15
+#  define S_KEY 1
+#  define T_KEY 17
+#  define U_KEY 32
+#  define V_KEY 9
+#  define W_KEY 13
+#  define X_KEY 7
+#  define Y_KEY 16
+#  define Z_KEY 6
+# else
+#  define A_KEY 97
+#  define B_KEY 98
+#  define C_KEY 99
+#  define D_KEY 100
+#  define E_KEY 101
+#  define F_KEY 102
+#  define G_KEY 103
+#  define H_KEY 104
+#  define I_KEY 105
+#  define J_KEY 106
+#  define K_KEY 107
+#  define L_KEY 108
+#  define M_KEY 109
+#  define N_KEY 110
+#  define O_KEY 111
+#  define P_KEY 112
+#  define Q_KEY 113
+#  define R_KEY 114
+#  define S_KEY 115
+#  define T_KEY 116
+#  define U_KEY 117
+#  define V_KEY 118
+#  define W_KEY 119
+#  define X_KEY 120
+#  define Y_KEY 121
+#  define Z_KEY 122
+# endif
 
 /*
 ** Numbers (not numeric keypad ones)
@@ -187,15 +215,20 @@
 # define F17_KEY 64
 # define F18_KEY 79
 # define F19_KEY 80
-
 /*
 ** Arrow keys
 */
-
-# define UP_KEY 126
-# define DOWN_KEY 125
-# define RIGHT_KEY 124
-# define LEFT_KEY 123
+# ifdef MACOS
+#  define UP_KEY 126
+#  define DOWN_KEY 125
+#  define RIGHT_KEY 124
+#  define LEFT_KEY 123
+# else
+#  define UP_KEY 65362
+#  define DOWN_KEY 65364
+#  define RIGHT_KEY 65363
+#  define LEFT_KEY 65361
+# endif
 
 /*
 ** Special keys
@@ -211,7 +244,11 @@
 ** CLR_KEY is the clear key
 */
 
-# define ESC_KEY 53
+# ifdef MACOS
+#  define ESC_KEY 53
+# else
+#  define ESC_KEY 65307
+# endif
 # define TAB_KEY 48
 # define CL_KEY 272
 # define LSFT_KEY 257

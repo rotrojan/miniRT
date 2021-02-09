@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/01/28 08:33:15 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/01/29 14:18:12 by bigo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ CC					=	clang
 MKDIR				=	mkdir -p
 LIBS				=	ft vectors
 FRAMEWORKS			=	OpenGL AppKit
-CFLAGS				+=	-Wall -Wextra -MMD #-Werror
+CFLAGS				+=	-Wall -Wextra -MMD#-Werror
 CXXFLAGS			+=	${INCLUDES_DIR:%=-I%}
 
 OS					=	$(shell uname)

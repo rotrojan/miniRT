@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:13:57 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/03 10:41:19 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/02/04 16:50:35 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ t_error				parse_light(char **token_array, t_scene *scene)
 
 	if (!token_array[1] || !token_array[2] || !token_array[3] || token_array[4])
 		return (LIGHT_ERR);
-	if (!(light = malloc(sizeof(t_light))))
+	if (!(light = (t_light*)malloc(sizeof(t_light))))
 		return (MALLOC_ERR);
-	if (!(parse_vector(token_array[1], &light->position)))
+	if (!(parse_vector(token_array[1], &(light->position))))
 	{
 		free(light);
 		return (LIGHT_POS_ERR);
