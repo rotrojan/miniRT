@@ -129,55 +129,41 @@ t_error		ray_tracer(t_main *main)
 	if (cam_to_world == NULL)
 		return (return_error(MALLOC_ERR));
 	current_cam = main->scene.cam_lst;
-	while (current_cam)
+	look_at((t_object*)current_cam->content, cam_to_world);
+	while (j < main->mlx.win_height)
 	{
-		look_at((t_object*)current_cam->content, cam_to_world);
-		while (j < main->mlx.win_height)
+		while (i < main->mlx.win_width)
 		{
-			while (i < main->mlx.win_width)
+			current = init_ray_direction(i, j, main, cam_to_world);
+			t = 0.0;
+			if ((closest_obj = get_closest_intersection(&current,
+				&main->scene, &t)))
 			{
-				current = init_ray_direction(i, j, main, cam_to_world);
-				t = 0.0;
-				if ((closest_obj = get_closest_intersection(&current,
-					&main->scene, &t)))
-				{
-					closest_intersection
-						= add_vectors(current.origin, get_vector(
-							t * current.direction.x,
-							t * current.direction.y,
-							t * current.direction.z));
-					n = normalized_vector(sub_vectors(
-						closest_intersection, closest_obj->position));
-					lambert = fmax(0, fmin(1, dot_vectors(n, normalized_vector(
-						sub_vectors(((t_light*)main->scene.light_lst->content)
-							->position, closest_intersection)))));
-					/* lambert = 1; */
-					color_pixel.r = closest_obj->color.r * lambert;
-					color_pixel.g = closest_obj->color.g * lambert;
-					color_pixel.b = closest_obj->color.b * lambert;
-					put_pixel(&main->mlx, i, j, color_pixel);
-				}
-				i++;
+				closest_intersection
+					= add_vectors(current.origin, get_vector(
+						t * current.direction.x,
+						t * current.direction.y,
+						t * current.direction.z));
+				n = normalized_vector(sub_vectors(
+					closest_intersection, closest_obj->position));
+				lambert = fmax(0, fmin(1, dot_vectors(n, normalized_vector(
+					sub_vectors(((t_light*)main->scene.light_lst->content)
+						->position, closest_intersection)))));
+				/* lambert = 1; */
+				color_pixel.r = closest_obj->color.r * lambert;
+				color_pixel.g = closest_obj->color.g * lambert;
+				color_pixel.b = closest_obj->color.b * lambert;
+				put_pixel(&main->mlx, i, j, color_pixel);
 			}
-			i = 0;
-			j++;
+			i++;
 		}
+		i = 0;
+		j++;
+	}
+	if (cam_to_world)
+	{
 		free(cam_to_world);
-		current_cam = current_cam->next;
+		cam_to_world = NULL;
 	}
 	return (NO_ERROR);
 }
-/*
-void	browse_images(t_scene *scene, t_mlx *mlx);
-{
-	t_list	current_cam;
-
-	current_cam = scene->cam_lst;
-	while (current_cam)
-	{
-		ray_tracer()
-		current_cam = current_cam->next;
-	}
-
-}
-*/

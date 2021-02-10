@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 15:33:48 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/04 16:48:10 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/10 16:35:18 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static t_error	parser(int fd, t_main *main)
 	if (ret_gnl == -1)
 		return (READ_ERR);
 	free(current_line);
+	ft_lstlast(main->scene.cam_lst)->next = main->scene.cam_lst;
+	main->scene.cam_lst = main->scene.cam_lst->next;
 	return (NO_ERROR);
 }
 

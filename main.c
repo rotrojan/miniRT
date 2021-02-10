@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/03 12:39:41 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/10 15:54:56 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	print_objs(t_scene *scene)
 		scene->ambient.color.g, scene->ambient.color.b);
 	printf("\n");
 	current = scene->cam_lst;
-	while (current)
-	{
+	/* while (current) */
+	/* { */
 		printf("== Camera == {%p}\n", current);
 		printf("position : x = %f, y = %f, z = %f\n",
 			((t_object*)current->content)->position.x,
@@ -41,7 +41,7 @@ void	print_objs(t_scene *scene)
 		printf("fov : %f\n", ((t_camera*)current->content)->fov);
 		printf("\n");
 		current = current->next;
-	}
+	/* } */
 	current = scene->light_lst;
 	while (current)
 	{
