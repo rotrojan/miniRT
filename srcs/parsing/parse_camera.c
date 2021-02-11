@@ -6,18 +6,11 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:22:10 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/04 17:18:52 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/11 17:16:19 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static t_error		free_and_return(t_error error, t_object *camera)
-{
-	free(camera);
-	camera = NULL;
-	return (error);
-}
 
 static t_bool		check_fov(char *fov_str)
 {

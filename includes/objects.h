@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:58:44 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/01/27 16:45:28 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/11 13:49:36 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct		s_sphere
 
 typedef struct		s_plane
 {
-	t_vector		position;
+	t_vector		normal;
 }					t_plane;
 
 typedef struct		s_square

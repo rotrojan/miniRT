@@ -11,6 +11,25 @@
 
 #include "minirt.h"
 
+void	print_camera(t_scene *scene)
+{
+	t_list *current;
+
+	current = scene->cam_lst;
+	printf("== Camera == {%p}\n", current);
+	printf("position : x = %f, y = %f, z = %f\n",
+		((t_object*)current->content)->position.x,
+		((t_object*)current->content)->position.y,
+		((t_object*)current->content)->position.z);
+	printf("orientation : x = %f, y = %f, z = %f\n",
+		((t_object*)current->content)->obj_prop.camera.orientation.x,
+		((t_object*)current->content)->obj_prop.camera.orientation.y,
+		((t_object*)current->content)->obj_prop.camera.orientation.z);
+	printf("fov : %f\n", ((t_camera*)current->content)->fov);
+	printf("\n");
+	current = current->next;
+}
+
 /* void	print_matrix(t_matrix mat) */
 /* { */
 	/* printf("%.3f %.3f %.3f %.3f\n", mat[0], mat[1], mat[2], mat[3]); */
@@ -19,7 +38,6 @@
 	/* printf("%.3f %.3f %.3f %.3f\n", mat[12], mat[13], mat[14], mat[15]); */
 	/* printf("\n"); */
 /* } */
-
 
 void	set_coordinate_system(t_vector *forward, t_vector *right, t_vector *up,
 		t_vector *cam_orientation)
@@ -124,6 +142,7 @@ t_error		ray_tracer(t_main *main)
 	i = 0;
 	j = 0;
 	ft_bzero(&color_pixel, sizeof(color_pixel));
+	print_camera(&main->scene);
 	cam_to_world = NULL;
 	cam_to_world = (t_matrix*)malloc(sizeof(t_matrix));
 	if (cam_to_world == NULL)

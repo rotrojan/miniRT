@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 00:39:08 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/09 15:18:45 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/11 18:13:43 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,18 @@ t_bool		sphere_intersection(t_ray *current, t_object *sphere, double *t)
 
 t_bool		plane_intersection(t_ray *current, t_object *plane, double *t)
 {
-	(void)current;
-	(void)plane;
-	(void)t;
-	return (TRUE);
+	double		denom;
+	t_vector	diff;
+
+	denom = dot_vectors(plane->obj_prop.plane.normal, current->direction);
+	if (fabs(denom) > 0.0001)
+	{
+		diff =  sub_vectors(plane->position, current->origin); 
+		*t = dot_vectors(diff, plane->obj_prop.plane.normal) / denom;
+		if (*t > 0.0001)
+			return (TRUE);
+	}
+	return (FALSE);
 }
 
 t_bool		square_intersection(t_ray *current, t_object *square, double *t)

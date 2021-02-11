@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:48:35 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/10 03:53:36 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/02/11 17:37:07 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 # define SP_COL_FMT_ERR_STR "Sphere color not well formatted."
 # define SP_LEN_FMT_ERR_STR "Sphere radius not well formatted."
 # define SP_FMT_ERR_STR "Sphere not well formatted."
+# define PL_POS_FMT_ERR_STR "Plane position not well formatted."
+# define PL_COL_FMT_ERR_STR "Plane color not well formatted."
+# define PL_ORIENT_FMT_ERR_STR "Plane orientation not well formatted."
+# define PL_FMT_ERR_STR "Plane not well formatted."
 # define RES_X_FMT_ERR_STR "Resolution width not well formatted."
 # define RES_Y_FMT_ERR_STR "Resolution height not well formatted."
 # define RES_TWICE_ERR_STR "Resolution can only be set once."
@@ -57,6 +61,10 @@ typedef enum	e_error
 	SP_COL_FMT_ERR,
 	SP_LEN_FMT_ERR,
 	SP_FMT_ERR,
+	PL_POS_FMT_ERR,
+	PL_COL_FMT_ERR,
+	PL_ORIENT_FMT_ERR,
+	PL_FMT_ERR,
 	RES_X_FMT_ERR,
 	RES_Y_FMT_ERR,
 	RES_TWICE_ERR,

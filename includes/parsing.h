@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 17:26:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/10 05:49:51 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/02/11 17:00:02 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ t_error			select_sub_parser(t_type type, char **token_array,
 ** parse_data.c
 */
 
+t_error		free_and_return(t_error error, t_object *object);
 t_bool			parse_vector(char *point_str, t_vector *point);
 t_bool			parse_color(char *color_str, t_color *color);
 t_bool			parse_length(char *length_str, double *length);

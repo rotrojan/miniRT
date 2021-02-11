@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/10 15:54:56 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/11 17:45:59 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,14 @@ void	leaks(void)
 void	print_objs(t_scene *scene)
 {
 	t_list *current;
+	char	*objects[] = {NULL, NULL, NULL, NULL, "Sphere", "Plane", "Square",
+		"Cylinder", "Triangle"};
 
 	printf("== Ambient ==\n");
 	printf("Intensity = %f\n", scene->ambient.ratio);
 	printf("Color = %f,%f,%f\n", scene->ambient.color.r,
 		scene->ambient.color.g, scene->ambient.color.b);
 	printf("\n");
-	current = scene->cam_lst;
-	/* while (current) */
-	/* { */
-		printf("== Camera == {%p}\n", current);
-		printf("position : x = %f, y = %f, z = %f\n",
-			((t_object*)current->content)->position.x,
-			((t_object*)current->content)->position.y,
-			((t_object*)current->content)->position.z);
-		printf("orientation : x = %f, y = %f, z = %f\n",
-			((t_camera*)current->content)->orientation.x,
-			((t_camera*)current->content)->orientation.y,
-			((t_camera*)current->content)->orientation.z);
-		printf("fov : %f\n", ((t_camera*)current->content)->fov);
-		printf("\n");
-		current = current->next;
-	/* } */
 	current = scene->light_lst;
 	while (current)
 	{
@@ -62,21 +48,25 @@ void	print_objs(t_scene *scene)
 	current = scene->obj_lst;
 	while (current)
 	{
+		printf("== %s == {%p}\n",objects[((t_object*)current->content)->
+			obj_type], current);
+		printf("position : x = %f, y = %f, z = %f\n",
+			((t_object*)current->content)->position.x,
+			((t_object*)current->content)->position.y,
+			((t_object*)current->content)->position.z);
+		printf("Color = %f,%f,%f\n",
+			((t_object*)current->content)->color.r,
+			((t_object*)current->content)->color.g,
+			((t_object*)current->content)->color.b);
 		if (((t_object*)current->content)->obj_type == SPHERE)
-		{
-			printf("== Sphere == {%p}\n", current);
-			printf("position : x = %f, y = %f, z = %f\n",
-				((t_object*)current->content)->position.x,
-				((t_object*)current->content)->position.y,
-				((t_object*)current->content)->position.z);
 			printf("radius : %f\n",
 				((t_object*)current->content)->obj_prop.sphere.radius);
-			printf("Color = %f,%f,%f\n",
-				((t_object*)current->content)->color.r,
-				((t_object*)current->content)->color.g,
-				((t_object*)current->content)->color.b);
-			printf("\n");
-		}
+		else if (((t_object*)current->content)->obj_type == PLANE)
+			printf("normal : %f, %f, %f\n",
+				((t_object*)current->content)->obj_prop.plane.normal.x,
+				((t_object*)current->content)->obj_prop.plane.normal.y,
+				((t_object*)current->content)->obj_prop.plane.normal.z);
+		printf("\n");
 		current = current->next;
 	}
 }

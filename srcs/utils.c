@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 17:19:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/10 03:57:08 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/02/11 17:26:34 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ t_error		return_error(t_error num_error)
 		SP_COL_FMT_ERR_STR,
 		SP_LEN_FMT_ERR_STR,
 		SP_FMT_ERR_STR,
+		PL_POS_FMT_ERR_STR,
+		PL_COL_FMT_ERR_STR,
+		PL_ORIENT_FMT_ERR_STR,
+		PL_FMT_ERR_STR,
 		RES_X_FMT_ERR_STR,
 		RES_Y_FMT_ERR_STR,
 		RES_TWICE_ERR_STR,
