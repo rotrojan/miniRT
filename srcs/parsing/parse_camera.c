@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:22:10 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/11 17:16:19 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/15 17:08:59 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,6 @@ t_error				parse_camera(char **token_array, t_scene *scene)
 	if (!(check_fov(token_array[3])))
 		return (free_and_return(CAM_FOV_ERR, camera));
 	camera->obj_prop.camera.fov = ft_atod(token_array[3]);
-	ft_lstadd_front(&scene->cam_lst, ft_lstnew(camera));
+	ft_lstadd_back(&scene->cam_lst, ft_lstnew(camera));
 	return (NO_ERROR);
 }

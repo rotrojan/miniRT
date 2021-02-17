@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 00:39:08 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/11 18:13:43 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/12 15:33:17 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,11 @@ t_bool		plane_intersection(t_ray *current, t_object *plane, double *t)
 	t_vector	diff;
 
 	denom = dot_vectors(plane->obj_prop.plane.normal, current->direction);
-	if (fabs(denom) > 0.0001)
+	if (fabs(denom) > 0)
 	{
 		diff =  sub_vectors(plane->position, current->origin); 
 		*t = dot_vectors(diff, plane->obj_prop.plane.normal) / denom;
-		if (*t > 0.0001)
+		if (*t > 0)
 			return (TRUE);
 	}
 	return (FALSE);

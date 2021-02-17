@@ -25,7 +25,7 @@ void	print_camera(t_scene *scene)
 		((t_object*)current->content)->obj_prop.camera.orientation.x,
 		((t_object*)current->content)->obj_prop.camera.orientation.y,
 		((t_object*)current->content)->obj_prop.camera.orientation.z);
-	printf("fov : %f\n", ((t_camera*)current->content)->fov);
+	printf("fov : %f\n", ((t_object*)current->content)->obj_prop.camera.fov);
 	printf("\n");
 	current = current->next;
 }
@@ -125,18 +125,42 @@ t_object	*get_closest_intersection(t_ray *current, t_scene *scene, double *t)
 	return (closest_obj);
 }
 
+t_color		shader(t_ray current_ray, t_object *closest_obj, double t,
+																t_scene *scene)
+{
+	t_vector	closest_intersection;
+	t_vector	n;
+	t_vector	l;
+	t_color		color_pixel;
+	/* double		tbis; */
+	t_ray		shadow_ray;
+
+	closest_intersection = add_vectors(
+		current_ray.origin, scale_vector(t, current_ray.direction));
+	color_pixel = closest_obj->color;
+	n = normalized_vector(
+		sub_vectors(closest_intersection, closest_obj->position));
+	l = normalized_vector(sub_vectors(
+		((t_light*)scene->light_lst->content)->position, closest_intersection));
+	shadow_ray.origin = closest_intersection;
+	shadow_ray.direction = l;
+	/* int vis = get_closest_intersection(&shadow_ray, scene, &tbis) == NULL ? 1 : 0; */
+	int vis = 1;
+	color_pixel.r = vis * color_pixel.r /*/ M_PI */* ((t_light*)scene->light_lst->content)->intensity * ((t_light*)scene->light_lst->content)->color.r  * fmax(0,dot_vectors(l, n));
+	color_pixel.g = vis * color_pixel.g /*/ M_PI */* ((t_light*)scene->light_lst->content)->intensity * ((t_light*)scene->light_lst->content)->color.g  * fmax(0,dot_vectors(l, n));
+	color_pixel.b = vis * color_pixel.b /*/ M_PI */* ((t_light*)scene->light_lst->content)->intensity * ((t_light*)scene->light_lst->content)->color.b  * fmax(0,dot_vectors(l, n));
+	return (color_pixel);
+}
+
 t_error		ray_tracer(t_main *main)
 {
 	int			i;
 	int			j;
 	t_color		color_pixel;
-	t_ray		current;
+	t_ray		current_ray;
 	double		t;
-	t_vector	closest_intersection;
 	t_object	*closest_obj;
 	t_list		*current_cam;
-	t_vector	n;
-	double		lambert;
 	t_matrix	*cam_to_world;
 
 	i = 0;
@@ -153,25 +177,12 @@ t_error		ray_tracer(t_main *main)
 	{
 		while (i < main->mlx.win_width)
 		{
-			current = init_ray_direction(i, j, main, cam_to_world);
+			current_ray = init_ray_direction(i, j, main, cam_to_world);
 			t = 0.0;
-			if ((closest_obj = get_closest_intersection(&current,
+			if ((closest_obj = get_closest_intersection(&current_ray,
 				&main->scene, &t)))
 			{
-				closest_intersection
-					= add_vectors(current.origin, get_vector(
-						t * current.direction.x,
-						t * current.direction.y,
-						t * current.direction.z));
-				n = normalized_vector(sub_vectors(
-					closest_intersection, closest_obj->position));
-				lambert = fmax(0, fmin(1, dot_vectors(n, normalized_vector(
-					sub_vectors(((t_light*)main->scene.light_lst->content)
-						->position, closest_intersection)))));
-				/* lambert = 1; */
-				color_pixel.r = closest_obj->color.r * lambert;
-				color_pixel.g = closest_obj->color.g * lambert;
-				color_pixel.b = closest_obj->color.b * lambert;
+				color_pixel = shader(current_ray, closest_obj, t, &main->scene);
 				put_pixel(&main->mlx, i, j, color_pixel);
 			}
 			i++;

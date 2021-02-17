@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 10:17:21 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/09 15:14:36 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/16 14:53:35 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ double				norm_vector(t_vector vec);
 t_vector			normalized_vector(t_vector vec);
 t_vector			get_vector(double x, double y, double z);
 t_vector			vec_matrix(t_vector vec, t_matrix mtrx);
+t_vector			scale_vector(double coef, t_vector vec);
 
 #endif

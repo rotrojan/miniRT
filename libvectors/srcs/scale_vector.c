@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.h                                             :+:      :+:    :+:   */
+/*   scale_vector.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/10 05:56:14 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/17 12:36:19 by bigo             ###   ########.fr       */
+/*   Created: 2020/01/28 10:17:21 by rotrojan          #+#    #+#             */
+/*   Updated: 2021/02/16 14:53:02 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAIN_H
-# define MAIN_H
-# include "minirt.h"
+#include "vectors.h"
 
-typedef struct	s_main
+t_vector	scale_vector(double coef, t_vector vec)
 {
-	t_mlx	mlx;
-	t_scene	scene;
-}				t_main;
-
-#endif
+	return (get_vector(vec.x * coef, vec.y * coef, vec.z * coef));
+}
