@@ -6,18 +6,11 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 17:19:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/11 17:26:34 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/17 16:34:40 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-/*
-** void		cam(void *content)
-** {
-** 	free(content);
-** }
-*/
 
 void		free_scene(t_scene *scene)
 {

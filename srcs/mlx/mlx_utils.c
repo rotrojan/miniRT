@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:03:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/01/27 16:50:19 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/17 14:55:00 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ int		close_mlx(t_mlx *mlx)
 	return (EXIT_FAILURE);
 }
 
-void	apply_background(t_mlx *mlx, int color)
-{
-	int		nb_pixels;
-	int		index_pixel;
+/* void	apply_background(t_mlx *mlx, int color) */
+/* { */
+	/* int		nb_pixels; */
+	/* int		index_pixel; */
 
-	index_pixel = 0;
-	nb_pixels = mlx->win_width * mlx->win_height;
-	while (index_pixel < nb_pixels)
-		mlx->data[index_pixel++] = color;
-}
+	/* index_pixel = 0; */
+	/* nb_pixels = mlx->win_width * mlx->win_height; */
+	/* while (index_pixel < nb_pixels) */
+		/* mlx->data[index_pixel++] = color; */
+/* } */
 
 void	put_pixel(t_mlx *mlx, int x, int y, t_color color)
 {

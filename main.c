@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/11 17:45:59 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/17 15:36:48 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,18 +71,30 @@ void	print_objs(t_scene *scene)
 	}
 }
 
+void	initialize_fun_ptr_arrays(t_main *main)
+{
+	main->intersection[0] = NULL;
+	main->intersection[1] = NULL;
+	main->intersection[2] = NULL;
+	main->intersection[3] = NULL;
+	main->intersection[4] = &sphere_intersection;
+	main->intersection[5] = &plane_intersection;
+	main->intersection[6] = &square_intersection;
+	main->intersection[7] = &cylinder_intersection;
+	main->intersection[8] = &triangle_intersection;
+}
+
 int			main(int ac, char **av)
 {
 	t_main		main;
 	t_error		ret;
-	t_list		*cam_head_lst;
 
 	ft_bzero(&main, sizeof(main));
 	main.scene.ambient.ratio = -1.0;
-	cam_head_lst = main.scene.cam_lst;
 	if ((ret = open_and_parse_file(ac, av, &main)) != NO_ERROR)
 		return (return_error(ret));
 	print_objs(&main.scene);
+	initialize_fun_ptr_arrays(&main);
 	init_mlx(&main.mlx);
 	ray_tracer(&main);
 	if (ac == 3)
@@ -93,15 +105,11 @@ int			main(int ac, char **av)
 	}
 	else
 	{
-		/* main.scene.cam_lst = main.scene.cam_lst->next; */
-		/* if (!main.scene.cam_lst) */
-			/* main.scene.cam_lst = cam_head_lst; */
 		mlx_put_image_to_window(main.mlx.mlx_ptr, main.mlx.win_ptr,
 			main.mlx.img_ptr, 0, 0);
 		if (!run_mlx(&main))
 			return (return_error(MLX_HOOKS_ERR));
 	}
-	/* main.scene.cam_lst = cam_head_lst; */
 	free_scene(&main.scene);
 	return (EXIT_SUCCESS);
 }

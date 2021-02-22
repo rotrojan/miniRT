@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/01 18:11:36 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/17 13:17:35 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,15 @@ t_bool	square_intersection(t_ray *current, t_object *square, double *t);
 t_bool	cylinder_intersection(t_ray *current, t_object *cylinder, double *t);
 t_bool	triangle_intersection(t_ray *current, t_object *triangle, double *t);
 
+/*
+** normal.c
+*/
+
+ t_vector	sphere_normal(t_object sphere, t_vector point);
+ t_vector	plane_normal(t_object plane, t_vector point);
+ t_vector	square_normal(t_object square, t_vector point);
+ t_vector	cylinder_normal(t_object cylinder, t_vector point);
+ t_vector	triangle_normal(t_object triangle, t_vector point);
 /*
 ** utils.c
 */

@@ -96,23 +96,19 @@ t_ray	init_ray_direction(int i, int j, t_main *main, t_matrix *cam_to_world)
 	return (current_ray);
 }
 
-t_object	*get_closest_intersection(t_ray *current, t_scene *scene, double *t)
+t_object	*get_closest_intersection(t_ray *current, t_main *main, double *t)
 {
 	t_list			*current_link;
 	double			t_closest_obj;
 	t_type			type_obj;
 	t_object		*closest_obj;
-	static t_bool	(*intersection[])(t_ray*, t_object*, double*) = {
-		NULL, NULL, NULL, NULL, &sphere_intersection, &plane_intersection,
-		&square_intersection, &cylinder_intersection, &triangle_intersection
-	};
 
-	current_link = scene->obj_lst;
+	current_link = main->scene.obj_lst;
 	t_closest_obj = INFINITY;
 	while (current_link)
 	{
 		type_obj = ((t_object*)current_link->content)->obj_type;
-		if (intersection[type_obj](current, (t_object*)current_link->content, t))
+		if (main->intersection[type_obj](current, (t_object*)current_link->content, t))
 			if (*t < t_closest_obj)
 			{
 				t_closest_obj = *t;
@@ -122,33 +118,34 @@ t_object	*get_closest_intersection(t_ray *current, t_scene *scene, double *t)
 	}
 	if (t_closest_obj == INFINITY)
 		return (NULL);
-	return (closest_obj);
+	else
+		return (closest_obj);
 }
 
 t_color		shader(t_ray current_ray, t_object *closest_obj, double t,
-																t_scene *scene)
+																t_main *main)
 {
 	t_vector	closest_intersection;
 	t_vector	n;
 	t_vector	l;
 	t_color		color_pixel;
 	/* double		tbis; */
-	t_ray		shadow_ray;
+	/* t_ray		shadow_ray; */
 
-	closest_intersection = add_vectors(
-		current_ray.origin, scale_vector(t, current_ray.direction));
-	color_pixel = closest_obj->color;
-	n = normalized_vector(
-		sub_vectors(closest_intersection, closest_obj->position));
+	closest_intersection = scale_vector(t, current_ray.direction);
+	/* closest_intersection = add_vectors( */
+		/* current_ray.origin, scale_vector(t, current_ray.direction)); */
+	/* color_pixel = closest_obj->color; */
+	n = closest_obj->get_normal(*closest_obj, closest_intersection);
 	l = normalized_vector(sub_vectors(
-		((t_light*)scene->light_lst->content)->position, closest_intersection));
-	shadow_ray.origin = closest_intersection;
-	shadow_ray.direction = l;
-	/* int vis = get_closest_intersection(&shadow_ray, scene, &tbis) == NULL ? 1 : 0; */
+		((t_light*)main->scene.light_lst->content)->position, closest_intersection));
+	/* shadow_ray.origin = closest_intersection; */
+	/* shadow_ray.direction = l; */
+	/* int vis = get_closest_intersection(&shadow_ray, main, &tbis) == NULL ? 1 : 0; */
 	int vis = 1;
-	color_pixel.r = vis * color_pixel.r /*/ M_PI */* ((t_light*)scene->light_lst->content)->intensity * ((t_light*)scene->light_lst->content)->color.r  * fmax(0,dot_vectors(l, n));
-	color_pixel.g = vis * color_pixel.g /*/ M_PI */* ((t_light*)scene->light_lst->content)->intensity * ((t_light*)scene->light_lst->content)->color.g  * fmax(0,dot_vectors(l, n));
-	color_pixel.b = vis * color_pixel.b /*/ M_PI */* ((t_light*)scene->light_lst->content)->intensity * ((t_light*)scene->light_lst->content)->color.b  * fmax(0,dot_vectors(l, n));
+	color_pixel.r = vis * closest_obj->color.r /*/ M_PI */* ((t_light*)main->scene.light_lst->content)->intensity * ((t_light*)main->scene.light_lst->content)->color.r  * fmax(0,dot_vectors(l, n));
+	color_pixel.g = vis * closest_obj->color.g /*/ M_PI */* ((t_light*)main->scene.light_lst->content)->intensity * ((t_light*)main->scene.light_lst->content)->color.g  * fmax(0,dot_vectors(l, n));
+	color_pixel.b = vis * closest_obj->color.b /*/ M_PI */* ((t_light*)main->scene.light_lst->content)->intensity * ((t_light*)main->scene.light_lst->content)->color.b  * fmax(0,dot_vectors(l, n));
 	return (color_pixel);
 }
 
@@ -179,10 +176,11 @@ t_error		ray_tracer(t_main *main)
 		{
 			current_ray = init_ray_direction(i, j, main, cam_to_world);
 			t = 0.0;
-			if ((closest_obj = get_closest_intersection(&current_ray,
-				&main->scene, &t)))
+			if ((closest_obj = get_closest_intersection(&current_ray, main,
+				&t)))
 			{
-				color_pixel = shader(current_ray, closest_obj, t, &main->scene);
+				color_pixel = shader(current_ray, closest_obj, t, main);
+				/* color_pixel = closest_obj->color; */
 				put_pixel(&main->mlx, i, j, color_pixel);
 			}
 			i++;

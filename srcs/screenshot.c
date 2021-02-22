@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 10:00:57 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/11 11:25:25 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/02/17 16:39:24 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static t_error	write_data(int fd, int nbr_pixel, t_main *main)
 	t_error			ret;
 
 	size_buffer = nbr_pixel * 3;
-	if (!(buffer = malloc(sizeof(unsigned char) * size_buffer)))
+	if (!(buffer = (unsigned char*)malloc(sizeof(unsigned char) * size_buffer)))
 		return (MALLOC_ERR);
 	ret = NO_ERROR;
 	fill_data(&buffer, &main->mlx.data, main->mlx.win_width,
