@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/17 13:17:35 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/22 13:13:51 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,4 @@ void	free_scene(t_scene *scene);
 */
 
 t_error	screen_shot(t_main *main);
-
 #endif

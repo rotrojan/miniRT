@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/17 15:36:48 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/22 15:43:16 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,6 @@ void	print_objs(t_scene *scene)
 	}
 }
 
-void	initialize_fun_ptr_arrays(t_main *main)
-{
-	main->intersection[0] = NULL;
-	main->intersection[1] = NULL;
-	main->intersection[2] = NULL;
-	main->intersection[3] = NULL;
-	main->intersection[4] = &sphere_intersection;
-	main->intersection[5] = &plane_intersection;
-	main->intersection[6] = &square_intersection;
-	main->intersection[7] = &cylinder_intersection;
-	main->intersection[8] = &triangle_intersection;
-}
-
 int			main(int ac, char **av)
 {
 	t_main		main;
@@ -94,7 +81,6 @@ int			main(int ac, char **av)
 	if ((ret = open_and_parse_file(ac, av, &main)) != NO_ERROR)
 		return (return_error(ret));
 	print_objs(&main.scene);
-	initialize_fun_ptr_arrays(&main);
 	init_mlx(&main.mlx);
 	ray_tracer(&main);
 	if (ac == 3)

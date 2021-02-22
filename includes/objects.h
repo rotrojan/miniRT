@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:58:44 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/17 14:07:09 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/22 15:37:49 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ typedef struct		s_object
 	t_prop			obj_prop;
 	t_vector		position;
 	t_color			color;
-	// t_bool			(*intersection)(t_ray*, struct s_object*, double*);
+	t_bool			(*intersection)(t_ray*, struct s_object*, double*);
 	t_vector		(*get_normal)(struct s_object, t_vector);
 }					t_object;
 

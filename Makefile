@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/02/17 13:18:41 by bigo             ###   ########.fr        #
+#    Updated: 2021/02/22 14:47:08 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ OS					=	$(shell uname)
 ifeq (${OS}, Darwin)
 MLX_DIR				=	./minilibx_opengl_20191021/
 OS_FLAGS			+=	${FRAMEWORKS:%=-framework %}
+CXXFLAGS			+=	-DMACOS
 endif
 ifeq (${OS}, Linux)
 MLX_DIR				=	./minilibx-linux/

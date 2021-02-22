@@ -13,7 +13,7 @@
 
 #include "minirt.h"
 
- t_vector	sphere_normal(t_object sphere, t_vector point)
+t_vector	sphere_normal(t_object sphere, t_vector point)
 {
 	return (normalized_vector(sub_vectors(point, sphere.position)));
 }
@@ -26,7 +26,6 @@
 
  t_vector	square_normal(t_object square, t_vector point)
 {
-	(void)point;
 	(void)point;
 	(void)square;
 	return (get_vector(0, 0, 0));
@@ -43,5 +42,5 @@
 {
 	(void)point;
 	(void)triangle;
-	return (get_vector(0, 0,0));
+	return (get_vector(0, 0, 0));
 }
