@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:58:44 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/22 15:37:49 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/02/26 13:15:02 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct		s_camera
 {
 	t_vector		orientation;
 	double			fov;
+	t_matrix		cam_to_world;
 }					t_camera;
 
 typedef struct		s_light
@@ -104,7 +105,7 @@ typedef struct		s_object
 	t_prop			obj_prop;
 	t_vector		position;
 	t_color			color;
-	t_bool			(*intersection)(t_ray*, struct s_object*, double*);
+	t_bool			(*intersection)(t_ray, struct s_object, double*);
 	t_vector		(*get_normal)(struct s_object, t_vector);
 }					t_object;
 

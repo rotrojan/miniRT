@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 17:19:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/17 16:34:40 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/23 18:02:23 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,19 @@ void		free_array(void **array)
 	while (array[i])
 		free(array[i++]);
 	free(array);
+}
+
+t_color	get_color(double r, double g, double b)
+{
+	t_color color;
+
+	color.r = r;
+	color.g = g;
+	color.b = b;
+	return (color);
+}
+
+t_color	shade_color(double coef, t_color color)
+{
+	return (get_color(coef * color.r, coef * color.g, coef * color.b));
 }

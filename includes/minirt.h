@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/22 13:13:51 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/02/23 17:57:54 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@ t_error	ray_tracer(t_main *main);
 ** intersection.c
 */
 
-t_bool	plane_intersection(t_ray *current, t_object *plane, double *t);
-t_bool	sphere_intersection(t_ray *current, t_object *sphere, double *t);
-t_bool	square_intersection(t_ray *current, t_object *square, double *t);
-t_bool	cylinder_intersection(t_ray *current, t_object *cylinder, double *t);
-t_bool	triangle_intersection(t_ray *current, t_object *triangle, double *t);
+t_bool	plane_intersection(t_ray ray, t_object plane, double *t);
+t_bool	sphere_intersection(t_ray ray, t_object sphere, double *t);
+t_bool	square_intersection(t_ray ray, t_object square, double *t);
+t_bool	cylinder_intersection(t_ray ray, t_object cylinder, double *t);
+t_bool	triangle_intersection(t_ray ray, t_object triangle, double *t);
 
 /*
 ** normal.c
@@ -71,6 +71,7 @@ t_bool	triangle_intersection(t_ray *current, t_object *triangle, double *t);
  t_vector	square_normal(t_object square, t_vector point);
  t_vector	cylinder_normal(t_object cylinder, t_vector point);
  t_vector	triangle_normal(t_object triangle, t_vector point);
+
 /*
 ** utils.c
 */
@@ -79,9 +80,11 @@ t_error	return_error(t_error num_error);
 void	free_array(void **array);
 void	del(void *content);
 void	free_scene(t_scene *scene);
+t_color	get_color(double r, double g, double b);
+t_color	shade_color(double coef, t_color color);
 
 /*
-** utils.c
+** screenshot.c
 */
 
 t_error	screen_shot(t_main *main);

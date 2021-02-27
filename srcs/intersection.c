@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 00:39:08 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/12 15:33:17 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/23 17:28:21 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,19 @@ t_bool solve_quadratic(t_quadratic *quad)
 	return (TRUE);
 }
 
-t_bool		sphere_intersection(t_ray *current, t_object *sphere, double *t)
+t_bool		sphere_intersection(t_ray ray, t_object sphere, double *t)
 {
 	t_quadratic quad;
 	t_vector dist;
 
-	dist = sub_vectors(current->origin, sphere->position);
-	quad.a = dot_vectors(current->direction, current->direction);
-	quad.b = 2 * dot_vectors(current->direction, dist);
-	quad.c = dot_vectors(dist, dist) - sphere->obj_prop.sphere.radius * sphere->obj_prop.sphere.radius;
+	dist = sub_vectors(ray.origin, sphere.position);
+	quad.a = dot_vectors(ray.direction, ray.direction);
+	quad.b = 2 * dot_vectors(ray.direction, dist);
+	quad.c = dot_vectors(dist, dist) - sphere.obj_prop.sphere.radius * sphere.obj_prop.sphere.radius;
 	if (!solve_quadratic(&quad))
 		return (FALSE);
-	/* if (quad.x0 > quad.x1) */
-		/* ft_swap(&quad.x0, &quad.x1); */
+	if (quad.x0 > quad.x1)
+		ft_swap(&quad.x0, &quad.x1);
 	if (quad.x0 < 0)
 		quad.x0 = quad.x1;
 	if (quad.x0 < 0)
@@ -60,7 +60,7 @@ t_bool		sphere_intersection(t_ray *current, t_object *sphere, double *t)
 	return (TRUE);
 }
 
-/* t_bool		sphere_intersection(t_ray *current, t_object *sphere, double *t) */
+/* t_bool		sphere_intersection(t_ray ray, t_object *sphere, double *t) */
 /* { */
 	/* t_vector	dist; */
 	/* double		b; */
@@ -86,41 +86,41 @@ t_bool		sphere_intersection(t_ray *current, t_object *sphere, double *t)
 	/* return (FALSE); */
 /* } */
 
-t_bool		plane_intersection(t_ray *current, t_object *plane, double *t)
+t_bool		plane_intersection(t_ray ray, t_object plane, double *t)
 {
 	double		denom;
 	t_vector	diff;
 
-	denom = dot_vectors(plane->obj_prop.plane.normal, current->direction);
+	denom = dot_vectors(plane.obj_prop.plane.normal, ray.direction);
 	if (fabs(denom) > 0)
 	{
-		diff =  sub_vectors(plane->position, current->origin); 
-		*t = dot_vectors(diff, plane->obj_prop.plane.normal) / denom;
+		diff =  sub_vectors(plane.position, ray.origin); 
+		*t = dot_vectors(diff, plane.obj_prop.plane.normal) / denom;
 		if (*t > 0)
 			return (TRUE);
 	}
 	return (FALSE);
 }
 
-t_bool		square_intersection(t_ray *current, t_object *square, double *t)
+t_bool		square_intersection(t_ray ray, t_object square, double *t)
 {
-	(void)current;
+	(void)ray;
 	(void)square;
 	(void)t;
 	return (TRUE);
 }
 
-t_bool		cylinder_intersection(t_ray *current, t_object *cylinder, double *t)
+t_bool		cylinder_intersection(t_ray ray, t_object cylinder, double *t)
 {
-	(void)current;
+	(void)ray;
 	(void)cylinder;
 	(void)t;
 	return (TRUE);
 }
 
-t_bool		triangle_intersection(t_ray *current, t_object *triangle, double *t)
+t_bool		triangle_intersection(t_ray ray, t_object triangle, double *t)
 {
-	(void)current;
+	(void)ray;
 	(void)triangle;
 	(void)t;
 	return (TRUE);

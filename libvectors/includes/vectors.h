@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 10:17:21 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/16 14:53:35 by bigo             ###   ########.fr       */
+/*   Updated: 2021/02/26 14:16:13 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ typedef struct s_vector
 	double	z;
 }				t_vector;
 
-typedef double		t_matrix[9];
+typedef double		t_matrix[12];
 
 t_vector			add_vectors(t_vector vec1, t_vector vec2);
 t_vector			sub_vectors(t_vector vec1, t_vector vec2);
