@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:58:44 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/26 13:15:02 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/01 14:30:08 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ typedef struct		s_camera
 
 typedef struct		s_light
 {
-	t_vector		position;
 	double			intensity;
-	t_color			color;
 }					t_light;
 
 typedef struct		s_sphere

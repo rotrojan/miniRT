@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/22 15:43:16 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:33:47 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,15 @@ void	print_objs(t_scene *scene)
 	{
 		printf("== Light == {%p}\n", current);
 		printf("position : x = %f, y = %f, z = %f\n",
-			((t_light*)current->content)->position.x,
-			((t_light*)current->content)->position.y,
-			((t_light*)current->content)->position.z);
+			((t_object*)current->content)->position.x,
+			((t_object*)current->content)->position.y,
+			((t_object*)current->content)->position.z);
 		printf("intensity : %f\n",
-			((t_light*)current->content)->intensity);
+			((t_object*)current->content)->obj_prop.light.intensity);
 		printf("Color = %f,%f,%f\n",
-			((t_light*)current->content)->color.r,
-			((t_light*)current->content)->color.g,
-			((t_light*)current->content)->color.b);
+			((t_object*)current->content)->color.r,
+			((t_object*)current->content)->color.g,
+			((t_object*)current->content)->color.b);
 		printf("\n");
 		current = current->next;
 	}

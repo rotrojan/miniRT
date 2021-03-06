@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/23 17:57:54 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/01 13:32:29 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ void	del(void *content);
 void	free_scene(t_scene *scene);
 t_color	get_color(double r, double g, double b);
 t_color	shade_color(double coef, t_color color);
+t_color	add_colors(t_color color1, t_color color2);
 
 /*
 ** screenshot.c
