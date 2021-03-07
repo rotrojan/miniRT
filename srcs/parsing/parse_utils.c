@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 07:07:14 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/11 01:53:08 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/03/07 19:11:44 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ t_type		get_sub_parser(char *first_token)
 
 t_error		select_sub_parser(t_type type, char **token_array, t_main *main)
 {
-	static t_error		(*sub_parser[])(char**, t_scene*) = {
-		NULL,
+	static t_error		(*sub_parser[])(char**, t_main*) = {
+		&parse_resolution,
 		&parse_ambient,
 		&parse_camera,
 		&parse_light,
@@ -61,7 +61,5 @@ t_error		select_sub_parser(t_type type, char **token_array, t_main *main)
 		&parse_triangle
 	};
 
-	if (type == RESOLUTION)
-		return (parse_resolution(token_array, &main->mlx));
-	return (sub_parser[type](token_array, &main->scene));
+	return (sub_parser[type](token_array, main));
 }

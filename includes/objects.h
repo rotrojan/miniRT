@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:58:44 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/01 14:30:08 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/07 18:58:26 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ typedef struct		s_triangle
 
 typedef union		u_prop
 {
-	t_resolution	resolution;
-	t_ambient		ambient;
 	t_camera		camera;
 	t_light			light;
 	t_sphere		sphere;

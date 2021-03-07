@@ -6,13 +6,13 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:13:57 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/01 14:31:15 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/07 19:14:41 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_error				parse_light(char **token_array, t_scene *scene)
+t_error				parse_light(char **token_array, t_main *main)
 {
 	t_object	*light;
 
@@ -35,6 +35,6 @@ t_error				parse_light(char **token_array, t_scene *scene)
 		free(light);
 		return (LIGHT_INTENS_ERR);
 	}
-	ft_lstadd_front(&scene->light_lst, ft_lstnew(light));
+	ft_lstadd_front(&main->scene.light_lst, ft_lstnew(light));
 	return (NO_ERROR);
 }

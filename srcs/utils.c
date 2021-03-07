@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 17:19:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/01 13:35:49 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/08 00:34:19 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ t_error		return_error(t_error num_error)
 		PL_FMT_ERR_STR,
 		RES_X_FMT_ERR_STR,
 		RES_Y_FMT_ERR_STR,
+		RES_MISS_ERR_STR,
 		RES_TWICE_ERR_STR,
 		RES_FMT_ERR_STR,
+		AMB_MISS_ERR_STR,
 		AMB_TWICE_ERR_STR,
 		AMB_FMT_ERR_STR,
 		AMB_RATIO_ERR_STR,
@@ -93,4 +95,11 @@ t_color	add_colors(t_color color1, t_color color2)
 	return (get_color(fmin(1, fmax(0, color1.r + color2.r)),
 			fmin(1, fmax(0, color1.g + color2.g)),
 			fmin(1, fmax(0, color1.b + color2.b))));
+}
+
+t_color	mix_colors(t_color color1, t_color color2)
+{
+	return (get_color(fmin(1, fmax(0, color1.r * color2.r)),
+			fmin(1, fmax(0, color1.g * color2.g)),
+			fmin(1, fmax(0, color1.b * color2.b))));
 }

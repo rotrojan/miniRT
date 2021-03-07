@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 17:26:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/11 17:00:02 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/07 19:16:32 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,54 +52,54 @@ t_bool			parse_orientation(char *orientation_str,
 ** parse_resolution.c
 */
 
-t_error			parse_resolution(char **token_array, t_mlx *mlx);
+t_error			parse_resolution(char **token_array, t_main *main);
 
 /*
 ** parse_ambient.c
 */
 
-t_error			parse_ambient(char **token_array, t_scene *scene);
+t_error			parse_ambient(char **token_array, t_main *main);
 
 /*
 ** parse_camera.c
 */
 
-t_error			parse_camera(char **token_array, t_scene *scene);
+t_error			parse_camera(char **token_array, t_main *main);
 
 /*
 ** parse_light.c
 */
 
-t_error			parse_light(char **token_array, t_scene *scene);
+t_error			parse_light(char **token_array, t_main *main);
 
 /*
 ** parse_sphere.c
 */
 
-t_error			parse_sphere(char **token_array, t_scene *scene);
+t_error			parse_sphere(char **token_array, t_main *main);
 
 /*
 ** parse_plane.c
 */
 
-t_error			parse_plane(char **token_array, t_scene *scene);
+t_error			parse_plane(char **token_array, t_main *main);
 
 /*
 ** parse_square.c
 */
 
-t_error			parse_square(char **token_array, t_scene *scene);
+t_error			parse_square(char **token_array, t_main *main);
 
 /*
 ** parse_cylinder.c
 */
 
-t_error			parse_cylinder(char **token_array, t_scene *scene);
+t_error			parse_cylinder(char **token_array, t_main *main);
 
 /*
 ** parse_triangle.c
 */
 
-t_error			parse_triangle(char **token_array, t_scene *scene);
+t_error			parse_triangle(char **token_array, t_main *main);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:48:35 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/11 17:37:07 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/08 00:34:26 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@
 # define PL_FMT_ERR_STR "Plane not well formatted."
 # define RES_X_FMT_ERR_STR "Resolution width not well formatted."
 # define RES_Y_FMT_ERR_STR "Resolution height not well formatted."
+# define RES_MISS_ERR_STR "Resolution missing."
 # define RES_TWICE_ERR_STR "Resolution can only be set once."
 # define RES_FMT_ERR_STR "Resolution not well formatted."
-# define AMB_TWICE_ERR_STR "Ambient can only be set once."
+# define AMB_MISS_ERR_STR "Ambient lighting missing."
+# define AMB_TWICE_ERR_STR "Ambient lighting can only be set once."
 # define AMB_FMT_ERR_STR "Ambient lighting not well formatted."
 # define AMB_RATIO_ERR_STR "Ambient lighting ratio not well formatted."
 # define AMB_COL_ERR_STR "Ambient lighting color not well formatted."
@@ -67,8 +69,10 @@ typedef enum	e_error
 	PL_FMT_ERR,
 	RES_X_FMT_ERR,
 	RES_Y_FMT_ERR,
+	RES_MISS_ERR,
 	RES_TWICE_ERR,
 	RES_FMT_ERR,
+	AMB_MISS_ERR,
 	AMB_TWICE_ERR,
 	AMB_FMT_ERR,
 	AMB_RATIO_ERR,

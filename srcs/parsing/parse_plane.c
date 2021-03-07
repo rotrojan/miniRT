@@ -6,13 +6,13 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:27:20 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/22 15:38:44 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/03/07 19:15:22 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_error		parse_plane(char **token_array, t_scene *scene)
+t_error		parse_plane(char **token_array, t_main *main)
 {
 	t_object	*plane;
 
@@ -29,6 +29,6 @@ t_error		parse_plane(char **token_array, t_scene *scene)
 		return (free_and_return(PL_COL_FMT_ERR, plane));
 	plane->intersection = &plane_intersection;
 	plane->get_normal = &plane_normal;
-	ft_lstadd_front(&scene->obj_lst, ft_lstnew(plane));
+	ft_lstadd_front(&main->scene.obj_lst, ft_lstnew(plane));
 	return (NO_ERROR);
 }
