@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:58:44 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/07 18:58:26 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/09 00:09:53 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,17 +71,21 @@ typedef struct		s_plane
 
 typedef struct		s_square
 {
-	t_vector		position;
+	t_vector		normal;
+	double			size;
 }					t_square;
 
 typedef struct		s_cylinder
 {
-	t_vector		position;
+	t_vector		orientation;
+	double			diameter;
+	double			height;
 }					t_cylinder;
 
 typedef struct		s_triangle
 {
-	t_vector		position;
+	t_vector		vertice2;
+	t_vector		vertice3;
 }					t_triangle;
 
 typedef union		u_prop

@@ -2,7 +2,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   normal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -40,7 +40,11 @@ t_vector	sphere_normal(t_object sphere, t_vector point)
 
  t_vector	triangle_normal(t_object triangle, t_vector point)
 {
+	t_vector	edge1;
+	t_vector	edge2;
+
 	(void)point;
-	(void)triangle;
-	return (get_vector(0, 0, 0));
+	edge1 = sub_vectors(triangle.obj_prop.triangle.vertice2, triangle.position);
+	edge2 = sub_vectors(triangle.obj_prop.triangle.vertice3, triangle.position);
+	return (normalized_vector(cross_vectors(edge1, edge2)));
 }

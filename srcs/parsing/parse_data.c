@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 15:05:52 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/11 16:59:22 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/09 21:02:08 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,5 +148,8 @@ t_bool		parse_orientation(char *orientation_str, t_vector *orientation_vec)
 		return (FALSE);
 	if (orientation_vec->z < -1 || orientation_vec->z > 1)
 		return (FALSE);
+	if (!orientation_vec->x && !orientation_vec->y && !orientation_vec->z)
+		return (FALSE);
+	*orientation_vec = normalized_vector(*orientation_vec);
 	return (TRUE);
 }

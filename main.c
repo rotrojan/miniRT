@@ -6,16 +6,11 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/01 14:33:47 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/09 14:14:04 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-void	leaks(void)
-{
-	system("leaks minirt");
-}
 
 void	print_objs(t_scene *scene)
 {
@@ -66,6 +61,15 @@ void	print_objs(t_scene *scene)
 				((t_object*)current->content)->obj_prop.plane.normal.x,
 				((t_object*)current->content)->obj_prop.plane.normal.y,
 				((t_object*)current->content)->obj_prop.plane.normal.z);
+		else if (((t_object*)current->content)->obj_type == SQUARE)
+		{
+			printf("normal : %f, %f, %f\n",
+				((t_object*)current->content)->obj_prop.square.normal.x,
+				((t_object*)current->content)->obj_prop.square.normal.y,
+				((t_object*)current->content)->obj_prop.square.normal.z);
+			printf("size : %f\n",
+				((t_object*)current->content)->obj_prop.square.size);
+		}
 		printf("\n");
 		current = current->next;
 	}

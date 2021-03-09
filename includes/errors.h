@@ -6,13 +6,12 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:48:35 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/08 00:34:26 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/09 00:26:48 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERRORS_H
 # define ERRORS_H
-# define NO_ERROR_STR ""
 # define NB_ARGS_ERR_STR "Wrong number of arguments."
 # define OPENING_ERR_STR "Cannot open file."
 # define FILE_EXTENSION_ERR_STR "Invalid file extension."
@@ -28,6 +27,20 @@
 # define PL_COL_FMT_ERR_STR "Plane color not well formatted."
 # define PL_ORIENT_FMT_ERR_STR "Plane orientation not well formatted."
 # define PL_FMT_ERR_STR "Plane not well formatted."
+# define SQ_POS_FMT_ERR_STR "Square position not well formatted."
+# define SQ_COL_FMT_ERR_STR "Square color not well formatted."
+# define SQ_ORIENT_FMT_ERR_STR "Square orientation not well formatted."
+# define SQ_LEN_FMT_ERR_STR "Square size not well formatted."
+# define SQ_FMT_ERR_STR "Square not well formatted."
+# define CY_POS_FMT_ERR_STR "Cylinder position not well formatted."
+# define CY_COL_FMT_ERR_STR "Cylinder color not well formatted."
+# define CY_ORIENT_FMT_ERR_STR "Cylinder orientation not well formatted."
+# define CY_DIAM_FMT_ERR_STR "Cylinder diameter not well formatted."
+# define CY_HGHT_FMT_ERR_STR "Cylinder height not well formatted."
+# define CY_FMT_ERR_STR "Cylinder not well formatted."
+# define TR_COL_FMT_ERR_STR "Triangle color not well formatted."
+# define TR_VER_FMT_ERR_STR "Triangle vertice not well formatted."
+# define TR_FMT_ERR_STR "Triangle not well formatted."
 # define RES_X_FMT_ERR_STR "Resolution width not well formatted."
 # define RES_Y_FMT_ERR_STR "Resolution height not well formatted."
 # define RES_MISS_ERR_STR "Resolution missing."
@@ -67,6 +80,20 @@ typedef enum	e_error
 	PL_COL_FMT_ERR,
 	PL_ORIENT_FMT_ERR,
 	PL_FMT_ERR,
+	SQ_POS_FMT_ERR,
+	SQ_COL_FMT_ERR,
+	SQ_ORIENT_FMT_ERR,
+	SQ_LEN_FMT_ERR,
+	SQ_FMT_ERR,
+	CY_POS_FMT_ERR,
+	CY_COL_FMT_ERR,
+	CY_ORIENT_FMT_ERR,
+	CY_DIAM_FMT_ERR,
+	CY_HGHT_FMT_ERR,
+	CY_FMT_ERR,
+	TR_COL_FMT_ERR,
+	TR_VER_FMT_ERR,
+	TR_FMT_ERR,
 	RES_X_FMT_ERR,
 	RES_Y_FMT_ERR,
 	RES_MISS_ERR,
