@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/11 12:42:49 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/11 17:16:04 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,6 @@ t_error			screen_shot(t_main *main);
 ** shader.c
 */
 
-t_color			shader(t_ray current_ray, t_object closest_obj, double *t,
-																t_main *main);
+t_color			shader(t_ray current_ray, t_object closest_obj,
+								t_vector closest_intersection, t_main *main);
 #endif

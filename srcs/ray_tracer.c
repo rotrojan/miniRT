@@ -6,13 +6,13 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 23:40:03 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/11 14:39:04 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/11 18:44:45 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-static void		set_coordinate_system(t_vector *forward, t_vector *right,
+static void		set_coordinates_system(t_vector *forward, t_vector *right,
 										t_vector *up, t_vector *cam_orientation)
 {
 	t_vector tmp;
@@ -36,7 +36,7 @@ static void		look_at(t_object *cam)
 	t_vector right;
 	t_vector up;
 
-	set_coordinate_system(&forward, &right, &up,
+	set_coordinates_system(&forward, &right, &up,
 		&cam->obj_prop.camera.orientation);
 	cam->obj_prop.camera.cam_to_world[0] = right.x;
 	cam->obj_prop.camera.cam_to_world[1] = right.y;
@@ -104,28 +104,26 @@ t_error			ray_tracer(t_main *main)
 {
 	int			i;
 	int			j;
-	t_color		color_pixel;
 	t_ray		ray;
 	double		t;
 	t_object	*closest_obj;
 
-	i = 0;
-	j = 0;
 	look_at(main->scene.cam_lst->content);
+	j = 0;
 	while (j < main->mlx.win_height)
 	{
+		i = 0;
 		while (i < main->mlx.win_width)
 		{
 			ray = init_ray_direction(i, j, main);
 			closest_obj = NULL;
 			if ((closest_obj = get_closest_intersection(ray, main, &t)))
-			{
-				color_pixel = shader(ray, *closest_obj, &t, main);
-				put_pixel(&main->mlx, i, j, color_pixel);
-			}
+				put_pixel(
+					&main->mlx, i, j,
+					shader(ray, *closest_obj, add_vectors(scale_vector(t,
+						ray.direction), ray.origin), main));
 			i++;
 		}
-		i = 0;
 		j++;
 	}
 	return (NO_ERROR);

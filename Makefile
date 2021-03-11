@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/03/11 14:14:47 by bigo             ###   ########.fr        #
+#    Updated: 2021/03/11 15:42:42 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,13 +38,13 @@ CXXFLAGS			+=	${INCLUDES_DIR:%=-I%}
 
 OS					=	$(shell uname)
 ifeq (${OS}, Darwin)
-MLX_DIR				=	./minilibx_opengl_20191021/
-OS_FLAGS			+=	${FRAMEWORKS:%=-framework %}
-CXXFLAGS			+=	-DMACOS
+	MLX_DIR			=	./minilibx_opengl_20191021/
+	OS_FLAGS		+=	${FRAMEWORKS:%=-framework %}
+	CXXFLAGS		+=	-DMACOS
 endif
 ifeq (${OS}, Linux)
-MLX_DIR				=	./minilibx-linux/
-OS_FLAGS			+=	-lm -lXext -lX11
+	MLX_DIR			=	./minilibx-linux/
+	OS_FLAGS		+=	-lm -lXext -lX11
 endif
 LDFLAGS				+=	-L ${MLX_DIR} -lmlx ${OS_FLAGS}
 DEBUGFLAGS			=	-g3 -fsanitize=address
