@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/02/22 14:47:08 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/03/11 14:14:47 by bigo             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,15 +14,16 @@ SRCS_DIR			=	./srcs/
 OBJS_DIR			=	./.objs/
 INCLUDES_DIR		=	./includes/ ${LIBS:%=./lib%/includes/} ${MLX_DIR}
 SRCS				=	main.c mlx_utils.c mlx_hooks.c						\
-						parser.c parse_utils.c								\
-						parse_data.c										\
-						parse_resolution.c parse_ambient.c					\
+						parser.c parse_utils.c parse_colors.c				\
+						parse_lengths_and_ratios.c parse_resolution.c		\
+						parse_vectors_and_points.c parse_ambient.c			\
 						parse_camera.c parse_light.c						\
 						parse_sphere.c parse_plane.c parse_cylinder.c		\
 						parse_square.c parse_triangle.c						\
-						ray_tracer.c utils.c intersection.c screenshot.c	\
-						normal.c
-OBJS				:=	${SRCS:%.c=${OBJS_DIR}%.o}
+						ray_tracer.c shader.c normal.c intersection.c		\
+						utils.c screenshot.c colors_utils.c					\
+						square_intersection.c cylinder_intersection.c
+						OBJS				:=	${SRCS:%.c=${OBJS_DIR}%.o}
 
 NAME				=	miniRT
 
@@ -32,7 +33,7 @@ CC					=	clang
 MKDIR				=	mkdir -p
 LIBS				=	ft vectors
 FRAMEWORKS			=	OpenGL AppKit
-CFLAGS				+=	-Wall -Wextra -MMD#-Werror
+CFLAGS				+=	-Wall -Wextra -Werror -MMD
 CXXFLAGS			+=	${INCLUDES_DIR:%=-I%}
 
 OS					=	$(shell uname)
@@ -49,48 +50,48 @@ LDFLAGS				+=	-L ${MLX_DIR} -lmlx ${OS_FLAGS}
 DEBUGFLAGS			=	-g3 -fsanitize=address
 NODEPRECATEDFLAGS	= 	-Wno-deprecated-declarations
 
-MLX					= ${MLX_DIR}libmlx.a
+MLX					=	${MLX_DIR}libmlx.a
 
 vpath %.c ${SRCS_DIR} ${SRCS_DIR}parsing ${SRCS_DIR}mlx
 vpath %.a ${LIBS:%=lib%} ${MLX_DIR}
 vpath %.h ${INCLUDES_DIR}
 
-all				:
-	@$(foreach LIB, ${LIBS}, echo '\x1b[33m'building lib${LIB}'\x1b[0m'; ${MAKE} -j -C lib${LIB};)
-	@echo '\x1b[33m'building ${MLX}'\x1b[0m';
+all					:
+	@$(foreach LIB, ${LIBS}, echo -e '\x1b[33m'building lib${LIB}'\x1b[0m'; ${MAKE} -j -C lib${LIB};)
+	@echo -e '\x1b[33m'building ${MLX}'\x1b[0m';
 	CFLAGS+="${NODEPRECATEDFLAGS}" CC="clang" ${MAKE} -C ${MLX_DIR}
 	@${MAKE} -j ${NAME}
 
-${NAME}			:	${OBJS} ${LIBS:%=lib%.a} ${MLX}
+${NAME}				:	${OBJS} ${LIBS:%=lib%.a} ${MLX}
+	@echo -e '\x1b[33m'building ${NAME}'\x1b[0m';
 	${CC} -o $@ $^ ${LDFLAGS} ${CXXFLAGS}
 
-${OBJS_DIR}%.o	:	%.c | ${OBJS_DIR}
+-include ${DEPENDENCIES}
+${OBJS_DIR}%.o		:	%.c | ${OBJS_DIR}
 	${CC} ${CFLAGS} -c $< ${CXXFLAGS} -o $@
 
-lib%.a			:
+lib%.a				:
 	@${MAKE} -j -C  ${@:%.a=%}
 
 libmlx.a			:
 	@CFLAGS+="${NODEPRECATEDFLAGS}" CC="clang" ${MAKE} -j -C ${MLX_DIR}
 
-debug			:
+debug				:
 	@${MAKE} fclean
 	@CXXFLAGS+="${DEBUGFLAGS}" ${MAKE} all
 
-${OBJS_DIR}		:
+${OBJS_DIR}			:
+	echo -e '\x1b[33m'building objects and dependencies${LIB}'\x1b[0m'
 	${MKDIR} ${OBJS_DIR}
 
-clean			:
+clean				:
 	@$(foreach LIB, ${LIBS}, ${MAKE} clean -C lib${LIB};)
 	${MAKE} clean -C ${MLX_DIR}
 	${RM} -r ${OBJS_DIR}
 
-fclean			:
-	@${MAKE} clean
+fclean				:	clean
 	${RM} ${NAME} $(foreach LIB, ${LIBS}, lib${LIB}/lib${LIB}.a)
 
-re				:
-	@${MAKE} fclean
-	@${MAKE} all
+re					:	fclean all
 
-.PHONY			:		all clean fclean re
+.PHONY				:	all clean fclean re

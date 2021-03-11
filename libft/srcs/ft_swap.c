@@ -6,18 +6,17 @@
 /*   By: rotrojan <rotrojan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/02 14:13:51 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/02 14:45:47 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/03/10 22:10:41 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-
 void			ft_swap(double *a, double *b)
 {
-	double buff;
+	double	buff;
 
 	buff = *a;
 	*a = *b;
-	*b= buff;
+	*b = buff;
 }

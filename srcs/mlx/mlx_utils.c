@@ -6,21 +6,11 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:03:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/17 14:55:00 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/11 10:33:50 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-void	init_mlx(t_mlx *mlx)
-{
-	mlx->mlx_ptr = mlx_init();
-	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, mlx->win_width,
-		mlx->win_height, TITLE);
-	mlx->img_ptr = mlx_new_image(mlx->mlx_ptr, mlx->win_width, mlx->win_height);
-	mlx->data = (int*)mlx_get_data_addr(mlx->img_ptr, &mlx->size_line,
-		&mlx->bits_per_pixel, &mlx->endian);
-}
 
 t_bool	run_mlx(t_main *main)
 {
@@ -38,16 +28,13 @@ int		close_mlx(t_mlx *mlx)
 	return (EXIT_FAILURE);
 }
 
-/* void	apply_background(t_mlx *mlx, int color) */
-/* { */
-	/* int		nb_pixels; */
-	/* int		index_pixel; */
-
-	/* index_pixel = 0; */
-	/* nb_pixels = mlx->win_width * mlx->win_height; */
-	/* while (index_pixel < nb_pixels) */
-		/* mlx->data[index_pixel++] = color; */
-/* } */
+void	init_mlx(t_mlx *mlx)
+{
+	mlx->mlx_ptr = mlx_init();
+	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, mlx->win_width,
+		mlx->win_height, TITLE);
+	mlx->img_ptr = mlx_new_image(mlx->mlx_ptr, mlx->win_width, mlx->win_height);
+}
 
 void	put_pixel(t_mlx *mlx, int x, int y, t_color color)
 {

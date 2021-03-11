@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 10:17:21 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/26 14:16:13 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/10 22:51:48 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 # define VECTORS_H
 # include <math.h>
 
-typedef struct s_vector
+typedef struct	s_vector
 {
 	double	x;
 	double	y;
 	double	z;
 }				t_vector;
 
-typedef double		t_matrix[12];
+typedef double	t_matrix[12];
 
-t_vector			add_vectors(t_vector vec1, t_vector vec2);
-t_vector			sub_vectors(t_vector vec1, t_vector vec2);
-t_vector			cross_vectors(t_vector vec1, t_vector vec2);
-double				dot_vectors(t_vector vec1, t_vector vec2);
-double				norm_square_vector(t_vector vec);
-double				norm_vector(t_vector vec);
-t_vector			normalized_vector(t_vector vec);
-t_vector			get_vector(double x, double y, double z);
-t_vector			vec_matrix(t_vector vec, t_matrix mtrx);
-t_vector			scale_vector(double coef, t_vector vec);
+t_vector		add_vectors(t_vector vec1, t_vector vec2);
+t_vector		sub_vectors(t_vector vec1, t_vector vec2);
+t_vector		cross_vectors(t_vector vec1, t_vector vec2);
+double			dot_vectors(t_vector vec1, t_vector vec2);
+double			norm_square_vector(t_vector vec);
+double			norm_vector(t_vector vec);
+t_vector		normalized_vector(t_vector vec);
+t_vector		get_vector(double x, double y, double z);
+t_vector		vec_matrix(t_vector vec, t_matrix mtrx);
+t_vector		scale_vector(double coef, t_vector vec);
 
 #endif

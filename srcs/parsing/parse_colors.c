@@ -1,56 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_data.c                                       :+:      :+:    :+:   */
+/*   parse_colors.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/17 15:05:52 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/10 23:33:28 by bigo             ###   ########.fr       */
+/*   Created: 2021/03/10 23:29:37 by bigo              #+#    #+#             */
+/*   Updated: 2021/03/10 23:37:59 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_bool			parse_length(char *length_str, double *length)
+static t_bool	parse_color_component(char **color_str, double *color)
 {
 	char	*tmp;
 
-	tmp = length_str;
+	tmp = *color_str;
 	if (*tmp == '+' || *tmp == '-')
 		++tmp;
 	if (!ft_isdigit(*tmp))
 		return (FALSE);
 	while (ft_isdigit(*tmp))
 		++tmp;
-	if (*tmp == '.')
-		++tmp;
-	if (ft_isdigit(*tmp))
-		while (ft_isdigit(*tmp))
-			++tmp;
-	if (*tmp)
+	if (*tmp == ',' || !*tmp)
+		*color = (double)ft_atoi(*color_str);
+	else
 		return (FALSE);
-	*length = ft_atod(length_str);
-	if (*length < 0)
+	if (*color < 0 || *color > 255)
 		return (FALSE);
+	if (*tmp == ',')
+		*color_str = ++tmp;
 	return (TRUE);
 }
 
-t_bool			parse_ratio(char *ratio_str, double *ratio)
+t_bool			parse_color(char *color_str, t_color *color)
 {
-	char	*tmp;
-
-	tmp = ratio_str;
-	while (ft_isdigit(*tmp))
-		tmp++;
-	if (*tmp == '.')
-		tmp++;
-	while (ft_isdigit(*tmp))
-		tmp++;
-	if (*tmp)
+	if (!(parse_color_component(&color_str, &color->r)))
 		return (FALSE);
-	*ratio = ft_atod(ratio_str);
-	if (*ratio < 0.0 || *ratio > 1.0)
+	if (!(parse_color_component(&color_str, &color->g)))
 		return (FALSE);
+	if (!(parse_color_component(&color_str, &color->b)))
+		return (FALSE);
+	color->r /= 255.0f;
+	color->g /= 255.0f;
+	color->b /= 255.0f;
 	return (TRUE);
 }

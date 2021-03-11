@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 07:07:14 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/07 19:11:44 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/10 23:14:13 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_type		get_sub_parser(char *first_token)
 	};
 
 	type = -1;
-	while (*elem_type_array[++type])
+	while (elem_type_array[++type])
 		if (!(ft_strcmp(first_token, elem_type_array[type])))
 			return (type);
 	return (TYPE_ERROR);
@@ -62,4 +62,11 @@ t_error		select_sub_parser(t_type type, char **token_array, t_main *main)
 	};
 
 	return (sub_parser[type](token_array, main));
+}
+
+t_error		free_and_return(t_error error, t_object *object)
+{
+	free(object);
+	object = NULL;
+	return (error);
 }

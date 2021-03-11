@@ -6,76 +6,30 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/09 14:14:04 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/11 10:36:10 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	print_objs(t_scene *scene)
+static t_error	check_and_launch_screenshot(char **av, t_main *main)
 {
-	t_list *current;
-	char	*objects[] = {NULL, NULL, NULL, NULL, "Sphere", "Plane", "Square",
-		"Cylinder", "Triangle"};
+	t_error ret;
 
-	printf("== Ambient ==\n");
-	printf("Intensity = %f\n", scene->ambient.ratio);
-	printf("Color = %f,%f,%f\n", scene->ambient.color.r,
-		scene->ambient.color.g, scene->ambient.color.b);
-	printf("\n");
-	current = scene->light_lst;
-	while (current)
+	if (!ft_strcmp("-save", av[2]) || !ft_strcmp("--save", av[2]))
 	{
-		printf("== Light == {%p}\n", current);
-		printf("position : x = %f, y = %f, z = %f\n",
-			((t_object*)current->content)->position.x,
-			((t_object*)current->content)->position.y,
-			((t_object*)current->content)->position.z);
-		printf("intensity : %f\n",
-			((t_object*)current->content)->obj_prop.light.intensity);
-		printf("Color = %f,%f,%f\n",
-			((t_object*)current->content)->color.r,
-			((t_object*)current->content)->color.g,
-			((t_object*)current->content)->color.b);
-		printf("\n");
-		current = current->next;
+		if (!(main->mlx.data = (int*)malloc(sizeof(main->mlx.data)
+			* main->mlx.win_width * main->mlx.win_height)))
+			return (return_error(MALLOC_ERR));
+		ray_tracer(main);
+		if ((ret = screen_shot(main)) != NO_ERROR)
+			return (ret);
+		free(main->mlx.data);
 	}
-	current = scene->obj_lst;
-	while (current)
-	{
-		printf("== %s == {%p}\n",objects[((t_object*)current->content)->
-			obj_type], current);
-		printf("position : x = %f, y = %f, z = %f\n",
-			((t_object*)current->content)->position.x,
-			((t_object*)current->content)->position.y,
-			((t_object*)current->content)->position.z);
-		printf("Color = %f,%f,%f\n",
-			((t_object*)current->content)->color.r,
-			((t_object*)current->content)->color.g,
-			((t_object*)current->content)->color.b);
-		if (((t_object*)current->content)->obj_type == SPHERE)
-			printf("radius : %f\n",
-				((t_object*)current->content)->obj_prop.sphere.radius);
-		else if (((t_object*)current->content)->obj_type == PLANE)
-			printf("normal : %f, %f, %f\n",
-				((t_object*)current->content)->obj_prop.plane.normal.x,
-				((t_object*)current->content)->obj_prop.plane.normal.y,
-				((t_object*)current->content)->obj_prop.plane.normal.z);
-		else if (((t_object*)current->content)->obj_type == SQUARE)
-		{
-			printf("normal : %f, %f, %f\n",
-				((t_object*)current->content)->obj_prop.square.normal.x,
-				((t_object*)current->content)->obj_prop.square.normal.y,
-				((t_object*)current->content)->obj_prop.square.normal.z);
-			printf("size : %f\n",
-				((t_object*)current->content)->obj_prop.square.size);
-		}
-		printf("\n");
-		current = current->next;
-	}
+	return (NO_ERROR);
 }
 
-int			main(int ac, char **av)
+int				main(int ac, char **av)
 {
 	t_main		main;
 	t_error		ret;
@@ -84,17 +38,17 @@ int			main(int ac, char **av)
 	main.scene.ambient.ratio = -1.0;
 	if ((ret = open_and_parse_file(ac, av, &main)) != NO_ERROR)
 		return (return_error(ret));
-	print_objs(&main.scene);
-	init_mlx(&main.mlx);
-	ray_tracer(&main);
 	if (ac == 3)
 	{
-		if (!ft_strcmp("-save", av[2]) || !ft_strcmp("--save", av[2]))
-			if ((ret = screen_shot(&main)) != NO_ERROR)
-				return (return_error(ret));
+		if ((ret = check_and_launch_screenshot(av, &main)) != NO_ERROR)
+			return_error(ret);
 	}
 	else
 	{
+		init_mlx(&main.mlx);
+		main.mlx.data = (int*)mlx_get_data_addr(main.mlx.img_ptr,
+			&main.mlx.size_line, &main.mlx.bits_per_pixel, &main.mlx.endian);
+		ray_tracer(&main);
 		mlx_put_image_to_window(main.mlx.mlx_ptr, main.mlx.win_ptr,
 			main.mlx.img_ptr, 0, 0);
 		if (!run_mlx(&main))

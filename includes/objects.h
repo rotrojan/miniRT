@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/06 23:58:44 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/09 00:09:53 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/10 22:36:56 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 # define OBJECTS_H
 # include "minirt.h"
 
-typedef struct	s_color
+typedef struct		s_color
 {
-	double		r;
-	double		g;
-	double		b;
-}				t_color;
+	double			r;
+	double			g;
+	double			b;
+}					t_color;
 
 typedef enum		e_type
 {
@@ -105,8 +105,8 @@ typedef struct		s_object
 	t_prop			obj_prop;
 	t_vector		position;
 	t_color			color;
-	t_bool			(*intersection)(t_ray, struct s_object, double*);
-	t_vector		(*get_normal)(struct s_object, t_vector);
+	t_bool			(*intersection)(struct s_ray, struct s_object, double*);
+	t_vector		(*get_normal)(struct s_object, struct s_vector);
 }					t_object;
 
 typedef struct		s_scene

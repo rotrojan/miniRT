@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 03:15:34 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/10 16:37:13 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/10 22:04:24 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@
 ** SL_KEY is the slash (/) and question mark (?) key
 */
 
-#ifdef MACOS
+# ifdef MACOS
 #  define SP_KEY 49
 # else
 #  define SP_KEY 32

@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:22:10 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/07 19:06:49 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/10 23:12:45 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ t_error				parse_camera(char **token_array, t_main *main)
 	ft_bzero(camera, sizeof(*camera));
 	if (!(parse_vector(token_array[1], &(camera->position))))
 		return (free_and_return(CAM_POS_ERR, camera));
-	if (!(parse_orientation(token_array[2], &camera->obj_prop.camera.orientation)))
+	if (!(parse_orientation(token_array[2],
+		&camera->obj_prop.camera.orientation)))
 		return (free_and_return(CAM_ORIENT_ERR, camera));
 	if (!(check_fov(token_array[3])))
 		return (free_and_return(CAM_FOV_ERR, camera));

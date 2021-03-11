@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 17:26:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/07 19:16:32 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/10 23:24:43 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_error			open_and_parse_file(int ac, char **av, t_main *main);
 */
 
 t_error			check_args(int ac, char **av);
+t_error			free_and_return(t_error error, t_object *object);
 t_type			get_sub_parser(char *first_token);
 t_error			select_sub_parser(t_type type, char **token_array,
 																t_main *main);
@@ -40,10 +41,14 @@ t_error			select_sub_parser(t_type type, char **token_array,
 ** parse_data.c
 */
 
-t_error		free_and_return(t_error error, t_object *object);
-t_bool			parse_vector(char *point_str, t_vector *point);
 t_bool			parse_color(char *color_str, t_color *color);
 t_bool			parse_length(char *length_str, double *length);
+
+/*
+** parse_vectors_and_points.c
+*/
+
+t_bool			parse_vector(char *point_str, t_vector *point);
 t_bool			parse_ratio(char *ratio_str, double *ratio);
 t_bool			parse_orientation(char *orientation_str,
 													t_vector *orientation_vec);

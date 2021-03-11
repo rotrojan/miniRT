@@ -6,11 +6,11 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 10:17:21 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/01/28 12:55:27 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/03/10 22:52:42 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vectors.h" 
+#include "vectors.h"
 
 t_vector	add_vectors(t_vector vec1, t_vector vec2)
 {
