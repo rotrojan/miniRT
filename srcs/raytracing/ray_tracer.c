@@ -6,11 +6,20 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 23:40:03 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/11 18:44:45 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/15 00:45:58 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+/*
+** Set the relative coordinate system of the camera needed to initialize the
+** cam_to_world matrix. The camera always points toward the negative z axis.
+** Since an arbitrary vector is needed, we first check if the camera is looking
+** strictly up or down in order not to set up this arbitrary vector in the same
+** direction as the forward vector. Then, a couple of cross products gives us
+** an orthogonal coordinate system.
+*/
 
 static void		set_coordinates_system(t_vector *forward, t_vector *right,
 										t_vector *up, t_vector *cam_orientation)
@@ -29,6 +38,11 @@ static void		set_coordinates_system(t_vector *forward, t_vector *right,
 	}
 	*up = cross_vectors(*forward, *right);
 }
+
+/*
+** Set the cam_to_world matrix of the camera according to its position and
+** orientation.
+*/
 
 static void		look_at(t_object *cam)
 {
@@ -52,6 +66,15 @@ static void		look_at(t_object *cam)
 	cam->obj_prop.camera.cam_to_world[11] = cam->position.z;
 }
 
+/*
+** The origin of each ray is the camera position. The camera looks toward the
+** negative z axis and the screen is at a distance of 1 from the camera. The
+** center of the screen have coordinates (0,0,-1).
+** After the ray direction is initialized, it is passed through the cam_to_world
+** matrix to orientate it according to the camera. All direction vectors are
+** normalized.
+*/
+
 static t_ray	init_ray_direction(int i, int j, t_main *main)
 {
 	t_ray		current_ray;
@@ -73,6 +96,12 @@ static t_ray	init_ray_direction(int i, int j, t_main *main)
 		current_ray.origin));
 	return (current_ray);
 }
+
+/*
+** For each object in the scene, we check for an intersection. The intersection
+** function is stored via a "method", actually a function pointer stored in the
+** object structure and initialized during the parsing.
+*/
 
 t_object		*get_closest_intersection(t_ray ray, t_main *main, double *t)
 {
@@ -100,7 +129,15 @@ t_object		*get_closest_intersection(t_ray ray, t_main *main, double *t)
 		return (closest_obj);
 }
 
-t_error			ray_tracer(t_main *main)
+/*
+** First, the cam_to_world matrix of the camera is set. Then for each pixel on
+** the screen, the direction of the corresponding ray is initialized. If one or
+** several intersections are found, the closest object is kept in memory and the
+** distance between it and the intersection point is stored in t. Then, the
+** shader function color the pixel.
+*/
+
+void			ray_tracer(t_main *main)
 {
 	int			i;
 	int			j;
@@ -126,5 +163,4 @@ t_error			ray_tracer(t_main *main)
 		}
 		j++;
 	}
-	return (NO_ERROR);
 }

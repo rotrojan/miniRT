@@ -6,11 +6,16 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 15:33:48 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/08 00:30:40 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/13 16:53:25 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+/*
+** Each line is split into tokens gathered in an array. Then the proper
+** sub-parser is selected by the select_sub_parser function.
+*/
 
 static t_error	parse_line(char ***token_array, char **current_line,
 																t_main *main)
@@ -35,6 +40,14 @@ static t_error	parse_line(char ***token_array, char **current_line,
 	free(*current_line);
 	return (NO_ERROR);
 }
+
+/*
+** Each line is parsed individually by the parse_line function. The error check
+** is made progressively during the parsing.
+** Here is why the Ambient lighting was set to -1.
+** The chain-linked list of cameras is made circular to make it easier to switch
+** cameras.
+*/
 
 static t_error	parser(int fd, t_main *main)
 {
@@ -62,6 +75,11 @@ static t_error	parser(int fd, t_main *main)
 	ft_lstlast(main->scene.cam_lst)->next = main->scene.cam_lst;
 	return (NO_ERROR);
 }
+
+/*
+** The arguments and the .rt file are verified by the check_args function. It it
+** is ok, the parser function is called.
+*/
 
 t_error			open_and_parse_file(int ac, char **av, t_main *main)
 {

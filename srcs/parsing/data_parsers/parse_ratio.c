@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ray.h                                              :+:      :+:    :+:   */
+/*   parse_ratio.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/02 02:14:36 by rotrojan          #+#    #+#             */
-/*   Updated: 2020/03/03 12:04:53 by rotrojan         ###   ########.fr       */
+/*   Created: 2020/02/17 15:05:52 by rotrojan          #+#    #+#             */
+/*   Updated: 2021/03/14 13:59:42 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAY_H
-# define RAY_H
-# include "minirt.h"
+#include "minirt.h"
 
-typedef struct	s_ray
+t_bool			parse_ratio(char *ratio_str, double *ratio)
 {
-	t_vector	direction;
-	t_vector	origin;
-}				t_ray;
+	char	*tmp;
 
-#endif
+	tmp = ratio_str;
+	while (ft_isdigit(*tmp))
+		tmp++;
+	if (*tmp == '.')
+		tmp++;
+	while (ft_isdigit(*tmp))
+		tmp++;
+	if (*tmp)
+		return (FALSE);
+	*ratio = ft_atod(ratio_str);
+	if (*ratio < 0.0 || *ratio > 1.0)
+		return (FALSE);
+	return (TRUE);
+}

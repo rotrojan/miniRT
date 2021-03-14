@@ -6,11 +6,16 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 17:19:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/10 23:56:38 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/14 22:30:17 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+/*
+** All these functions aim to handle colors : returning, mixing, adding or
+** shading / lighting them.
+*/
 
 t_color		get_color(double r, double g, double b)
 {

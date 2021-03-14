@@ -6,14 +6,14 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 00:39:08 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/11 14:37:34 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/14 13:32:52 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_vector	get_centered_projection(t_vector intersection_point,
-													t_object cylinder)
+static t_vector	get_centered_projection(t_vector intersection_point,
+															t_object cylinder)
 {
 	return (add_vectors(
 		cylinder.position,
@@ -24,8 +24,8 @@ t_vector	get_centered_projection(t_vector intersection_point,
 			cylinder.obj_prop.cylinder.orientation)));
 }
 
-t_bool		finite_cylinder_intersection(t_quadratic quad, double *t, t_ray ray,
-															t_object cylinder)
+static t_bool	finite_cylinder_intersection(t_quadratic quad, double *t,
+												t_ray ray, t_object cylinder)
 {
 	double	cylinder_half_height;
 
@@ -45,7 +45,7 @@ t_bool		finite_cylinder_intersection(t_quadratic quad, double *t, t_ray ray,
 	return (TRUE);
 }
 
-t_bool		cylinder_intersection(t_ray ray, t_object cylinder, double *t)
+t_bool			cylinder_intersection(t_ray ray, t_object cylinder, double *t)
 {
 	t_quadratic	quad;
 	t_vector	vec[3];

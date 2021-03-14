@@ -6,11 +6,16 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:03:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/11 10:33:50 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/14 22:10:21 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+/*
+** All these functions are self explanatories. Check out the MLX "documentation"
+** for further informations ... try not to cry.
+*/
 
 t_bool	run_mlx(t_main *main)
 {
@@ -20,10 +25,13 @@ t_bool	run_mlx(t_main *main)
 	return (TRUE);
 }
 
-int		close_mlx(t_mlx *mlx)
+int		close_mlx(t_main *main)
 {
-	mlx_destroy_image(mlx->mlx_ptr, mlx->img_ptr);
-	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
+	mlx_destroy_image(main->mlx.mlx_ptr, main->mlx.img_ptr);
+	mlx_destroy_window(main->mlx.mlx_ptr, main->mlx.win_ptr);
+	mlx_destroy_display(main->mlx.mlx_ptr);
+	free(main->mlx.mlx_ptr);
+	free_scene(&main->scene);
 	exit(EXIT_SUCCESS);
 	return (EXIT_FAILURE);
 }
@@ -31,6 +39,9 @@ int		close_mlx(t_mlx *mlx)
 void	init_mlx(t_mlx *mlx)
 {
 	mlx->mlx_ptr = mlx_init();
+	mlx_get_screen_size(mlx->mlx_ptr, &mlx->screen_width, &mlx->screen_height);
+	mlx->win_width = fmin(mlx->win_width, mlx->screen_width);
+	mlx->win_height = fmin(mlx->win_height, mlx->screen_height);
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr, mlx->win_width,
 		mlx->win_height, TITLE);
 	mlx->img_ptr = mlx_new_image(mlx->mlx_ptr, mlx->win_width, mlx->win_height);

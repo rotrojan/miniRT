@@ -6,17 +6,25 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/11 10:00:57 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/17 16:39:24 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/15 00:43:03 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+/*
+** Self explanatory.
+*/
 
 static t_error	close_and_return(int fd, t_error error)
 {
 	close(fd);
 	return (error);
 }
+
+/*
+** Standard bitmap header.
+*/
 
 static t_bool	write_header(int fd, int size_data, t_main *main)
 {
@@ -40,6 +48,11 @@ static t_bool	write_header(int fd, int size_data, t_main *main)
 		return (FALSE);
 	return (TRUE);
 }
+
+/*
+** The data of each pixel in a bitmap file is not stored the same way and in the
+** same order than in the mlx.
+*/
 
 static void		fill_data(unsigned char **buffer, int **data, int width,
 																	int height)
@@ -69,6 +82,10 @@ static void		fill_data(unsigned char **buffer, int **data, int width,
 	}
 }
 
+/*
+** Write in the file the data stored in the pixel array.
+*/
+
 static t_error	write_data(int fd, int nbr_pixel, t_main *main)
 {
 	unsigned char	*buffer;
@@ -86,6 +103,12 @@ static t_error	write_data(int fd, int nbr_pixel, t_main *main)
 	free(buffer);
 	return (ret);
 }
+
+/*
+** Create the bmp file and init all the variables nedded for the header.
+** Then, write the header, fill the file with the data (in the proper order) and
+** finally close the file. Checks are made all along.
+*/
 
 t_error			screen_shot(t_main *main)
 {

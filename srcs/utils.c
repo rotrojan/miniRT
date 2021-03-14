@@ -6,11 +6,15 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 17:19:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/11 00:00:01 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/13 14:27:36 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+/*
+** Self explanatory function.
+*/
 
 void		free_scene(t_scene *scene)
 {
@@ -18,6 +22,11 @@ void		free_scene(t_scene *scene)
 	ft_lstclear(&scene->light_lst, &free);
 	ft_lstclear(&scene->obj_lst, &free);
 }
+
+/*
+** This function display the proper error message in STDERR. Check the errors.h
+** for more informations.
+*/
 
 t_error		return_error(t_error num_error)
 {
@@ -40,14 +49,4 @@ t_error		return_error(t_error num_error)
 	ft_putendl_fd("Error", STDERR_FILENO);
 	ft_putendl_fd((char*)str_error[num_error], STDERR_FILENO);
 	return (EXIT_FAILURE);
-}
-
-void		free_array(void **array)
-{
-	int		i;
-
-	i = 0;
-	while (array[i])
-		free(array[i++]);
-	free(array);
 }

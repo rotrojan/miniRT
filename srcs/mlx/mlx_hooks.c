@@ -6,11 +6,16 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 21:26:38 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/10 22:54:23 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/13 16:28:58 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+/*
+** Erase the current image, switch to the next camera, raytrace again and load
+** the new image.
+*/
 
 static void	switch_cam(t_main *main)
 {
@@ -21,16 +26,29 @@ static void	switch_cam(t_main *main)
 		main->mlx.img_ptr, 0, 0);
 }
 
+/*
+** Launch the function corresponding to the received event.
+*/
+
 static int	key_hook(int key, t_main *main)
 {
 	if (key == ESC_KEY)
-		close_mlx(&main->mlx);
+	{
+		mlx_loop_end(main->mlx.mlx_ptr);
+		close_mlx(main);
+	}
 	if (key == SP_KEY)
 		switch_cam(main);
 	if (!run_mlx(main))
 		return (return_error(MLX_HOOKS_ERR));
 	return (0);
 }
+
+/*
+** The mlx_loop_hook function wait for key or mouse events.
+** For more informations about events management with the MlX, check out the MLX
+** "documentation" ... and try not to cry.
+*/
 
 int			set_mlx_hooks(t_main *main)
 {

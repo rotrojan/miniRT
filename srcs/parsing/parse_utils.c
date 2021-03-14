@@ -6,11 +6,17 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 07:07:14 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/10 23:14:13 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/13 16:52:48 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+/*
+** The number of arguments, the format of the name of the scene description
+** (must end with ".rt") and finally the third argument (must be "-save" or
+** "--save") are checked.
+*/
 
 t_error		check_args(int ac, char **av)
 {
@@ -23,6 +29,10 @@ t_error		check_args(int ac, char **av)
 			return (THIRD_ARG_ERR);
 	return (NO_ERROR);
 }
+
+/*
+** Check the first token of each line to recognize the appropriate sub-parser.
+*/
 
 t_type		get_sub_parser(char *first_token)
 {
@@ -47,6 +57,10 @@ t_type		get_sub_parser(char *first_token)
 	return (TYPE_ERROR);
 }
 
+/*
+** Return the function pointer corresponding to the proper sub-parser.
+*/
+
 t_error		select_sub_parser(t_type type, char **token_array, t_main *main)
 {
 	static t_error		(*sub_parser[])(char**, t_main*) = {
@@ -64,9 +78,27 @@ t_error		select_sub_parser(t_type type, char **token_array, t_main *main)
 	return (sub_parser[type](token_array, main));
 }
 
+/*
+** Self explanatory.
+*/
+
 t_error		free_and_return(t_error error, t_object *object)
 {
 	free(object);
 	object = NULL;
 	return (error);
+}
+
+/*
+** Self explanatory.
+*/
+
+void		free_array(void **array)
+{
+	int		i;
+
+	i = 0;
+	while (array[i])
+		free(array[i++]);
+	free(array);
 }

@@ -6,9 +6,13 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:48:35 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/09 00:26:48 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/14 12:20:11 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/*
+** This file list all possible errors and the corresponding displayed messages.
+*/
 
 #ifndef ERRORS_H
 # define ERRORS_H

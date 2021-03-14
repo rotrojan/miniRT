@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:08:07 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/07 19:08:28 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/14 21:59:04 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ t_error				parse_resolution(char **token_array, t_main *main)
 		tmp++;
 	if (*tmp)
 		return (RES_Y_FMT_ERR);
-	if ((main->mlx.win_width = fmin(WIN_X_MAX, ft_atoi(token_array[1]))) <= 0)
+	if ((main->mlx.win_width = ft_atoi(token_array[1])) <= 0)
 		return (RES_X_FMT_ERR);
-	if ((main->mlx.win_height = fmin(WIN_Y_MAX, ft_atoi(token_array[2]))) <= 0)
+	if ((main->mlx.win_height = ft_atoi(token_array[2])) <= 0)
 		return (RES_Y_FMT_ERR);
 	return (NO_ERROR);
 }

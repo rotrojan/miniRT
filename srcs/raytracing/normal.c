@@ -6,11 +6,16 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/10 23:50:45 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/13 16:30:49 by bigo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+/*
+** All these functions return the normal vector on the given point of the object
+** (normalized).
+*/
 
 t_vector	sphere_normal(t_object sphere, t_vector point)
 {
