@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 18:13:01 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/14 23:11:56 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/15 12:54:32 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 
 void				init_mlx(t_mlx *mlx);
 int					close_mlx(t_main *main);
+int					run_window(t_main *main);
 void				put_pixel(t_mlx *mlx, int x, int y, t_color color);
 t_bool				run_mlx(t_main *main);
 

@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/14 23:28:27 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/15 13:22:22 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 # include <math.h>
 # include <fcntl.h>
 # include <sys/stat.h>
+# define XK_MISCELLANY
+# define XK_LATIN1
+# include <X11/X.h>
+# include <X11/keysymdef.h>
 # include "mlx.h"
-# include "mlx_defines.h"
 # include "libft.h"
 # include "vectors.h"
 # include "bool.h"

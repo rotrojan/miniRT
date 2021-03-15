@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 19:52:24 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/14 22:07:03 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/15 13:15:17 by user42           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ int				main(int ac, char **av)
 		main.mlx.data = (int*)mlx_get_data_addr(main.mlx.img_ptr,
 			&main.mlx.size_line, &main.mlx.bits_per_pixel, &main.mlx.endian);
 		ray_tracer(&main);
-		mlx_put_image_to_window(main.mlx.mlx_ptr, main.mlx.win_ptr,
-			main.mlx.img_ptr, 0, 0);
+		run_window(&main);
 		if (!run_mlx(&main))
 			return (return_error(MLX_HOOKS_ERR));
 	}

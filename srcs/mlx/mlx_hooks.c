@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 21:26:38 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/13 16:28:58 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/15 14:16:32 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,9 @@ static void	switch_cam(t_main *main)
 
 static int	key_hook(int key, t_main *main)
 {
-	if (key == ESC_KEY)
-	{
-		mlx_loop_end(main->mlx.mlx_ptr);
+	if (key == XK_Escape)
 		close_mlx(main);
-	}
-	if (key == SP_KEY)
+	if (key == XK_space)
 		switch_cam(main);
 	if (!run_mlx(main))
 		return (return_error(MLX_HOOKS_ERR));
@@ -52,11 +49,15 @@ static int	key_hook(int key, t_main *main)
 
 int			set_mlx_hooks(t_main *main)
 {
-	if (!(mlx_key_hook(main->mlx.win_ptr, &key_hook, main)))
+	if (!(mlx_hook(
+		main->mlx.win_ptr, ClientMessage, StructureNotifyMask, &close_mlx,
+		main)))
 		return (1);
 	if (!(mlx_hook(
-		main->mlx.win_ptr, DESTROYNOTIFY, STRUCTURENOTIFYMASK, &close_mlx,
+		main->mlx.win_ptr, VisibilityNotify, VisibilityChangeMask, &run_window,
 		main)))
+		return (1);
+	if (!(mlx_key_hook(main->mlx.win_ptr, &key_hook, main)))
 		return (1);
 	if (!(mlx_loop_hook(main->mlx.win_ptr, NULL, NULL)))
 		return (1);

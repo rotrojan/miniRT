@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:03:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/14 22:10:21 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/15 14:25:16 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,16 @@ t_bool	run_mlx(t_main *main)
 	return (TRUE);
 }
 
+int		run_window(t_main *main)
+{
+	mlx_put_image_to_window(main->mlx.mlx_ptr, main->mlx.win_ptr,
+		main->mlx.img_ptr, 0, 0);
+	return (EXIT_SUCCESS);
+}
+
 int		close_mlx(t_main *main)
 {
+	mlx_loop_end(main->mlx.mlx_ptr);
 	mlx_destroy_image(main->mlx.mlx_ptr, main->mlx.img_ptr);
 	mlx_destroy_window(main->mlx.mlx_ptr, main->mlx.win_ptr);
 	mlx_destroy_display(main->mlx.mlx_ptr);
