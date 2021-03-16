@@ -6,10 +6,11 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/03/16 14:43:21 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/03/16 21:58:52 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+MAKE				=	make -s
 SRCS_DIR			=	./srcs/
 OBJS_DIR			=	./.objs/
 INCLUDES_DIR		=	./includes/ ${LIBS:%=./lib%/includes/} ${MLX_DIR}
@@ -53,34 +54,33 @@ vpath %.a ${LIBS:%=lib%} ${MLX_DIR}
 vpath %.h ${INCLUDES_DIR}
 
 all					:
-	@$(foreach LIB, ${LIBS}, echo -e '\x1b[33m'building lib${LIB}'\x1b[0m' && ${MAKE} -j -C lib${LIB} &)
-	@echo -e '\x1b[33m'building ${MLX}'\x1b[0m'
-	${MAKE} -C ${MLX_DIR}
+	$(foreach LIB, ${LIBS}, echo building lib${LIB} && ${MAKE} -j -C lib${LIB} &)
+	@echo building minilibX
+	@${MAKE} -C ${MLX_DIR} 2> /dev/null > /dev/null
 	@${MAKE} -j ${NAME}
 
 ${NAME}				:	${OBJS} ${LIBS:%=lib%.a} ${MLX}
-	@echo -e '\x1b[33m'building ${NAME}'\x1b[0m'
-	${CC} -o $@ $^ ${LDFLAGS} ${CXXFLAGS}
-	@echo -e'\x1b[33m' && cat header
+	@echo building ${NAME}
+	@${CC} -o $@ $^ ${LDFLAGS} ${CXXFLAGS}
+	@echo && cat README
 
 -include ${DEPENDENCIES}
 ${OBJS_DIR}%.o		:	%.c | ${OBJS_DIR}
-	${CC} ${CFLAGS} -c $< ${CXXFLAGS} -o $@
+	@${CC} ${CFLAGS} -c $< ${CXXFLAGS} -o $@
 
 lib%.a				:
 	@${MAKE} -j -C  ${@:%.a=%}
 
-libmlx.a			:
-	@CFLAGS+="${NODEPRECATEDFLAGS}" CC="clang" ${MAKE} -j -C ${MLX_DIR}
+	@${MAKE} -j -C ${MLX_DIR} > /dev/null
 
 ${OBJS_DIR}			:
-	@echo -e '\x1b[33m'building objects and dependencies${LIB}'\x1b[0m'
-	${MKDIR} ${OBJS_DIR}
+	@echo building objects and dependencies${LIB}
+	@${MKDIR} ${OBJS_DIR}
 
 clean				:
 	@$(foreach LIB, ${LIBS}, ${MAKE} clean -C lib${LIB};)
-	${MAKE} clean -C ${MLX_DIR}
-	${RM} -r ${OBJS_DIR}
+	@${MAKE} clean -C ${MLX_DIR}
+	@${RM} -r ${OBJS_DIR}
 
 fclean				:	clean
 	${RM} ${NAME} $(foreach LIB, ${LIBS}, lib${LIB}/lib${LIB}.a)
@@ -88,3 +88,4 @@ fclean				:	clean
 re					:	fclean all
 
 .PHONY				:	all clean fclean re
+.SILENT				:	all clean fclean re ${NAME}

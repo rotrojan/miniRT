@@ -5,3 +5,13 @@
   \ \__ ,__\ // /_\ \    /\______\    /\ \/\ \/\ \ \ \/\ \/\ \ \ \ \ \\ \  \ \ \ 
    \/_/\_\_//\______/    \/______/    \ \_\ \_\ \_\ \_\ \_\ \_\ \_\ \_\ \_\ \ \_\
       \/_/  \/_____/                   \/_/\/_/\/_/\/_/\/_/\/_/\/_/\/_/\/ /  \/_/
+
+Basic raytracer using the MinilibX.
+
+Usage :
+./miniRT <scene>.rt
+	Render the <scene>.rt file using the MinilibX. Press space to switch camera.
+./miniRT <scene>.rt
+	Render the <scene>.rt in a save.bmp file (only the first camera).
+Example :
+./miniRT scenes/columns.rt
