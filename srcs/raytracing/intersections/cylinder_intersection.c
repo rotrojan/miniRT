@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 00:39:08 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/14 13:32:52 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/16 19:14:52 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ t_bool			cylinder_intersection(t_ray ray, t_object cylinder, double *t)
 		return (FALSE);
 	if (quad.x0 > quad.x1)
 		ft_swap(&quad.x0, &quad.x1);
-	if (quad.x0 < 0 && quad.x1 < 0)
+	if (quad.x0 < 0)
+		quad.x0 = quad.x1;
+	if (quad.x0 < 0)
 		return (FALSE);
 	return (finite_cylinder_intersection(quad, t, ray, cylinder));
 }

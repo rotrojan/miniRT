@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*   ft_circularlstclear.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/20 14:32:34 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/16 15:26:13 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/03/16 15:56:17 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstclear(t_list **lst, void (*del)(void*))
+void	ft_circularlstclear(t_list **lst, void (*del)(void*))
 {
 	t_list		*tmp;
 	t_list		*next_link;
+	int			lst_size;
 
 	if (*lst && del)
 	{
 		tmp = *lst;
-		while (tmp)
+		lst_size = 1;
+		(*lst) = (*lst)->next;
+		while (*lst != tmp)
+		{
+			lst_size++;
+			(*lst) = (*lst)->next;
+		}
+		while (lst_size--)
 		{
 			next_link = tmp->next;
 			ft_lstdelone(tmp, del);

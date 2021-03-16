@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 13:04:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/02/02 14:20:27 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/16 15:37:03 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ void			ft_lstdelone(t_list *lst, void (*del)(void*));
 void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void*));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void*), void (*del)(void*));
+void			ft_circularlstclear(t_list **lst, void (*del)(void*));
 
 #endif

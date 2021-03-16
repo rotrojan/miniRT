@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 17:19:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/13 14:27:36 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/16 19:14:06 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void		free_scene(t_scene *scene)
 {
-	ft_lstclear(&scene->cam_lst, &free);
+	ft_circularlstclear(&scene->cam_lst, &free);
 	ft_lstclear(&scene->light_lst, &free);
 	ft_lstclear(&scene->obj_lst, &free);
 }

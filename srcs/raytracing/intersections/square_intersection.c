@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 00:39:08 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/11 14:40:19 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/16 13:36:40 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ t_bool			square_intersection(t_ray ray, t_object square, double *t)
 		return (FALSE);
 	intersection_point = add_vectors(
 		ray.origin, scale_vector(*t, ray.direction));
-	height[0] = cross_vectors(tmp_vector(square.obj_prop.square.normal),
-		square.obj_prop.square.normal);
-	height[1] = cross_vectors(height[0], square.obj_prop.square.normal);
+	height[0] = normalized_vector(cross_vectors(tmp_vector(
+		square.obj_prop.square.normal), square.obj_prop.square.normal));
+	height[1] = normalized_vector(cross_vectors(height[0],
+		square.obj_prop.square.normal));
 	corner = sub_vectors(sub_vectors(square.position, scale_vector(
-		square.obj_prop.square.size / 2, height[0])), scale_vector(
-		square.obj_prop.square.size / 2, height[1]));
+		square.obj_prop.square.size / (double)2, height[0])), scale_vector(
+		square.obj_prop.square.size / (double)2, height[1]));
 	v = sub_vectors(intersection_point, corner);
 	proj[0] = dot_vectors(v, height[0]);
 	proj[1] = dot_vectors(v, height[1]);

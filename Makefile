@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/03/15 16:33:46 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/03/16 14:43:21 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ DEPENDENCIES		=	${OBJS:.o=.d}
 CC					=	clang
 MKDIR				=	mkdir -p
 LIBS				=	ft vectors
-CFLAGS				+=	-Wall -Wextra -Werror -MMD
+CFLAGS				+=	-Wall -Wextra -Werror -MMD -g3
 CXXFLAGS			+=	${INCLUDES_DIR:%=-I%}
 
 MLX_DIR				=	./minilibx-linux/

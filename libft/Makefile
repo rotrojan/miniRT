@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 02:53:19 by rotrojan          #+#    #+#              #
-#    Updated: 2021/02/02 14:11:06 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/03/16 15:39:47 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRCS 			=	ft_memset.c									\
 					ft_lstadd_back.c							\
 					ft_lstdelone.c								\
 					ft_lstclear.c								\
+					ft_circularlstclear.c						\
 					ft_lstiter.c								\
 					ft_lstmap.c									\
 					get_next_line.c
