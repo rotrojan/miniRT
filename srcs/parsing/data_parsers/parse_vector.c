@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:16:44 by bigo              #+#    #+#             */
-/*   Updated: 2021/03/16 18:50:51 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/03/17 02:03:46 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ static t_bool	parse_coordinate(char **point_str, double *coordinate)
 	while (ft_isdigit(*tmp))
 		++tmp;
 	if (*tmp == '.')
+	{
 		++tmp;
-	if (ft_isdigit(*tmp))
+		if (!ft_isdigit(*tmp))
+			return (FALSE);
 		while (ft_isdigit(*tmp))
 			++tmp;
+	}
 	if (!*tmp || *tmp == ',')
 		*coordinate = ft_atod(*point_str);
 	else

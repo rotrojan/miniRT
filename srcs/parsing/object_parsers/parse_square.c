@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:28:50 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/08 22:50:14 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/17 01:49:24 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_error		parse_square(char **token_array, t_main *main)
 {
 	t_object	*square;
+	t_list		*link;
 
 	if (!token_array[1] || !token_array[2] || !token_array[3] || !token_array[4]
 		|| token_array[5])
@@ -32,6 +33,8 @@ t_error		parse_square(char **token_array, t_main *main)
 		return (free_and_return(SQ_COL_FMT_ERR, square));
 	square->intersection = &square_intersection;
 	square->get_normal = &square_normal;
-	ft_lstadd_front(&main->scene.obj_lst, ft_lstnew(square));
+	if (!(link = ft_lstnew(square)))
+		return (free_and_return(MALLOC_ERR, square));
+	ft_lstadd_front(&main->scene.obj_lst, link);
 	return (NO_ERROR);
 }

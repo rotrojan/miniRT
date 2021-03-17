@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:07:04 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/07 19:15:02 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/17 01:52:21 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_error		parse_sphere(char **token_array, t_main *main)
 {
 	t_object	*sphere;
+	t_list		*link;
 
 	if (!token_array[1] || !token_array[2] || !token_array[3] || token_array[4])
 		return (SP_FMT_ERR);
@@ -29,6 +30,8 @@ t_error		parse_sphere(char **token_array, t_main *main)
 		return (free_and_return(SP_COL_FMT_ERR, sphere));
 	sphere->intersection = &sphere_intersection;
 	sphere->get_normal = &sphere_normal;
-	ft_lstadd_front(&main->scene.obj_lst, ft_lstnew(sphere));
+	if (!(link = ft_lstnew(sphere)))
+		return (free_and_return(MALLOC_ERR, sphere));
+	ft_lstadd_front(&main->scene.obj_lst, link);
 	return (NO_ERROR);
 }

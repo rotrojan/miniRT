@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/03/16 21:58:52 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/03/16 22:46:47 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ all					:
 ${NAME}				:	${OBJS} ${LIBS:%=lib%.a} ${MLX}
 	@echo building ${NAME}
 	@${CC} -o $@ $^ ${LDFLAGS} ${CXXFLAGS}
-	@echo && cat README
+	@cat README
 
 -include ${DEPENDENCIES}
 ${OBJS_DIR}%.o		:	%.c | ${OBJS_DIR}
@@ -79,10 +79,12 @@ ${OBJS_DIR}			:
 
 clean				:
 	@$(foreach LIB, ${LIBS}, ${MAKE} clean -C lib${LIB};)
-	@${MAKE} clean -C ${MLX_DIR}
+	@echo cleaning sources
+	@${MAKE} clean -C ${MLX_DIR} 2> /dev/null > /dev/null
 	@${RM} -r ${OBJS_DIR}
 
 fclean				:	clean
+	@echo cleaning executable
 	${RM} ${NAME} $(foreach LIB, ${LIBS}, lib${LIB}/lib${LIB}.a)
 
 re					:	fclean all

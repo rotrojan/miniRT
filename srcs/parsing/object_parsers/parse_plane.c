@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:27:20 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/07 19:15:22 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/17 01:54:00 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_error		parse_plane(char **token_array, t_main *main)
 {
 	t_object	*plane;
+	t_list		*link;
 
 	if (!token_array[1] || !token_array[2] || !token_array[3] || token_array[4])
 		return (PL_FMT_ERR);
@@ -29,6 +30,8 @@ t_error		parse_plane(char **token_array, t_main *main)
 		return (free_and_return(PL_COL_FMT_ERR, plane));
 	plane->intersection = &plane_intersection;
 	plane->get_normal = &plane_normal;
-	ft_lstadd_front(&main->scene.obj_lst, ft_lstnew(plane));
+	if (!(link = ft_lstnew(plane)))
+		return (free_and_return(MALLOC_ERR, plane));
+	ft_lstadd_front(&main->scene.obj_lst, link);
 	return (NO_ERROR);
 }

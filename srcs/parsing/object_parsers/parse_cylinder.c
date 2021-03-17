@@ -6,15 +6,22 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:25:35 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/09 00:21:27 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/17 01:42:51 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+static void	init_normal_and_intersection(t_object *cylinder)
+{
+	cylinder->intersection = &cylinder_intersection;
+	cylinder->get_normal = &cylinder_normal;
+}
+
 t_error		parse_cylinder(char **token_array, t_main *main)
 {
 	t_object	*cylinder;
+	t_list		*link;
 
 	if (!token_array[1] || !token_array[2] || !token_array[3] || !token_array[4]
 		|| !token_array[5] || token_array[6])
@@ -33,8 +40,9 @@ t_error		parse_cylinder(char **token_array, t_main *main)
 		return (free_and_return(CY_HGHT_FMT_ERR, cylinder));
 	if (!(parse_color(token_array[5], &cylinder->color)))
 		return (free_and_return(CY_COL_FMT_ERR, cylinder));
-	cylinder->intersection = &cylinder_intersection;
-	cylinder->get_normal = &cylinder_normal;
-	ft_lstadd_front(&main->scene.obj_lst, ft_lstnew(cylinder));
+	init_normal_and_intersection(cylinder);
+	if (!(link = ft_lstnew(cylinder)))
+		return (free_and_return(MALLOC_ERR, cylinder));
+	ft_lstadd_front(&main->scene.obj_lst, link);
 	return (NO_ERROR);
 }

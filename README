@@ -8,10 +8,11 @@
 
 Basic raytracer using the MinilibX.
 
-Usage :
-./miniRT <scene>.rt
+USAGE :
+./miniRT <scene>.rt [-save|--save]
 	Render the <scene>.rt file using the MinilibX. Press space to switch camera.
-./miniRT <scene>.rt
-	Render the <scene>.rt in a save.bmp file (only the first camera).
-Example :
-./miniRT scenes/columns.rt
+-save, --save
+	Render the <scene>.rt file in a save.bmp file (only the first camera).
+
+EXAMPLE :
+./miniRT scenes/columns.rt -save

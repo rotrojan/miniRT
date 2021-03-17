@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/16 17:19:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/16 19:14:06 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/03/17 01:25:21 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_error		return_error(t_error num_error)
 		AMB_MISS_ERR_STR, AMB_TWICE_ERR_STR, AMB_FMT_ERR_STR, AMB_RATIO_ERR_STR,
 		AMB_COL_ERR_STR, CAM_ERR_STR, CAM_POS_ERR_STR, CAM_ORIENT_ERR_STR,
 		CAM_FOV_ERR_STR, LIGHT_ERR_STR, LIGHT_POS_ERR_STR, LIGHT_INTENS_ERR_STR,
-		NB_CAM_ERR_STR, BMP_ERR_STR, MLX_HOOKS_ERR_STR};
+		LIGHT_COL_ERR_STR, NB_CAM_ERR_STR, BMP_ERR_STR, MLX_HOOKS_ERR_STR};
 
 	ft_putendl_fd("Error", STDERR_FILENO);
 	ft_putendl_fd((char*)str_error[num_error], STDERR_FILENO);

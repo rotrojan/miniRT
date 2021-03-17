@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:22:10 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/13 15:01:40 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/17 01:49:35 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ static t_bool		check_fov(char *fov_str)
 t_error				parse_camera(char **token_array, t_main *main)
 {
 	t_object	*camera;
+	t_list		*link;
 
 	if (!token_array[1] || !token_array[2] || !token_array[3] || token_array[4])
 		return (CAM_ERR);
 	camera = NULL;
 	if (!(camera = (t_object*)malloc(sizeof(*camera))))
 		return (MALLOC_ERR);
-	ft_bzero(camera, sizeof(*camera));
+	camera->obj_type = CAMERA;
 	if (!(parse_vector(token_array[1], &(camera->position))))
 		return (free_and_return(CAM_POS_ERR, camera));
 	if (!(parse_orientation(token_array[2],
@@ -51,6 +52,8 @@ t_error				parse_camera(char **token_array, t_main *main)
 	camera->obj_prop.camera.fov = ft_atod(token_array[3]);
 	if (camera->obj_prop.camera.fov >= 180 || camera->obj_prop.camera.fov <= 0)
 		return (free_and_return(CAM_FOV_ERR, camera));
-	ft_lstadd_back(&main->scene.cam_lst, ft_lstnew(camera));
+	if (!(link = ft_lstnew(camera)))
+		return (free_and_return(MALLOC_ERR, camera));
+	ft_lstadd_back(&main->scene.cam_lst, link);
 	return (NO_ERROR);
 }
