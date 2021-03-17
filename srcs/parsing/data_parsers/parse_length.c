@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/17 15:05:52 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/16 23:26:03 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/03/17 10:16:34 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,8 @@ t_bool			parse_length(char *length_str, double *length)
 	char	*tmp;
 
 	tmp = length_str;
-	if (*tmp == '+' || *tmp == '-')
-		++tmp;
-	if (!ft_isdigit(*tmp))
+	if (!(check_double(&tmp)))
 		return (FALSE);
-	while (ft_isdigit(*tmp))
-		++tmp;
-	if (*tmp == '.')
-	{
-		++tmp;
-		if (!ft_isdigit(*tmp))
-			return (FALSE);
-		while (ft_isdigit(*tmp))
-			++tmp;
-	}
 	if (*tmp)
 		return (FALSE);
 	*length = ft_atod(length_str);

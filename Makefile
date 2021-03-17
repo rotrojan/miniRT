@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/03/16 22:46:47 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/03/17 21:38:52 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRCS_DIR			=	./srcs/
 OBJS_DIR			=	./.objs/
 INCLUDES_DIR		=	./includes/ ${LIBS:%=./lib%/includes/} ${MLX_DIR}
 SRCS				=	main.c mlx_utils.c mlx_hooks.c						\
-						parser.c parse_utils.c								\
+						parser.c parse_utils.c check_number.c				\
 						parse_colors.c parse_length.c parse_ratio.c			\
 						parse_vector.c parse_orientation.c				 	\
 						parse_resolution.c parse_ambient.c					\
@@ -37,7 +37,7 @@ DEPENDENCIES		=	${OBJS:.o=.d}
 CC					=	clang
 MKDIR				=	mkdir -p
 LIBS				=	ft vectors
-CFLAGS				+=	-Wall -Wextra -Werror -MMD -g3
+CFLAGS				+=	-Wall -Wextra -Werror -MMD
 CXXFLAGS			+=	${INCLUDES_DIR:%=-I%}
 
 MLX_DIR				=	./minilibx-linux/

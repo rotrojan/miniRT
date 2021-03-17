@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/23 18:13:01 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/14 23:11:13 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/17 17:23:18 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@
 
 typedef struct		s_mlx
 {
-	int		win_width;
-	int		win_height;
-	int		screen_width;
-	int		screen_height;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*img_ptr;
-	int		*data;
-	int		size_line;
-	int		bits_per_pixel;
-	int		endian;
+	unsigned int		win_width;
+	unsigned int		win_height;
+	int					screen_width;
+	int					screen_height;
+	void				*mlx_ptr;
+	void				*win_ptr;
+	void				*img_ptr;
+	int					*data;
+	int					size_line;
+	int					bits_per_pixel;
+	int					endian;
 }					t_mlx;
 
 #endif

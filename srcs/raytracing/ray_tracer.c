@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 23:40:03 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/15 00:45:58 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/17 17:22:17 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,11 +139,11 @@ t_object		*get_closest_intersection(t_ray ray, t_main *main, double *t)
 
 void			ray_tracer(t_main *main)
 {
-	int			i;
-	int			j;
-	t_ray		ray;
-	double		t;
-	t_object	*closest_obj;
+	unsigned int	i;
+	unsigned int	j;
+	t_ray			ray;
+	double			t;
+	t_object		*closest_obj;
 
 	look_at(main->scene.cam_lst->content);
 	j = 0;

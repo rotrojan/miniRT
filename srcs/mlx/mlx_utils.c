@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/18 22:03:11 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/15 14:25:16 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:20:23 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		close_mlx(t_main *main)
 	mlx_destroy_window(main->mlx.mlx_ptr, main->mlx.win_ptr);
 	mlx_destroy_display(main->mlx.mlx_ptr);
 	free(main->mlx.mlx_ptr);
-	free_scene(&main->scene);
+	free_scene(&main->scene, 1);
 	exit(EXIT_SUCCESS);
 	return (EXIT_FAILURE);
 }
@@ -55,7 +55,7 @@ void	init_mlx(t_mlx *mlx)
 	mlx->img_ptr = mlx_new_image(mlx->mlx_ptr, mlx->win_width, mlx->win_height);
 }
 
-void	put_pixel(t_mlx *mlx, int x, int y, t_color color)
+void	put_pixel(t_mlx *mlx, unsigned int x, unsigned int y, t_color color)
 {
 	int		(*pixel_array)[mlx->win_width][1];
 	int		final_color;

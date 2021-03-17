@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:08:07 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/14 21:59:04 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/17 21:26:07 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,22 @@ t_error				parse_resolution(char **token_array, t_main *main)
 	if (!token_array[1] || !token_array[2] || token_array[3])
 		return (RES_FMT_ERR);
 	tmp = token_array[1];
-	while (ft_isdigit(*tmp))
-		tmp++;
+	if (!(check_int(&tmp)))
+		return (RES_X_FMT_ERR);
 	if (*tmp)
 		return (RES_X_FMT_ERR);
 	tmp = token_array[2];
-	while (ft_isdigit(*tmp))
-		tmp++;
+	if (!(check_int(&tmp)))
+		return (RES_Y_FMT_ERR);
 	if (*tmp)
 		return (RES_Y_FMT_ERR);
-	if ((main->mlx.win_width = ft_atoi(token_array[1])) <= 0)
+	main->mlx.win_width = (unsigned int)ft_atoi(token_array[1]);
+	if (ft_atoll(token_array[1]) != main->mlx.win_width || main->mlx.win_width
+		<= 0)
 		return (RES_X_FMT_ERR);
-	if ((main->mlx.win_height = ft_atoi(token_array[2])) <= 0)
+	main->mlx.win_height = (unsigned int)ft_atoi(token_array[2]);
+	if (ft_atoll(token_array[2]) != main->mlx.win_height || main->mlx.win_height
+		<= 0)
 		return (RES_Y_FMT_ERR);
 	return (NO_ERROR);
 }

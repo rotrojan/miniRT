@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 07:07:14 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/13 16:52:48 by bigo             ###   ########.fr       */
+/*   Updated: 2021/03/17 12:19:09 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,11 @@ void		free_array(void **array)
 
 	i = 0;
 	while (array[i])
-		free(array[i++]);
+	{
+		free(array[i]);
+		array[i] = NULL;
+		++i;
+	}
 	free(array);
+	array = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 06:22:10 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/17 01:49:35 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/03/17 15:06:53 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@
 
 static t_bool		check_fov(char *fov_str)
 {
-	while (ft_isdigit(*fov_str))
-		fov_str++;
-	if (*fov_str == '.')
-		fov_str++;
-	if (ft_isdigit(*fov_str))
-		fov_str++;
-	if (*fov_str)
+	char	*tmp;
+
+	tmp = fov_str;
+	if (!(check_double(&tmp)))
+		return (FALSE);
+	if (*tmp)
 		return (FALSE);
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 02:53:19 by rotrojan          #+#    #+#              #
-#    Updated: 2021/03/16 15:39:47 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/03/17 17:13:08 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRCS 			=	ft_memset.c									\
 					ft_strlcat.c								\
 					ft_strnstr.c								\
 					ft_atoi.c									\
+					ft_atoll.c									\
 					ft_atod.c									\
 					ft_strdup.c									\
 					ft_calloc.c									\

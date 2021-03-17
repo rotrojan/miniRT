@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 10:48:35 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/17 01:25:41 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/03/17 09:24:59 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define ERRORS_H
 # define NB_ARGS_ERR_STR "Wrong number of arguments."
 # define OPENING_ERR_STR "Cannot open file."
+# define OPENING_DIR_ERR_STR "Trying to open a directory."
 # define FILE_EXTENSION_ERR_STR "Invalid file extension."
 # define THIRD_ARG_ERR_STR "Invalid third argument."
 # define READ_ERR_STR "Cannot read file."
@@ -72,6 +73,7 @@ typedef enum	e_error
 	NO_ERROR,
 	NB_ARGS_ERR,
 	OPENING_ERR,
+	OPENING_DIR_ERR,
 	FILE_EXTENSION_ERR,
 	THIRD_ARG_ERR,
 	READ_ERR,

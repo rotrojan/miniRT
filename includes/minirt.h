@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 15:48:31 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/15 13:22:22 by user42           ###   ########.fr       */
+/*   Updated: 2021/03/17 15:44:08 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_vector		triangle_normal(t_object triangle, t_vector point);
 */
 
 t_error			return_error(t_error num_error);
-void			free_scene(t_scene *scene);
+void			free_scene(t_scene *scene, int is_after_parsing);
 t_color			get_color(double r, double g, double b);
 t_color			shade_color(double coef, t_color color);
 t_color			add_colors(t_color color1, t_color color2);

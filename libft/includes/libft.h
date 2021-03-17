@@ -6,7 +6,7 @@
 /*   By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 13:04:05 by rotrojan          #+#    #+#             */
-/*   Updated: 2021/03/16 15:37:03 by rotrojan         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:07:33 by rotrojan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ size_t			ft_strlcat(char *dst, char const *src, size_t dstsize);
 char			*ft_strnstr(char const *str, char const *to_find, size_t len);
 int				ft_atoi(char const *str);
 double			ft_atod(char const *str);
+long long		ft_atoll(char const *str);
 char			*ft_strdup(char const *s1);
 char			*ft_strndup(char const *s1, size_t n);
 void			*ft_calloc(size_t count, size_t size);
