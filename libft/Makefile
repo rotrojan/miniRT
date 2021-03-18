@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 02:53:19 by rotrojan          #+#    #+#              #
-#    Updated: 2021/03/17 17:13:08 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/03/18 10:08:43 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,7 +77,7 @@ INCLUDES_DIR	=	./includes/
 OBJS_DIR		=	./.objs/
 
 CFLAGS			+=	-Wall -Wextra -Werror -MMD
-CXXFLAGS		+=	${INCLUDES_DIR:%=-I%}# -g3 -fsanitize=address
+CXXFLAGS		+=	${INCLUDES_DIR:%=-I%}
 
 NAME			=	libft.a
 
@@ -91,8 +91,7 @@ MKDIR			=	mkdir -p
 
 vpath %.c ${SRCS_DIR}
 
-all		:
-	${MAKE} -j ${NAME}
+all		:	${NAME}
 
 ${NAME}	:	${OBJS}
 	${AR} $@ $^
@@ -107,13 +106,10 @@ ${OBJS_DIR}:
 clean	:
 	${RM} -r ${OBJS_DIR}
 
-fclean	:
-	${MAKE} clean
+fclean	:	clean
 	${RM} ${NAME}
 
-re		:
-	${MAKE} fclean
-	${MAKE} all
+re		:	fclean re
 
 .PHONY	:			re			\
 					all			\

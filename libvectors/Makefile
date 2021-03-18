@@ -6,7 +6,7 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/13 02:53:19 by rotrojan          #+#    #+#              #
-#    Updated: 2021/02/16 14:54:11 by bigo             ###   ########.fr        #
+#    Updated: 2021/03/18 10:09:32 by user42           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,8 +39,7 @@ MKDIR			=	mkdir -p
 
 vpath %.c ${SRCS_DIR}
 
-all		:
-	${MAKE} -j ${NAME}
+all		:	${NAME}
 
 ${NAME}	:	${OBJS}
 	${AR} $@ $^
@@ -55,13 +54,10 @@ ${OBJS_DIR}:
 clean	:
 	${RM} -r ${OBJS_DIR}
 
-fclean	:
-	${MAKE} clean
+fclean	:	clean
 	${RM} ${NAME}
 
-re		:
-	${MAKE} fclean
-	${MAKE} all
+re		:	fclean all
 
 .PHONY	:			re			\
 					all			\

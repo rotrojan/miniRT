@@ -6,11 +6,11 @@
 #    By: rotrojan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/01/18 22:47:50 by rotrojan          #+#    #+#              #
-#    Updated: 2021/03/17 21:38:52 by rotrojan         ###   ########.fr        #
+#    Updated: 2021/03/18 10:47:21 by rotrojan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-MAKE				=	make -s
+MAKE				=	make
 SRCS_DIR			=	./srcs/
 OBJS_DIR			=	./.objs/
 INCLUDES_DIR		=	./includes/ ${LIBS:%=./lib%/includes/} ${MLX_DIR}
@@ -54,13 +54,11 @@ vpath %.a ${LIBS:%=lib%} ${MLX_DIR}
 vpath %.h ${INCLUDES_DIR}
 
 all					:
-	$(foreach LIB, ${LIBS}, echo building lib${LIB} && ${MAKE} -j -C lib${LIB} &)
-	@echo building minilibX
-	@${MAKE} -C ${MLX_DIR} 2> /dev/null > /dev/null
-	@${MAKE} -j ${NAME}
+	$(foreach LIB, ${LIBS}, ${MAKE} -C lib${LIB} &)
+	@${MAKE} -C ${MLX_DIR} 2> /dev/null
+	@${MAKE} ${NAME}
 
 ${NAME}				:	${OBJS} ${LIBS:%=lib%.a} ${MLX}
-	@echo building ${NAME}
 	@${CC} -o $@ $^ ${LDFLAGS} ${CXXFLAGS}
 	@cat README
 
@@ -69,9 +67,10 @@ ${OBJS_DIR}%.o		:	%.c | ${OBJS_DIR}
 	@${CC} ${CFLAGS} -c $< ${CXXFLAGS} -o $@
 
 lib%.a				:
-	@${MAKE} -j -C  ${@:%.a=%}
+	@${MAKE} -C  ${@:%.a=%}
 
-	@${MAKE} -j -C ${MLX_DIR} > /dev/null
+${MLX}				:
+	@${MAKE} -C ${MLX_DIR} > /dev/null
 
 ${OBJS_DIR}			:
 	@echo building objects and dependencies${LIB}
@@ -80,7 +79,7 @@ ${OBJS_DIR}			:
 clean				:
 	@$(foreach LIB, ${LIBS}, ${MAKE} clean -C lib${LIB};)
 	@echo cleaning sources
-	@${MAKE} clean -C ${MLX_DIR} 2> /dev/null > /dev/null
+	@${MAKE} clean -C ${MLX_DIR} 2> /dev/null
 	@${RM} -r ${OBJS_DIR}
 
 fclean				:	clean
